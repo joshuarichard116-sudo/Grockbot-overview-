@@ -305,9 +305,135 @@ footer { background: var(--term); color: #cfcbf2; padding: 64px 0 48px; }
 footer h2 { color: #fff; }
 footer a { color: #b9a9ff; }
 footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
+
+/* ---------- interactive dot grid (behind the page) ---------- */
+#dots { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+
+/* ---------- lab v2: list on top, fake PC beside the console ---------- */
+.lab { grid-template-columns: 1fr; }
+@media (min-width: 961px) { .list { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); } .sbtn .d { font-size: 13.5px; } }
+.stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch; }
+@media (max-width: 900px) { .stage { grid-template-columns: 1fr; } }
+.stage .term { display: flex; flex-direction: column; }
+.stage .term-body { height: 380px; flex: none; }
+.pc { position: relative; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; min-height: 417px; background: linear-gradient(160deg, #2a3f8f 0%, #3b2f9b 55%, #0f7e86 100%); border: 1px solid #c9c3e6; }
+@media (max-width: 900px) { .pc { min-height: 340px; } }
+.pc-screen { position: relative; flex: 1; padding: 14px 14px 10px; }
+.pc-prog { position: absolute; left: 0; top: 0; height: 3px; width: 0; background: #ffd166; transition: width .35s ease, opacity .3s; }
+.win { position: absolute; inset: 14px 14px 10px; background: #fff; border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 8px 24px rgba(10,8,40,.28); }
+.win-t { display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 8px 0 12px; background: #f1f0f7; border-bottom: 1px solid #e4e1f0; font-size: 12.5px; font-weight: 650; color: #3b3857; flex: 0 0 auto; }
+.win-t svg.i { width: 15px; height: 15px; color: var(--violet); }
+.win-t .sp { flex: 1; }
+.win-t .wb { width: 26px; height: 20px; display: grid; place-items: center; color: #7b7896; }
+.win-t .wb svg.i { width: 12px; height: 12px; color: inherit; }
+.win-b { position: relative; flex: 1; overflow: hidden; font-size: 12.5px; line-height: 1.45; color: #2a2840; }
+.scene { position: absolute; inset: 0; padding: 12px 14px; background: #fff; z-index: 0; }
+.scene.fixed { z-index: 1; }
+.scene.fixed { clip-path: inset(0 100% 0 0); transition: clip-path .9s cubic-bezier(.6,.1,.2,1); }
+.pc[data-state="fixed"] .scene.fixed, .pc[data-state="report"] .scene.fixed { clip-path: inset(0 0 0 0); }
+.pc[data-state="running"] .scene.broken { opacity: .55; transition: opacity .3s; }
+.pc-task { height: 34px; flex: 0 0 auto; background: rgba(14,12,36,.86); display: flex; align-items: center; gap: 6px; padding: 0 10px; color: #cfcbf2; font-size: 12px; }
+.pc-task .tb { width: 26px; height: 26px; border-radius: 6px; display: grid; place-items: center; }
+.pc-task .tb svg.i { width: 15px; height: 15px; }
+.pc-task .tb.on { background: rgba(255,255,255,.14); color: #fff; box-shadow: inset 0 -2px 0 #ffd166; }
+.pc-task .sp { flex: 1; }
+.pc-toast { position: absolute; right: 22px; bottom: 18px; max-width: calc(100% - 44px); display: flex; gap: 8px; align-items: center; padding: 8px 12px; border-radius: 10px; font-size: 13px; font-weight: 650; background: #fff; color: var(--ink); border-left: 4px solid var(--coral); box-shadow: 0 6px 18px rgba(10,8,40,.25); z-index: 3; transition: border-color .3s; }
+.pc-toast svg.i { width: 17px; height: 17px; }
+.pc-toast.s-broken { border-left-color: var(--coral); } .pc-toast.s-broken svg { color: var(--coral); }
+.pc-toast.s-running { border-left-color: #e0a800; } .pc-toast.s-running svg { color: #b98a00; animation: spin 1.6s linear infinite; }
+.pc-toast.s-fixed, .pc-toast.s-report { border-left-color: var(--teal); } .pc-toast.s-fixed svg, .pc-toast.s-report svg { color: var(--teal); }
+.pc-toast.s-dry { border-left-color: var(--violet); } .pc-toast.s-dry svg { color: var(--violet); }
+.pc-cap { font-size: 13px; color: var(--muted); margin: 10px 2px 0; display: flex; gap: 8px; align-items: center; }
+.pc-cap svg.i { width: 16px; height: 16px; color: var(--violet); }
+/* scene parts */
+.sk { display: block; height: 7px; border-radius: 4px; background: #e8e5f3; margin: 7px 0; }
+.sk.d { background: #d6d2ea; }
+.dlg { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); width: min(86%, 330px); background: #fff; border: 1px solid #d9d5ea; border-radius: 10px; box-shadow: 0 10px 30px rgba(20,18,43,.22); padding: 14px 16px 12px; z-index: 2; }
+.dlg h5 { margin: 0 0 6px; font-size: 13px; display: flex; gap: 8px; align-items: center; }
+.dlg h5 svg.i { width: 18px; height: 18px; color: var(--coral); }
+.dlg h5.ok svg.i { color: var(--teal); }
+.dlg p { margin: 0 0 10px; color: #4a4766; }
+.dlg .bs { display: flex; justify-content: flex-end; gap: 6px; }
+.dlg .bs span, .xbtn { font-size: 12px; font-weight: 650; padding: 4px 12px; border-radius: 6px; border: 1px solid #d9d5ea; background: #f7f6fc; display: inline-block; }
+.dlg .bs span.pri, .xbtn.pri { background: var(--violet); color: #fff; border-color: var(--violet); }
+.cols { display: grid; grid-template-columns: 30% 1fr; gap: 12px; height: 100%; }
+.cols > div:first-child { border-right: 1px solid #eeecf6; padding-right: 10px; }
+.status { position: absolute; left: 0; right: 0; bottom: 0; padding: 4px 12px; font-size: 11.5px; background: #f6f5fb; border-top: 1px solid #eeecf6; display: flex; gap: 6px; align-items: center; color: #4a4766; }
+.sdot { width: 8px; height: 8px; border-radius: 50%; background: var(--coral); display: inline-block; }
+.sdot.g { background: var(--teal); }
+.addr { display: flex; gap: 8px; align-items: center; background: #f1f0f7; border-radius: 999px; padding: 4px 12px; font-size: 12px; color: #4a4766; margin-bottom: 8px; }
+.addr svg.i { width: 13px; height: 13px; }
+.strip { padding: 6px 10px; border-radius: 6px; font-size: 12px; display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+.strip svg.i { width: 15px; height: 15px; }
+.strip.bad { background: #fde2dc; color: #8a2a12; }
+.strip.info { background: #eceaf7; color: #3b3857; }
+.strip.good { background: var(--teal-soft); color: #075f57; }
+.rowx { display: flex; gap: 10px; align-items: center; padding: 7px 4px; border-bottom: 1px solid #f0eef7; }
+.rowx svg.i { width: 16px; height: 16px; }
+.rowx .g { color: var(--teal); } .rowx .r { color: var(--coral); } .rowx .m { color: #9a97b5; }
+.rowx b { font-weight: 650; }
+.rowx .rt { margin-left: auto; font-size: 11.5px; color: #6c6988; white-space: nowrap; }
+.rowx .rt.r { color: var(--coral); font-weight: 650; } .rowx .rt.g { color: var(--teal); font-weight: 650; }
+.att { display: inline-flex; gap: 6px; align-items: center; border: 1px solid #d9d5ea; border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: 600; }
+.att svg.i { width: 14px; height: 14px; }
+.ribbonx { display: flex; gap: 6px; flex-wrap: wrap; padding-bottom: 8px; border-bottom: 1px solid #eeecf6; margin-bottom: 10px; }
+.ribbonx span { display: inline-flex; gap: 5px; align-items: center; font-size: 11.5px; padding: 5px 9px; border-radius: 6px; background: #f6f5fb; border: 1px solid #ebe9f4; }
+.ribbonx span svg.i { width: 14px; height: 14px; }
+.ribbonx .miss { border: 1.5px dashed #f2a08c; background: #fff6f3; color: #a23a1f; }
+.ribbonx .hit { background: var(--violet); color: #fff; border-color: var(--violet); }
+.doc { border: 1px solid #e4e1f0; border-radius: 6px; padding: 10px 12px; background: #fff; }
+.mid { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 16px; }
+.field { border: 1px solid #cfcae6; border-radius: 6px; padding: 6px 10px; text-align: left; font-size: 12px; margin: 8px 0; background: #fff; }
+.spin-ring { width: 26px; height: 26px; border-radius: 50%; border: 3px solid #e4e1f0; border-top-color: var(--violet); margin: 6px auto; animation: spin 1.2s linear infinite; }
+.oldlogo { display: inline-flex; gap: 6px; align-items: center; font-weight: 700; color: #6c6988; }
+.oldlogo i { width: 14px; height: 14px; border-radius: 3px; background: #b9b5cf; display: inline-block; }
+@media (prefers-reduced-motion: reduce) { .scene.fixed { transition: none; } .spin-ring, .pc-toast.s-running svg { animation: none; } }
+
+/* ---------- enclave automation ideas ---------- */
+.fchips { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 18px; }
+.fchip { font: inherit; font-size: 14px; font-weight: 650; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--muted); cursor: pointer; }
+.fchip:hover { border-color: #c9c0fb; color: var(--ink); }
+.fchip[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+.ideas { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.idea { text-align: left; font: inherit; color: var(--ink); cursor: pointer; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 6px; transition: border-color .15s, box-shadow .15s, transform .15s, opacity .25s; }
+.idea:hover { border-color: #c9c0fb; transform: translateY(-2px); }
+.idea[aria-pressed="true"] { border: 2px solid var(--teal); padding: 17px 17px 15px; box-shadow: 0 8px 22px rgba(10,158,145,.16); }
+.idea[hidden] { display: none; }
+.idea .top { display: flex; align-items: center; gap: 10px; }
+.idea .top .ic { margin: 0; width: 38px; height: 38px; }
+.idea .fam { margin-left: auto; font-family: "Cascadia Code", Consolas, Menlo, monospace; font-size: 12px; font-weight: 700; color: var(--teal); background: var(--teal-soft); padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
+.idea h3 { font-size: 17px; margin: 6px 0 0; }
+.idea p { margin: 0; font-size: 14.5px; color: var(--muted); line-height: 1.5; }
+.idea .sees { font-size: 14px; color: var(--ink); border-top: 1px dashed var(--line); padding-top: 8px; margin-top: auto; }
+.idea .sees b { color: var(--violet); }
+.prop { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; color: #8a5a00; background: #fff3d1; padding: 3px 10px; border-radius: 999px; }
+.pipe { margin-top: 22px; background: var(--term); color: var(--term-ink); border-radius: var(--radius); padding: 22px 24px; position: relative; overflow: hidden; }
+.pipe h4 { margin: 0 0 4px; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: #9ff0e6; }
+.pipe .pname { font-size: 20px; font-weight: 700; margin: 0 0 16px; color: #fff; }
+.psteps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; position: relative; }
+.psteps::before { content: ""; position: absolute; left: 10%; right: 10%; top: 19px; height: 2px; background: repeating-linear-gradient(90deg, rgba(255,255,255,.35) 0 6px, transparent 6px 12px); }
+.pstep { position: relative; text-align: center; }
+.pstep .pc2 { width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 8px; display: grid; place-items: center; background: #24204a; border: 2px solid #4a4580; color: #cfcbf2; position: relative; z-index: 1; transition: background .3s, border-color .3s, color .3s; }
+.pstep .pc2 svg.i { width: 18px; height: 18px; }
+.pstep.lit .pc2 { background: var(--teal); border-color: #7fe6da; color: #fff; }
+.pstep.you .pc2 { background: var(--violet); border-color: #b9a9ff; color: #fff; }
+.pstep b { display: block; font-size: 13.5px; color: #fff; }
+.pstep span { display: block; font-size: 12.5px; color: #a9a4d6; line-height: 1.4; margin-top: 2px; }
+.pulse-dot { position: absolute; top: 15px; left: 10%; width: 10px; height: 10px; border-radius: 50%; background: #9ff0e6; box-shadow: 0 0 0 4px rgba(159,240,230,.18); animation: travel 5s linear infinite; z-index: 2; }
+@keyframes travel { from { left: 10%; } to { left: 90%; } }
+.boundary { margin-top: 18px; display: flex; gap: 10px; align-items: center; font-size: 14px; color: #cfcbf2; border: 1px dashed rgba(159,240,230,.5); border-radius: 12px; padding: 10px 14px; }
+.boundary svg.i { color: #9ff0e6; }
+@media (max-width: 760px) {
+  .psteps { grid-template-columns: 1fr; gap: 10px; }
+  .psteps::before, .pulse-dot { display: none; }
+  .pstep { display: grid; grid-template-columns: 40px 1fr; gap: 12px; text-align: left; align-items: center; }
+  .pstep .pc2 { margin: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .pulse-dot { animation: none; display: none; } }
 </style>
 </head>
 <body>
+<canvas id="dots" aria-hidden="true"></canvas>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="i-terminal" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></symbol>
@@ -333,6 +459,19 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
   <symbol id="i-layers" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>
   <symbol id="i-slides" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 6 12 13 2 6"/></symbol>
+  <symbol id="i-printer" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><path d="M21.4 11.1l-9.2 9.2a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7l-9.2 9.2a2 2 0 0 1-2.8-2.8l8.5-8.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3 21 2"/><path d="m16 7 3 3"/><path d="m18.5 4.5 2 2"/></symbol>
+  <symbol id="i-clipboard" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><polyline points="9 14 11 16 15 12"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></symbol>
+  <symbol id="i-activity" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
   <symbol id="i-rotate" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.5 15a9 9 0 1 0 2.1-9.4L1 10"/></symbol>
 </svg>
 
@@ -347,6 +486,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
       <a href="#scripts">Script lab</a>
       <a href="#fortigate">FortiGate</a>
       <a href="#enclave">The enclave</a>
+      <a href="#automate">Automation ideas</a>
     </nav>
   </div>
 </header>
@@ -540,10 +680,24 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
             <button class="btn outline" id="resetBtn" type="button"><svg class="i"><use href="#i-rotate"/></svg>Clear</button>
             <button class="btn solid" id="runBtn" type="button"><svg class="i"><use href="#i-play"/></svg>Run</button>
           </div>
-          <div class="term" aria-live="polite">
-            <div class="term-bar"><i style="background:#ff6b6b"></i><i style="background:#ffd166"></i><i style="background:#6fe3b4"></i><span class="sp"></span><span>Windows PowerShell (simulated)</span></div>
-            <div class="term-body" id="term"></div>
+          <div class="stage">
+            <div class="pc" id="pc" data-state="broken" aria-label="Simulated Windows PC">
+              <div class="pc-screen">
+                <div class="pc-prog" id="pcProg"></div>
+                <div class="win">
+                  <div class="win-t"><svg class="i"><use id="pcAppIc" href="#i-mail"/></svg><span id="pcApp">App</span><span class="sp"></span><span class="wb"><svg class="i" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg></span><span class="wb"><svg class="i"><use href="#i-x"/></svg></span></div>
+                  <div class="win-b"><div class="scene broken" id="scBroken"></div><div class="scene fixed" id="scFixed"></div></div>
+                </div>
+                <div class="pc-toast s-broken" id="pcToast" role="status"><svg class="i"><use href="#i-alert"/></svg><span></span></div>
+              </div>
+              <div class="pc-task"><span class="tb"><svg class="i"><use href="#i-grid"/></svg></span><span class="tb"><svg class="i"><use href="#i-search"/></svg></span><span class="tb on" id="tbApp"><svg class="i"><use id="tbAppIc" href="#i-mail"/></svg></span><span class="tb" id="tbPs"><svg class="i"><use href="#i-terminal"/></svg></span><span class="sp"></span><span>User PC (simulated)</span></div>
+            </div>
+            <div class="term" aria-live="polite">
+              <div class="term-bar"><i style="background:#ff6b6b"></i><i style="background:#ffd166"></i><i style="background:#6fe3b4"></i><span class="sp"></span><span>Windows PowerShell (simulated)</span></div>
+              <div class="term-body" id="term"></div>
+            </div>
           </div>
+          <p class="pc-cap"><svg class="i"><use href="#i-eye"/></svg><span>Left: what the user sees. Right: the script working. A full run shows the fix; a dry run leaves the PC as it was.</span></p>
         </div>
         <div class="tabpane" id="paneSrc" role="tabpanel" aria-labelledby="tabSrc" hidden>
           <div id="srcBox"></div>
@@ -612,8 +766,47 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
       <div class="card"><h3>Vendor-neutral</h3><p>No picks, no pricing. Just the evidence an assessor will ask for.</p></div>
     </div>
 
-    <div style="margin-top:64px">
-      <span class="eyebrow">08 · Go-live</span>
+  </div>
+</section>
+
+<!-- ================= ENCLAVE AUTOMATION IDEAS ================= -->
+<section class="band alt" id="automate">
+  <div class="wrap">
+    <span class="eyebrow teal">08 · What we could automate</span>
+    <h2>Automation ideas for the enclave</h2>
+    <p class="intro">These are proposals, not built yet. Each one is a small tool that runs inside the boundary, reads only, and turns raw data into a draft a person reviews. They line up with NIST SP 800-171 requirements, so the output doubles as evidence for the System Security Plan (SSP). Pick one to see how it would flow.</p>
+    <span class="prop"><svg class="i" style="width:14px;height:14px"><use href="#i-sparkle"/></svg>Proposed · roadmap</span>
+    <div class="fchips" role="group" aria-label="Filter by area" id="famChips">
+      <button class="fchip" type="button" data-f="all" aria-pressed="true">All</button>
+      <button class="fchip" type="button" data-f="access" aria-pressed="false">Access and sign-in</button>
+      <button class="fchip" type="button" data-f="audit" aria-pressed="false">Audit logs</button>
+      <button class="fchip" type="button" data-f="config" aria-pressed="false">Configuration and patching</button>
+      <button class="fchip" type="button" data-f="assess" aria-pressed="false">Assessment and plan</button>
+      <button class="fchip" type="button" data-f="maint" aria-pressed="false">Maintenance</button>
+    </div>
+    <div class="ideas" id="ideas"></div>
+    <div class="pipe" aria-live="polite">
+      <h4>How it would flow</h4>
+      <p class="pname" id="pipeName"></p>
+      <div class="psteps">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        <div class="pstep lit"><div class="pc2"><svg class="i"><use href="#i-search"/></svg></div><b>Read</b><span id="pipeSrc"></span></div>
+        <div class="pstep lit"><div class="pc2"><svg class="i"><use href="#i-list"/></svg></div><b>Build the report</b><span id="pipeOut"></span></div>
+        <div class="pstep lit"><div class="pc2"><svg class="i"><use href="#i-file"/></svg></div><b>Draft</b><span>Summary in plain language, marked draft</span></div>
+        <div class="pstep you"><div class="pc2"><svg class="i"><use href="#i-user-check"/></svg></div><b>A person reviews</b><span>Nothing is sent or changed until someone approves it</span></div>
+        <div class="pstep lit"><div class="pc2"><svg class="i"><use href="#i-clipboard"/></svg></div><b>File as evidence</b><span id="pipeEv"></span></div>
+      </div>
+      <div class="boundary"><svg class="i"><use href="#i-lock"/></svg><span>Everything above runs inside the enclave. Read-only accounts, least privilege, and CUI never leaves the boundary or goes into any bot.</span></div>
+    </div>
+    <p class="gloss"><b>NIST SP 800-171</b> = the security requirements behind CMMC Level 2 (numbers shown are Rev. 2) · <b>AC</b> = Access Control · <b>IA</b> = Identification and Authentication · <b>AU</b> = Audit and Accountability · <b>CM</b> = Configuration Management · <b>SI</b> = System and Information Integrity · <b>RA</b> = Risk Assessment · <b>CA</b> = Security Assessment · <b>MA</b> = Maintenance · <b>MFA</b> = multifactor authentication · <b>POA&amp;M</b> = Plan of Action and Milestones · <b>RMM</b> = remote monitoring and management</p>
+  </div>
+</section>
+
+<!-- ================= GO-LIVE ================= -->
+<section class="band" id="golive">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">09 · Go-live</span>
       <h2>What carries into the enclave</h2>
       <div class="table-wrap" style="margin-top:20px">
         <table>
@@ -818,6 +1011,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
         '<option value="0">Least invasive fix</option><option value="1">Deeper fix</option><option value="2" selected>Last resort</option></select></label>';
     }
     prompt();
+    pcLoad(cur);
     showSrcTab(false);
     renderSource();
   }
@@ -853,8 +1047,11 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
     runBtn.disabled = true;
     term.innerHTML = '';
     line('PS C:\\Users\\<username>> ', 'ps', true);
+    pcState('broken');
     await typeCmd('.\\' + cur.file + (dry ? ' -WhatIf' : '') + (cur.tests ? '' : ' -Verbose'), id);
     if (id !== runId) return;
+    var total = cur.tests ? cur.steps.length - 1 : 0;
+    pcState('running', 4);
     await sleep(350);
     line('');
     if (cur.admin) {
@@ -872,7 +1069,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
         if (i === 0) { line(st[1] + '.', 'dim'); line('Running tests.', 'dim'); await sleep(400); continue; }
         line('Describing ' + st[0].replace('Describe: ', ''), 'hd'); await sleep(jitter(250, 450));
         line('  [+] example test result', 'ok'); await sleep(jitter(120, 260));
-        done++; continue;
+        done++; pcProg.style.width = Math.round(100 * done / total) + '%'; continue;
       }
       line('[' + (i + 1) + '/' + (stopAt + 1) + '] ' + st[0], 'hd');
       await sleep(jitter(150, 300));
@@ -888,11 +1085,15 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
         line('      OK', 'ok');
       }
       done++;
+      pcProg.style.width = Math.max(4, Math.round(100 * done / (stopAt + 1))) + '%';
       if (cur.tiers && i < stopAt) { await sleep(300); line('      Outlook still won\'t open attachments. Trying the next step.', 'warn'); }
       if (cur.tiers && i === stopAt) { await sleep(300); line('      Outlook opens attachments. Stopping here.', 'ok'); }
       await sleep(jitter(120, 260));
     }
     if (id !== runId) return;
+    pcProg.style.width = '100%';
+    await sleep(250);
+    pcState(dry ? 'dry' : cur.report ? 'report' : 'fixed');
     line('');
     line('------------------------------------------------', 'dim');
     line('Summary', 'hd');
@@ -907,6 +1108,205 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
     term.appendChild(el('span', 'cursor'));
     runBtn.disabled = false; timer = null;
   }
+
+  // ---------- fake PC: what the user sees before and after ----------
+  // Example screens only. Org names are placeholders.
+  function sk(w, d) { return '<i class="sk' + (d ? ' d' : '') + '" style="width:' + w + '%"></i>'; }
+  function sks(ws) { return ws.map(function (w) { return sk(w); }).join(''); }
+  function dlg(title, text, btns, ok) {
+    return '<div class="dlg"><h5' + (ok ? ' class="ok"' : '') + '>' + icon(ok ? 'check' : 'alert') + title + '</h5><p>' + text + '</p><div class="bs">' +
+      btns.map(function (b, i) { return '<span' + (i === btns.length - 1 ? ' class="pri"' : '') + '>' + b + '</span>'; }).join('') + '</div></div>';
+  }
+  function rowx(ic, cls, name, right, rcls) { return '<div class="rowx"><span class="' + cls + '">' + icon(ic) + '</span><b>' + name + '</b><span class="rt ' + (rcls || '') + '">' + right + '</span></div>'; }
+  var mailCols = function (inner) { return '<div class="cols"><div>' + sk(70, 1) + sks([85, 60, 75, 55, 80, 50]) + '</div><div>' + inner + '</div></div>'; };
+  var SC = {
+    'reg-wipe': { app: 'Outlook', ic: 'mail', bad: 'Outlook stuck on the old company', good: 'Clean PC, ready to sign in fresh',
+      broken: mailCols(sks([90, 70, 85, 60, 80, 65, 75])) + dlg('Microsoft Outlook', 'Outlook can’t connect. This profile still points to the old organization’s mailbox.', ['Cancel', 'Retry']) +
+        '<div class="status"><i class="sdot"></i>Disconnected</div>',
+      fixed: '<div class="mid"><div style="width:min(90%,300px)"><div style="font-weight:700;font-size:14px">Add your account</div><p style="margin:4px 0;color:#6c6988">No old profiles, caches, or sign-ins left behind.</p>' +
+        '<div class="field">&lt;username&gt;@newcompany.example</div><span class="xbtn pri">Connect</span></div></div><div class="status"><i class="sdot g"></i>Ready for the new tenant</div>' },
+    'tests': { app: 'Pester test results', ic: 'check', bad: 'Tests not run yet', good: 'Tests passing (example output)',
+      broken: '<div style="font-weight:700;margin-bottom:4px">MS-Reg-Wipe.Tests.ps1</div>' +
+        rowx('clock', 'm', 'Closing Microsoft 365 apps', 'Not run') + rowx('clock', 'm', 'Autocomplete backup first', 'Not run') + rowx('clock', 'm', 'Outlook profiles and caches', 'Not run') +
+        rowx('clock', 'm', 'Teams and Office sign-in caches', 'Not run') + rowx('clock', 'm', 'Credentials, OneDrive, registration', 'Not run') + rowx('clock', 'm', '-WhatIf changes nothing', 'Not run'),
+      fixed: '<div style="font-weight:700;margin-bottom:4px">MS-Reg-Wipe.Tests.ps1</div>' +
+        rowx('check', 'g', 'Closing Microsoft 365 apps', 'Passed', 'g') + rowx('check', 'g', 'Autocomplete backup first', 'Passed', 'g') + rowx('check', 'g', 'Outlook profiles and caches', 'Passed', 'g') +
+        rowx('check', 'g', 'Teams and Office sign-in caches', 'Passed', 'g') + rowx('check', 'g', 'Credentials, OneDrive, registration', 'Passed', 'g') + rowx('check', 'g', '-WhatIf changes nothing', 'Passed', 'g') },
+    'leftovers': { app: 'Settings', ic: 'layers', bad: 'Old company still on the PC', good: 'Report saved. Nothing changed.',
+      broken: '<div style="font-weight:700;font-size:14px;margin-bottom:8px">Accounts › Access work or school</div>' +
+        '<div class="strip info">' + icon('shield') + 'Some settings are managed by your organization.</div>' +
+        rowx('alert', 'r', 'Old company (work or school)', 'Connected', 'r') + rowx('layers', 'm', 'Wallpaper and lock screen', 'Set by policy') + rowx('layers', 'm', 'Device management', 'Enrolled') + rowx('layers', 'm', 'OneDrive', 'Old account linked'),
+      fixed: '<div style="font-weight:700;font-size:14px;margin-bottom:8px">OldTenant-Report.txt</div>' +
+        '<div class="strip good">' + icon('eye') + 'Read-only check. Nothing on the PC was changed.</div>' +
+        rowx('check', 'g', 'Wallpaper and lock-screen policies', 'Checked') + rowx('check', 'g', 'Intune enrollments', 'Checked') + rowx('check', 'g', 'EnterpriseMgmt tasks', 'Checked') +
+        rowx('check', 'g', 'MDM certificates', 'Checked') + rowx('check', 'g', 'Device join status', 'Checked') + rowx('check', 'g', 'Linked OneDrive accounts', 'Checked') },
+    'edge': { app: 'Microsoft Edge', ic: 'globe', bad: 'Edge opens the old company’s intranet', good: 'Edge opens a clean new tab',
+      broken: '<div class="addr">' + icon('lock') + 'intranet.oldcompany.example</div><div class="strip info">' + icon('shield') + 'Your browser is managed by your organization</div>' +
+        '<div class="oldlogo"><i></i>Old Company intranet</div>' + sks([92, 80, 88, 60]) + '<div class="doc" style="margin-top:8px">' + sks([70, 85, 50]) + '</div>',
+      fixed: '<div class="addr">' + icon('search') + 'New tab</div><div class="mid" style="top:40px"><div style="width:min(86%,320px)"><div class="field" style="border-radius:999px;display:flex;gap:8px;align-items:center">' + icon('search') + '<span style="color:#9a97b5">Search the web</span></div>' +
+        '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px">' + '<i class="sk" style="height:34px"></i>'.repeat(4) + '</div></div></div>' },
+    'outlook': { app: 'Outlook', ic: 'mail', bad: 'Attachments won’t open', good: 'The attachment opens',
+      broken: mailCols('<div style="font-weight:700">Quarterly invoice</div>' + sks([40, 90, 75]) + '<span class="att">' + icon('clip') + 'Invoice.pdf</span>' + sks([85, 70])) +
+        dlg('Microsoft Outlook', 'Can’t open this item. The attachment couldn’t be opened.', ['OK']),
+      fixed: mailCols('<div style="font-weight:700">Quarterly invoice</div>' + sks([40]) + '<span class="att" style="border-color:var(--teal)">' + icon('clip') + 'Invoice.pdf</span>' +
+        '<div class="doc" style="margin-top:8px"><div style="font-size:11.5px;color:#6c6988;margin-bottom:4px">Invoice.pdf · preview</div>' + sk(50, 1) + sks([90, 80, 85, 60, 75]) + '</div>') },
+    'webview': { app: 'Word', ic: 'file', bad: 'Old company sign-in page won’t go away', good: 'New account sign-in works',
+      broken: sks([80, 60, 90, 70, 85, 50]) + '<div class="dlg"><h5>' + icon('lock') + 'Sign in</h5><div class="doc" style="text-align:center"><div class="oldlogo"><i></i>Old Company</div><div class="spin-ring"></div><p style="margin:0">Loading the old company’s sign-in page…</p></div></div>',
+      fixed: sks([80, 60, 90, 70, 85, 50]) + '<div class="dlg"><h5 class="ok">' + icon('lock') + 'Sign in</h5><p>Use your new work account.</p><div class="field">&lt;username&gt;@newcompany.example</div><div class="bs"><span class="pri">Next</span></div></div>' },
+    'teams': { app: 'Outlook · New meeting', ic: 'video', bad: 'Teams Meeting button is missing', good: 'Teams Meeting button is back',
+      broken: '<div class="ribbonx"><span>' + icon('mail') + 'Send</span><span>' + icon('download') + 'Save</span><span>' + icon('clip') + 'Attach</span><span class="miss">' + icon('alert') + 'Teams Meeting (missing)</span></div>' +
+        sks([60, 90, 80]) + '<div class="doc">' + sks([85, 70, 90, 55]) + '</div>',
+      fixed: '<div class="ribbonx"><span>' + icon('mail') + 'Send</span><span>' + icon('download') + 'Save</span><span>' + icon('clip') + 'Attach</span><span class="hit">' + icon('video') + 'Teams Meeting</span></div>' +
+        sks([60, 90, 80]) + '<div class="doc"><div style="font-weight:700;color:var(--violet)">Microsoft Teams meeting</div><div style="color:#6c6988">Join on your computer or mobile app</div>' + sks([60, 45]) + '</div>' },
+    'printer': { app: 'Printers & scanners', ic: 'printer', bad: 'Print queue is jammed', good: 'Clean slate, ready to add printers',
+      broken: '<div style="font-weight:700;font-size:14px;margin-bottom:6px">Office printer</div><div class="strip bad">' + icon('alert') + 'Status: Error. Jobs are stuck in the queue.</div>' +
+        rowx('file', 'r', 'Quote.docx', 'Error - Printing', 'r') + rowx('file', 'r', 'Timesheet.xlsx', 'Error', 'r') + rowx('file', 'r', 'Shipping label.pdf', 'Error', 'r') + rowx('file', 'm', 'Memo.docx', 'Waiting'),
+      fixed: '<div style="font-weight:700;font-size:14px;margin-bottom:6px">Printers & scanners</div><div class="strip good">' + icon('check') + 'Print Spooler is running. Queue is empty.</div>' +
+        '<div class="mid" style="top:70px"><div>' + icon('printer', 34) + '<p style="margin:6px 0">Old printers, ports, and drivers removed.<br>Microsoft built-ins left alone.</p><span class="xbtn pri">Add device</span></div></div>' },
+    'm365': { app: 'Word', ic: 'file', bad: 'Office says Unlicensed Product', good: 'Microsoft 365 reinstalled and activated',
+      broken: '<div class="strip bad"><span><b>UNLICENSED PRODUCT.</b> Most features are turned off because this copy isn’t activated.</span></div><div style="opacity:.55">' + sks([80, 60, 90, 70, 85, 50, 75, 65]) + '</div>',
+      fixed: '<div style="font-weight:700;font-size:14px;margin-bottom:8px">Account › Product information</div><div class="strip good">' + icon('check') + 'Product activated</div>' +
+        '<div class="doc"><div style="font-weight:700">Microsoft 365 Apps</div><div style="color:#6c6988">Belongs to: &lt;username&gt;@newcompany.example</div>' + sks([55, 40]) + '</div>' }
+  };
+  var pc = document.getElementById('pc');
+  var pcProg = document.getElementById('pcProg');
+  var pcToast = document.getElementById('pcToast');
+  function pcLoad(s) {
+    var sc = SC[s.id];
+    document.getElementById('pcApp').textContent = sc.app;
+    document.getElementById('pcAppIc').setAttribute('href', '#i-' + sc.ic);
+    document.getElementById('tbAppIc').setAttribute('href', '#i-' + sc.ic);
+    document.getElementById('scBroken').innerHTML = sc.broken;
+    document.getElementById('scFixed').innerHTML = sc.fixed;
+    pcState('broken');
+  }
+  function pcState(st, pct) {
+    var sc = SC[cur.id];
+    if (st === 'broken') {
+      // snap back without the wipe animation
+      var f = document.getElementById('scFixed'); f.style.transition = 'none'; pc.dataset.state = st; void f.offsetWidth; f.style.transition = '';
+    } else pc.dataset.state = st;
+    var txt = { broken: 'Problem: ' + sc.bad, running: 'Script running…', fixed: 'Fixed: ' + sc.good, report: sc.good, dry: 'Dry run: nothing changed. Turn it off to apply the fix.' }[st];
+    var ic = { broken: 'alert', running: 'rotate', fixed: 'check', report: 'check', dry: 'eye' }[st];
+    pcToast.className = 'pc-toast s-' + st;
+    pcToast.innerHTML = icon(ic) + '<span></span>';
+    pcToast.lastChild.textContent = txt;
+    document.getElementById('tbPs').classList.toggle('on', st === 'running');
+    pcProg.style.opacity = st === 'running' ? 1 : 0;
+    pcProg.style.width = (pct || 0) + '%';
+  }
+
+  // ---------- enclave automation ideas (proposed, not built) ----------
+  var IDEAS = [
+    { f: 'access', ic: 'user-check', fam: 'AC 3.1.1', name: 'Access review drafts',
+      what: 'Lists who can reach what inside the enclave and flags accounts that haven’t signed in recently or changed roles.',
+      sees: 'A ready-to-sign access review, not a spreadsheet hunt.',
+      src: 'Directory accounts, groups, and last sign-in (read-only)', out: 'Who has access, and what looks stale', ev: 'Signed review saved with the date' },
+    { f: 'access', ic: 'key', fam: 'IA 3.5.3', name: 'MFA coverage check',
+      what: 'Checks every account in the enclave for multifactor authentication and lists any that are missing it.',
+      sees: 'Who is covered and who isn’t, on one page.',
+      src: 'Sign-in and authentication method settings (read-only)', out: 'Accounts with and without MFA', ev: 'Coverage report kept for the assessor' },
+    { f: 'audit', ic: 'activity', fam: 'AU 3.3.1', name: 'Audit log summary',
+      what: 'Reads the day’s sign-in and admin logs and pulls out failed sign-ins, admin changes, and gaps where logging stopped.',
+      sees: 'A short daily summary instead of raw logs.',
+      src: 'Sign-in, admin, and system logs (read-only)', out: 'Notable events and logging gaps', ev: 'Daily summary filed with the logs it came from' },
+    { f: 'config', ic: 'sliders', fam: 'CM 3.4.1 / 3.4.2', name: 'Configuration drift check',
+      what: 'Compares each PC and server to the approved baseline and lists any setting that has drifted.',
+      sees: 'Which machines drifted, and when they were brought back.',
+      src: 'Device settings compared to the approved baseline', out: 'Settings that don’t match, by machine', ev: 'Drift report with the fix ticket linked' },
+    { f: 'config', ic: 'download', fam: 'SI 3.14.1 / RA 3.11.2', name: 'Patch compliance report',
+      what: 'Pulls patch status from the RMM and the latest vulnerability scan and sorts what’s missing by age.',
+      sees: 'Patch status in plain language, by site.',
+      src: 'RMM patch status and scan results (read-only)', out: 'Missing patches and open findings, oldest first', ev: 'Patch report saved for the period' },
+    { f: 'assess', ic: 'clipboard', fam: 'CA 3.12.2', name: 'POA&M tracker',
+      what: 'Keeps the open gaps, owners, and due dates in one list and drafts reminders before a date slips.',
+      sees: 'Open gaps, owners, and due dates in one view.',
+      src: 'The current Plan of Action and Milestones (POA&M)', out: 'What’s open, overdue, or due soon', ev: 'Updated POA&M with change history' },
+    { f: 'assess', ic: 'file', fam: 'CA 3.12.4', name: 'SSP evidence freshness',
+      what: 'Checks when each piece of evidence behind the System Security Plan was last updated and flags anything stale.',
+      sees: 'Which parts of the plan need fresh evidence.',
+      src: 'The evidence folder and its last-updated dates', out: 'Stale or missing evidence, by requirement', ev: 'Freshness check stored with the SSP' },
+    { f: 'maint', ic: 'wrench', fam: 'MA 3.7.1', name: 'Maintenance log',
+      what: 'Builds on SENTRY and the end-of-shift report: ties each maintenance ticket to its window and flags work done outside it.',
+      sees: 'Proof that maintenance happened inside the window.',
+      src: 'Ticket board, read-only API', out: 'Maintenance done, in or out of the window', ev: 'Maintenance record for the period' }
+  ];
+  var ideasBox = document.getElementById('ideas');
+  if (ideasBox) {
+    IDEAS.forEach(function (d, k) {
+      var b = el('button', 'idea'); b.type = 'button'; b.dataset.f = d.f; b.setAttribute('aria-pressed', 'false');
+      b.innerHTML = '<div class="top"><div class="ic teal">' + icon(d.ic, 20) + '</div><span class="fam"></span></div><h3></h3><p></p><div class="sees"><b>What leadership sees:</b> <span></span></div>';
+      b.querySelector('.fam').textContent = d.fam;
+      b.querySelector('h3').textContent = d.name;
+      b.querySelector('p').textContent = d.what;
+      b.querySelector('.sees span').textContent = d.sees;
+      b.addEventListener('click', function () { pickIdea(k); });
+      ideasBox.appendChild(b);
+    });
+    function pickIdea(k) {
+      var d = IDEAS[k];
+      ideasBox.querySelectorAll('.idea').forEach(function (b, j) { b.setAttribute('aria-pressed', j === k ? 'true' : 'false'); });
+      document.getElementById('pipeName').textContent = d.name + ' · ' + d.fam;
+      document.getElementById('pipeSrc').textContent = d.src;
+      document.getElementById('pipeOut').textContent = d.out;
+      document.getElementById('pipeEv').textContent = d.ev;
+    }
+    document.querySelectorAll('#famChips .fchip').forEach(function (c) {
+      c.addEventListener('click', function () {
+        var f = c.dataset.f, first = -1;
+        document.querySelectorAll('#famChips .fchip').forEach(function (x) { x.setAttribute('aria-pressed', x === c ? 'true' : 'false'); });
+        ideasBox.querySelectorAll('.idea').forEach(function (b, j) { var on = f === 'all' || b.dataset.f === f; b.hidden = !on; if (on && first < 0) first = j; });
+        if (first >= 0) pickIdea(first);
+      });
+    });
+    pickIdea(0);
+  }
+
+  // ---------- background: quiet dot grid that leans toward the cursor ----------
+  (function () {
+    var cv = document.getElementById('dots'); if (!cv || !cv.getContext) return;
+    var ctx = cv.getContext('2d'), W = 0, H = 0, dpr = 1, gap = 30;
+    var mx = -999, my = -999, tx = -999, ty = -999, raf = 0;
+    var fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
+    function size() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = window.innerWidth; H = window.innerHeight;
+      cv.width = W * dpr; cv.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      draw();
+    }
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      var R = 150;
+      for (var y = gap / 2; y < H; y += gap) {
+        for (var x = gap / 2; x < W; x += gap) {
+          var dx = x - mx, dy = y - my, d = Math.sqrt(dx * dx + dy * dy);
+          if (d < R) {
+            var p = 1 - d / R, px = x - dx * p * 0.22, py = y - dy * p * 0.22;
+            ctx.fillStyle = 'rgba(91,61,245,' + (0.18 + p * 0.5).toFixed(3) + ')';
+            ctx.beginPath(); ctx.arc(px, py, 1.3 + p * 1.6, 0, 6.283); ctx.fill();
+          } else {
+            ctx.fillStyle = 'rgba(91,61,245,.13)';
+            ctx.fillRect(x - 1, y - 1, 2, 2);
+          }
+        }
+      }
+    }
+    function tick() {
+      mx += (tx - mx) * 0.18; my += (ty - my) * 0.18;
+      draw();
+      raf = (Math.abs(tx - mx) > 0.5 || Math.abs(ty - my) > 0.5) ? requestAnimationFrame(tick) : 0;
+    }
+    window.addEventListener('resize', size);
+    if (fine && !reduce) {
+      document.addEventListener('pointermove', function (e) {
+        if (mx < -900) { mx = e.clientX; my = e.clientY; }
+        tx = e.clientX; ty = e.clientY; if (!raf) raf = requestAnimationFrame(tick);
+      }, { passive: true });
+      document.documentElement.addEventListener('mouseleave', function () { tx = ty = mx = my = -999; draw(); });
+    }
+    size();
+  })();
 
   // ---------- source view ----------
   function showSrcTab(on) {
@@ -945,7 +1345,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
   document.getElementById('tabRun').addEventListener('click', function () { showSrcTab(false); });
   document.getElementById('tabSrc').addEventListener('click', function () { showSrcTab(true); });
   runBtn.addEventListener('click', run);
-  document.getElementById('resetBtn').addEventListener('click', function () { stop(); prompt(); });
+  document.getElementById('resetBtn').addEventListener('click', function () { stop(); prompt(); pcState('broken'); });
 
 
   // ---------- motion ----------
@@ -956,7 +1356,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
     setTimeout(function () { wi = (wi + 1) % words.length; rot.textContent = words[wi]; rot.classList.remove('out'); }, 260);
   }, 2200);
 
-  var targets = document.querySelectorAll('section.band h2, section.band .intro, .card, .bot, .callout, .table-wrap, .feature, .sim-note, .lab');
+  var targets = document.querySelectorAll('section.band h2, section.band .intro, .card, .bot, .callout, .table-wrap, .feature, .sim-note, .lab, .pipe');
   targets.forEach(function (t) {
     t.classList.add('reveal');
     var sib = t.parentNode ? Array.prototype.indexOf.call(t.parentNode.children, t) : 0;
