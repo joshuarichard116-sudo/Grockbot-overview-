@@ -27,6 +27,9 @@ Slide numbers in items 1 to 14 are from before the end-of-shift slide was added 
 21. **Talvex Firewall Lab link (Nov 24, at your request):** added as the first FortiGate training resource on the page, slide 9, the notes, and the README. The Fortinet links stay. This is the one personal link in the repo, added because you asked for it.
 22. **Page brought to life:** DELTA at the center of an orbit of the other bots, a rotating "Grok drafts the ..." line, a moving guardrails ribbon, sections that slide in as you scroll, counting numbers, filling usage bars, and a highlight that follows the cursor on cards. Motion turns off for anyone whose device asks for reduced motion. All animation is flat (2D), with no 3D layers or filters.
 23. **Placeholders filled with estimates (Nov 24, at your request):** every `[JOSHUA: ...]` is replaced. The bot count is 9, time saved uses rough estimates marked "est.", and the control-family timing has a target date of Dec 19, 2026. The full list is in `docs/placeholders.md`.
+24. **Fake PC in the script lab (Nov 24, at your request):** each script now has a simulated Windows screen next to the console. It shows the problem first (Outlook stuck on the old company, an attachment that won't open, the old sign-in page, the missing Teams Meeting button, a jammed print queue, "Unlicensed Product", and so on). A full run wipes in the fixed screen. A dry run leaves it broken. The leftovers checker only shows a report, because it changes nothing. Screens are examples with placeholder names (`oldcompany.example`, `newcompany.example`).
+25. **Automation ideas for the enclave (Nov 24, at your request):** a new section 08 with eight proposed tools, each labeled as a proposal and mapped to a NIST SP 800-171 requirement: access review drafts, MFA coverage, audit log summary, configuration drift, patch compliance, POA&M tracker, SSP evidence freshness, and a maintenance log. You can filter by area and pick one to see how it would flow: read, build the report, draft, a person reviews, file as evidence. No numbers and no vendor picks. Go-live is now section 09.
+26. **Interactive background:** a faint dot grid behind the page that leans toward the mouse. It's flat (2D canvas), only redraws while the mouse moves, and is off on touch screens and for reduced motion.
 
 ## Open questions
 
@@ -39,4 +42,5 @@ Slide numbers in items 1 to 14 are from before the end-of-shift slide was added 
 7. **ACE:** it's a certification coach for your CCA. Keep it as work, or drop it like FORGE?
 8. **MTX:** what does it stand for? It's the only acronym on slide 3 I couldn't spell out.
 9. **Script files:** upload the S1 `.ps1` files and your NinjaOne scripts from this week. I'll sanitize them, add them to the Source tab, and set up an automatic Pester test run on GitHub.
-10. **Where the repo lives:** you mentioned an S1 Technology account. Moving it changes the live URL.
+10. **Enclave ideas:** are any of the eight already in place, or ones you don't want shown? I can mark them "in place" or remove them.
+11. **Where the repo lives:** you mentioned an S1 Technology account. Moving it changes the live URL.

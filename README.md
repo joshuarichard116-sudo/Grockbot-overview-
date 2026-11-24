@@ -25,7 +25,7 @@ Add `#5` to the URL to jump to slide 5. Add `?notes` to open with notes showing.
 
 | Path | What |
 |---|---|
-| `index.html` | The scrolling page: every section of the talk plus the script lab (simulated PowerShell console) |
+| `index.html` | The scrolling page: every section of the talk plus the script lab (simulated PowerShell console beside a simulated PC that shows the problem and the fix) and the proposed enclave automation ideas |
 | `deck/index.html` | The slide deck (plain HTML, CSS, JavaScript; no build step) |
 | `slides/` | One markdown file per slide: on-screen text, speaker notes, placeholders |
 | `docs/presenter-notes.md` | All speaker notes in order |
