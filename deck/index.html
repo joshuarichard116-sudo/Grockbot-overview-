@@ -159,6 +159,10 @@ pre .c { color: #8b98a8; }
 .links li a::after { content: "\2197"; color: var(--accent); position: absolute; right: 24px; top: 50%; transform: translateY(-50%); }
 .links li a small { display: block; color: var(--muted); font-size: 22px; margin-top: 4px; }
 
+.lab-link { display: flex; align-items: center; justify-content: space-between; gap: 24px; text-decoration: none; color: var(--fg); background: var(--accent-soft); border: 2px solid var(--accent); border-radius: 16px; padding: 18px 28px; }
+.lab-link b { display: block; font-size: 32px; }
+.lab-link small { display: block; font-size: 23px; color: var(--muted); }
+.lab-link .go { font-size: 26px; font-weight: 700; color: var(--accent); white-space: nowrap; }
 table.carry { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 32px; }
 table.carry th, table.carry td { text-align: left; padding: 20px 28px; border-bottom: 1px solid var(--line); vertical-align: top; }
 table.carry th { font-size: 22px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
@@ -469,10 +473,12 @@ Start-Process powershell -Verb RunAs `
         </div>
       </div>
     </div>
+    <a class="lab-link" href="https://joshuarichard116-sudo.github.io/jrichard-web/labs/talvex-firewall/" target="_blank" rel="noopener"><span><b>Hands-on: Talvex Firewall Lab</b><small>My FortiGate-style training lab, with guided missions</small></span><span class="go">Open the lab →</span></a>
   </div>
   <div class="gloss"><b>VPN</b> = virtual private network · <b>BGP</b> = Border Gateway Protocol · <b>VNet</b> = Azure virtual network · <b>IPsec</b> = Internet Protocol Security · <b>DPD</b> = Dead Peer Detection</div>
-  <div class="notes-src"><p>On the networking side, here are the FortiGate training resources. That's Fortinet's official training, plus the reference articles for FortiGate-to-Azure VPN (virtual private network) tunnels that come up in our tickets. The links are in the repo.</p>
+  <div class="notes-src"><p>On the networking side, here are the FortiGate training resources. That's Fortinet's official training, plus the reference articles for FortiGate-to-Azure VPN (virtual private network) tunnels that come up in our tickets. The links are in the repo. And for hands-on practice, there's the Talvex Firewall Lab I built.</p>
     <ul>
+      <li>Talvex Firewall Lab (hands-on): <a href="https://joshuarichard116-sudo.github.io/jrichard-web/labs/talvex-firewall/">https://joshuarichard116-sudo.github.io/jrichard-web/labs/talvex-firewall/</a></li>
       <li>Fortinet Training Institute (course catalog): <a href="https://training.fortinet.com/">https://training.fortinet.com/</a></li>
       <li>Fortinet training and certification overview: <a href="https://www.fortinet.com/training-certification">https://www.fortinet.com/training-certification</a></li>
       <li>Fortinet training for cybersecurity professionals: <a href="https://www.fortinet.com/training/cybersecurity-professionals">https://www.fortinet.com/training/cybersecurity-professionals</a></li>

@@ -36,7 +36,9 @@ The rest of the toolkit is everyday fixes. When Outlook won't open attachments, 
 
 ## 9. FortiGate training
 
-On the networking side, here are the FortiGate training resources. That's Fortinet's official training, plus the reference articles for FortiGate-to-Azure VPN (virtual private network) tunnels that come up in our tickets. The links are in the repo.
+On the networking side, here are the FortiGate training resources. That's Fortinet's official training, plus the reference articles for FortiGate-to-Azure VPN (virtual private network) tunnels that come up in our tickets. The links are in the repo. And for hands-on practice, there's the Talvex Firewall Lab I built.
+
+- Talvex Firewall Lab (hands-on): https://joshuarichard116-sudo.github.io/jrichard-web/labs/talvex-firewall/
 
 - Fortinet Training Institute (course catalog): https://training.fortinet.com/
 - Fortinet training and certification overview: https://www.fortinet.com/training-certification
