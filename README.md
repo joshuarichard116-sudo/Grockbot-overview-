@@ -7,7 +7,7 @@ How I use my Grok Bot seat for S1 Technology work: the daily ticket and time wor
 
 ## View the deck
 
-- **Online:** https://joshuarichard116-sudo.github.io/grockbot-overview-/deck/
+- **Online:** https://joshuarichard116-sudo.github.io/Grockbot-overview-/deck/
 - **Offline:** download the repo and open `deck/index.html` in any browser. It's one file with no internet needed (the FortiGate links on slide 8 need a connection, of course).
 
 | Key | Does |
