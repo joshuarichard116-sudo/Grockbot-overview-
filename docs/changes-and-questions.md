@@ -24,6 +24,8 @@ Slide numbers in items 1 to 14 are from before the end-of-shift slide was added 
 18. **New scrolling page (Nov 24, at your request):** the site's home page is now a scrolling page with every section of the talk, a new light, colorful style (violet, teal, and coral; different from the Talvex lab), and line icons only. The slides still live at `/deck/`.
 19. **Script lab:** a simulated PowerShell console for each script, labeled "Built with Grok". It types the command, streams verbose lines and progress bars, supports dry run (`-WhatIf`), and ends with a summary. It's marked as a simulation. The steps come from your talk notes. Source and download turn on once the real `.ps1` files are in `scripts/`.
 20. **SENTRY and REMY avatars** added from your second screenshot.
+21. **Talvex Firewall Lab link (Nov 24, at your request):** added as the first FortiGate training resource on the page, slide 9, the notes, and the README. The Fortinet links stay. This is the one personal link in the repo, added because you asked for it.
+22. **Page brought to life:** DELTA at the center of an orbit of the other bots, a rotating "Grok drafts the ..." line, a moving guardrails ribbon, sections that slide in as you scroll, counting numbers, filling usage bars, and a highlight that follows the cursor on cards. Motion turns off for anyone whose device asks for reduced motion. All animation is flat (2D), with no 3D layers or filters.
 
 ## Open questions
 

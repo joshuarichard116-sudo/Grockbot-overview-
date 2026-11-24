@@ -49,7 +49,7 @@ svg.i { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-widt
 /* ---------- top bar ---------- */
 .topbar {
   position: sticky; top: 0; z-index: 20;
-  background: rgba(246,245,251,.86); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  background: rgba(246,245,251,.97);
   border-bottom: 1px solid var(--line);
 }
 .topbar .wrap { display: flex; align-items: center; gap: 20px; height: 60px; }
@@ -229,6 +229,75 @@ pre.src { margin: 0; background: var(--term); color: var(--term-ink); border-rad
 .links a .grow { flex: 1; }
 .links a svg.i { color: var(--violet); }
 
+
+/* ---------- motion layer ---------- */
+.hero .wrap.hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center; position: relative; z-index: 1; }
+@media (max-width: 960px) { .hero .wrap.hero-grid { grid-template-columns: 1fr; } }
+.hero-grid > * { min-width: 0; }
+@media (max-width: 600px) { .glance { grid-template-columns: 1fr; } .glance b mark.ph { white-space: normal; } .hero .wrap { padding-top: 48px; padding-bottom: 56px; } }
+.aurora { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.aurora i { position: absolute; width: 520px; height: 520px; border-radius: 50%; opacity: .55; }
+.aurora i:nth-child(1) { background: radial-gradient(circle, rgba(242,96,61,.85), transparent 65%); left: -160px; bottom: -220px; animation: drift1 18s ease-in-out infinite alternate; }
+.aurora i:nth-child(2) { background: radial-gradient(circle, rgba(10,158,145,.9), transparent 65%); right: -120px; top: -200px; animation: drift2 22s ease-in-out infinite alternate; }
+.aurora i:nth-child(3) { background: radial-gradient(circle, rgba(255,197,61,.45), transparent 65%); left: 40%; top: 30%; width: 360px; height: 360px; animation: drift1 26s ease-in-out infinite alternate-reverse; }
+@keyframes drift1 { to { transform: translate(140px, -90px); } }
+@keyframes drift2 { to { transform: translate(-120px, 110px); } }
+.rotline { font-size: clamp(22px, 3vw, 32px); font-weight: 700; line-height: 1.25; margin: 0 0 18px; }
+.rot { display: inline-block; background: #fff; color: var(--violet); padding: 0 .3em; border-radius: 10px; transition: opacity .25s, transform .25s; }
+.rot.out { opacity: 0; transform: translateY(8px); }
+
+.orbit { position: relative; width: min(440px, 86vw); aspect-ratio: 1; margin: 0 auto; }
+.orbit .spokes { position: absolute; inset: 0; width: 100%; height: 100%; }
+.orbit .ring { fill: none; stroke: rgba(255,255,255,.35); stroke-width: 1; stroke-dasharray: 3 6; }
+.orbit .ring.r2 { stroke: rgba(255,255,255,.18); }
+.orbit .sp { stroke: rgba(255,255,255,.85); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 14 200; stroke-dashoffset: 0; animation: pulse 3.6s linear infinite; }
+@keyframes pulse { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -214; } }
+.ringwrap { position: absolute; inset: 0; animation: spin 60s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.sat { position: absolute; left: 50%; top: 50%; width: 19%; margin: -9.5% 0 0 -9.5%; transform: rotate(var(--a)) translateY(-182%) rotate(calc(-1 * var(--a))); }
+.sat > * { animation: spin 60s linear infinite reverse; }
+.sat img { display: block; width: 100%; aspect-ratio: 1; border-radius: 50%; background: #14122a; border: 2px solid rgba(255,255,255,.55); box-shadow: 0 6px 18px rgba(20,18,42,.35); }
+.sat span { display: block; text-align: center; font-size: 11.5px; font-weight: 750; letter-spacing: .08em; margin-top: 4px; }
+.sat:hover img { border-color: #fff; }
+.core { position: absolute; left: 50%; top: 50%; width: 28%; transform: translate(-50%, -50%); text-align: center; }
+.core img { width: 100%; aspect-ratio: 1; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 10px rgba(255,255,255,.12), 0 0 0 22px rgba(255,255,255,.06), 0 10px 30px rgba(20,18,42,.4); animation: breathe 4s ease-in-out infinite; background: #14122a; }
+@keyframes breathe { 50% { box-shadow: 0 0 0 16px rgba(255,255,255,.14), 0 0 0 32px rgba(255,255,255,.05), 0 10px 30px rgba(20,18,42,.4); } }
+.core span { display: block; font-weight: 800; letter-spacing: .12em; margin-top: 6px; font-size: 13px; }
+
+.ribbon { background: var(--ink); color: #fff; overflow: hidden; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.track-r { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+.track-r span { display: inline-flex; align-items: center; gap: 18px; padding: 0 18px; font-weight: 650; letter-spacing: .02em; white-space: nowrap; }
+.track-r span::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--teal); margin-left: 18px; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s); }
+.reveal.in { opacity: 1; transform: none; }
+.bar .f { transition: width 1.2s cubic-bezier(.2,.7,.2,1) .2s; }
+.card { position: relative; overflow: hidden; }
+.card::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .25s; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(91,61,245,.10), transparent 60%); }
+.card:hover::after { opacity: 1; }
+.flow { position: relative; }
+@media (min-width: 901px) {
+  .flow::before { content: ""; position: absolute; left: 4%; right: 4%; top: -1px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, var(--violet), var(--teal), var(--coral)); transform: scaleX(0); transform-origin: left; transition: transform 1.4s cubic-bezier(.2,.7,.2,1); }
+  .flow.in::before { transform: scaleX(1); }
+  .flow .card::before { z-index: 1; }
+}
+.flow .card { overflow: visible; }
+.feature { display: grid; grid-template-columns: auto 1fr auto; gap: 20px; align-items: center; text-decoration: none; color: #fff; border-radius: var(--radius); padding: 26px 28px; margin-bottom: 18px; background: linear-gradient(120deg, #1b1840 0%, #2d1f8f 55%, #0a7f75 100%); box-shadow: var(--shadow); position: relative; overflow: hidden; }
+.feature .ic { margin: 0; background: rgba(255,255,255,.14); color: #fff; }
+.feature h3 { color: #fff; font-size: 22px; }
+.feature p { margin: 0; color: rgba(255,255,255,.85); }
+.feature .go { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; background: #fff; color: var(--violet); padding: 10px 16px; border-radius: 10px; white-space: nowrap; }
+.feature:hover .go svg { transform: translateX(3px); }
+.feature .go svg { transition: transform .2s; }
+.feature .tagline { font-size: 12.5px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; color: #9ff0e6; }
+@media (max-width: 640px) { .feature { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) {
+  .aurora i, .ringwrap, .sat > *, .orbit .sp, .core img, .track-r { animation: none !important; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .flow::before { transform: none !important; transition: none !important; }
+}
+
 /* footer */
 footer { background: var(--term); color: #cfcbf2; padding: 64px 0 48px; }
 footer h2 { color: #fff; }
@@ -284,21 +353,34 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
 
 <!-- ================= HERO ================= -->
 <section class="hero">
-  <div class="wrap">
-    <span class="kicker"><svg class="i" style="width:16px;height:16px"><use href="#i-sparkle"/></svg>Grok Bot Show &amp; Tell · Nov 25, 2026</span>
-    <h1>What I built with my Grok Bot seat</h1>
-    <p class="lede">A tour of how I use Grok Bot for my S1 Technology work: the daily ticket workflow, documentation, scripting, and what carries into the enclave. You can try the scripts right on this page.</p>
-    <div class="by">Joshua Richard</div>
-    <div class="btns">
-      <a class="btn light" href="#scripts"><svg class="i"><use href="#i-terminal"/></svg>Try the scripts</a>
-      <a class="btn ghost" href="deck/"><svg class="i"><use href="#i-slides"/></svg>Open the slides</a>
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker"><svg class="i" style="width:16px;height:16px"><use href="#i-sparkle"/></svg>Grok Bot Show &amp; Tell · Nov 25, 2026</span>
+      <h1>What I built with my Grok Bot seat</h1>
+      <p class="rotline">Grok drafts the <span class="rot" id="rot">ticket notes</span>.<br>I press Send.</p>
+      <p class="lede">A tour of how I use Grok Bot for my S1 Technology work: the daily ticket workflow, documentation, scripting, and what carries into the enclave. You can try the scripts right on this page.</p>
+      <div class="by">Joshua Richard</div>
+      <div class="btns">
+        <a class="btn light" href="#scripts"><svg class="i"><use href="#i-terminal"/></svg>Try the scripts</a>
+        <a class="btn ghost" href="deck/"><svg class="i"><use href="#i-slides"/></svg>Open the slides</a>
+      </div>
+      <div class="glance">
+        <div><b><mark class="ph">[JOSHUA: number of work bots]</mark></b><span>bots, each scoped to one job</span></div>
+        <div><b>0</b><span>client names or data in any of it</span></div>
+      </div>
     </div>
-    <div class="glance">
-      <div><b><mark class="ph">[JOSHUA: number of work bots]</mark></b><span>bots, each scoped to one job</span></div>
-      <div><b>0</b><span>client names or data in any of it</span></div>
+    <div class="orbit" aria-label="DELTA in the center, routing work to the other bots">
+      <svg class="spokes" viewBox="0 0 400 400" aria-hidden="true"><circle cx="200" cy="200" r="160" class="ring"/><circle cx="200" cy="200" r="105" class="ring r2"/><line x1="200" y1="200" x2="200.0" y2="40.0" class="sp" style="animation-delay:0.00s"/><line x1="200" y1="200" x2="313.1" y2="86.9" class="sp" style="animation-delay:0.45s"/><line x1="200" y1="200" x2="360.0" y2="200.0" class="sp" style="animation-delay:0.90s"/><line x1="200" y1="200" x2="313.1" y2="313.1" class="sp" style="animation-delay:1.35s"/><line x1="200" y1="200" x2="200.0" y2="360.0" class="sp" style="animation-delay:1.80s"/><line x1="200" y1="200" x2="86.9" y2="313.1" class="sp" style="animation-delay:2.25s"/><line x1="200" y1="200" x2="40.0" y2="200.0" class="sp" style="animation-delay:2.70s"/><line x1="200" y1="200" x2="86.9" y2="86.9" class="sp" style="animation-delay:3.15s"/></svg>
+      <div class="ringwrap"><div class="sat" style="--a:0deg"><img src="assets/img/bots/sentry.png" alt=""><span>SENTRY</span></div><div class="sat" style="--a:45deg"><img src="assets/img/bots/remy.png" alt=""><span>REMY</span></div><div class="sat" style="--a:90deg"><img src="assets/img/bots/patch.png" alt=""><span>PATCH</span></div><div class="sat" style="--a:135deg"><img src="assets/img/bots/netty.png" alt=""><span>NETTY</span></div><div class="sat" style="--a:180deg"><img src="assets/img/bots/radar.png" alt=""><span>RADAR</span></div><div class="sat" style="--a:225deg"><img src="assets/img/bots/chrono.png" alt=""><span>CHRONO</span></div><div class="sat" style="--a:270deg"><img src="assets/img/bots/pelican.png" alt=""><span>PELICAN</span></div><div class="sat" style="--a:315deg"><img src="assets/img/bots/ace.png" alt=""><span>ACE</span></div></div>
+      <div class="core"><img src="assets/img/bots/delta.png" alt=""><span>DELTA</span></div>
     </div>
   </div>
 </section>
+
+<div class="ribbon" aria-label="Rules every bot follows">
+  <div class="track-r"><span>Every message is a draft</span><span>Read-only in ConnectWise, the RMM, and MTX</span><span>No credentials, client data, or CUI</span><span>Least privilege for every bot</span><span>I press Send</span><span aria-hidden="true">Every message is a draft</span><span aria-hidden="true">Read-only in ConnectWise, the RMM, and MTX</span><span aria-hidden="true">No credentials, client data, or CUI</span><span aria-hidden="true">Least privilege for every bot</span><span aria-hidden="true">I press Send</span></div>
+</div>
 
 <!-- ================= CONTEXT ================= -->
 <section class="band" id="context">
@@ -479,7 +561,12 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
   <div class="wrap">
     <span class="eyebrow">06 · Networking</span>
     <h2>FortiGate training</h2>
-    <p class="intro">Where the team can learn FortiGate, Fortinet's firewall, plus the reference articles we use when a FortiGate-to-Azure tunnel comes up on a ticket.</p>
+    <p class="intro">Start with the hands-on lab I built, then go deeper with Fortinet's official training and the reference articles we use when a FortiGate-to-Azure tunnel comes up on a ticket.</p>
+    <a class="feature" href="https://joshuarichard116-sudo.github.io/jrichard-web/labs/talvex-firewall/" target="_blank" rel="noopener">
+      <div class="ic"><svg class="i"><use href="#i-network"/></svg></div>
+      <div><div class="tagline">Hands-on · built by me</div><h3>Talvex Firewall Lab</h3><p>My FortiGate-style training lab. Practice firewall work in the browser with guided missions.</p></div>
+      <span class="go">Open the lab<svg class="i" style="width:18px;height:18px"><use href="#i-arrow"/></svg></span>
+    </a>
     <div class="grid g2">
       <div class="card">
         <div class="ic"><svg class="i"><use href="#i-book"/></svg></div>
@@ -856,6 +943,49 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
   document.getElementById('tabSrc').addEventListener('click', function () { showSrcTab(true); });
   runBtn.addEventListener('click', run);
   document.getElementById('resetBtn').addEventListener('click', function () { stop(); prompt(); });
+
+
+  // ---------- motion ----------
+  var words = ['ticket notes', 'time entries', 'IT Glue docs', 'shift reports', 'PowerShell fixes', 'email replies'];
+  var rot = document.getElementById('rot'), wi = 0;
+  if (rot && !reduce) setInterval(function () {
+    rot.classList.add('out');
+    setTimeout(function () { wi = (wi + 1) % words.length; rot.textContent = words[wi]; rot.classList.remove('out'); }, 260);
+  }, 2200);
+
+  var targets = document.querySelectorAll('section.band h2, section.band .intro, .card, .bot, .callout, .table-wrap, .feature, .sim-note, .lab');
+  targets.forEach(function (t) {
+    t.classList.add('reveal');
+    var sib = t.parentNode ? Array.prototype.indexOf.call(t.parentNode.children, t) : 0;
+    t.style.setProperty('--d', Math.min(sib, 6) * 0.07 + 's');
+  });
+  document.querySelectorAll('.bar .f').forEach(function (f) { f.dataset.w = f.style.width; f.style.width = '0'; });
+  document.querySelectorAll('.stat b').forEach(function (b) { if (/^\d+$/.test(b.textContent.trim())) b.dataset.n = b.textContent.trim(); });
+  function countUp(b) {
+    var n = +b.dataset.n; if (!n || reduce) return;
+    var t0 = null;
+    function step(ts) { if (!t0) t0 = ts; var p = Math.min(1, (ts - t0) / 1100); b.textContent = Math.round(n * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); }
+    b.textContent = '0'; requestAnimationFrame(step);
+  }
+  function reveal(e) {
+    e.classList.add('in');
+    e.querySelectorAll && e.querySelectorAll('.bar .f').forEach(function (f) { f.style.width = f.dataset.w; });
+    e.querySelectorAll && e.querySelectorAll('.stat b[data-n]').forEach(countUp);
+  }
+  if ('IntersectionObserver' in window && !reduce) {
+    var ro = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { reveal(e.target); ro.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    targets.forEach(function (t) { ro.observe(t); });
+    document.querySelectorAll('.flow').forEach(function (f) { ro.observe(f); });
+  } else {
+    targets.forEach(reveal); document.querySelectorAll('.flow').forEach(reveal);
+  }
+  document.addEventListener('pointermove', function (ev) {
+    var c = ev.target.closest && ev.target.closest('.card'); if (!c) return;
+    var r = c.getBoundingClientRect();
+    c.style.setProperty('--mx', (ev.clientX - r.left) + 'px'); c.style.setProperty('--my', (ev.clientY - r.top) + 'px');
+  }, { passive: true });
 
   var start = 0;
   var m = location.hash.match(/^#script-(.+)$/);

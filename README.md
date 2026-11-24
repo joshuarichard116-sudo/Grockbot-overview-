@@ -48,6 +48,9 @@ The page has a simulated PowerShell console for each S1 script, all built with G
 
 FortiGate training (slide 9). Checked Nov 24, 2026.
 
+**Hands-on lab I built**
+- [Talvex Firewall Lab](https://joshuarichard116-sudo.github.io/jrichard-web/labs/talvex-firewall/): FortiGate-style training lab with guided missions
+
 **Official Fortinet training**
 - [Fortinet Training Institute (course catalog)](https://training.fortinet.com/)
 - [Fortinet training and certification overview](https://www.fortinet.com/training-certification)

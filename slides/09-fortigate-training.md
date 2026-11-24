@@ -5,6 +5,8 @@ title: FortiGate training
 ## On screen
 *Section label:* 07 · Networking
 
+**Hands-on: Talvex Firewall Lab** · My FortiGate-style training lab, with guided missions (link card at the bottom of the slide)
+
 **Official Fortinet training** · Where the team can learn FortiGate, Fortinet's firewall
 - Fortinet Training Institute (course catalog)
 - Training & certification (overview)
@@ -20,7 +22,9 @@ title: FortiGate training
 Each label is a clickable link in the deck. Full URLs are in the notes below and in [docs/resources.md](../docs/resources.md).
 
 ## Speaker notes
-On the networking side, here are the FortiGate training resources. That's Fortinet's official training, plus the reference articles for FortiGate-to-Azure VPN (virtual private network) tunnels that come up in our tickets. The links are in the repo.
+On the networking side, here are the FortiGate training resources. That's Fortinet's official training, plus the reference articles for FortiGate-to-Azure VPN (virtual private network) tunnels that come up in our tickets. The links are in the repo. And for hands-on practice, there's the Talvex Firewall Lab I built.
+
+- Talvex Firewall Lab (hands-on): https://joshuarichard116-sudo.github.io/jrichard-web/labs/talvex-firewall/
 
 - Fortinet Training Institute (course catalog): https://training.fortinet.com/
 - Fortinet training and certification overview: https://www.fortinet.com/training-certification

@@ -2,6 +2,12 @@
 
 Links used on slide 9. All six loaded (HTTP 200) when checked on Nov 24, 2026.
 
+## Hands-on lab
+
+| What | Link |
+|---|---|
+| Talvex Firewall Lab (built by Joshua) | https://joshuarichard116-sudo.github.io/jrichard-web/labs/talvex-firewall/ |
+
 ## Official Fortinet training
 
 | What | Link |
