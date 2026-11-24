@@ -19,13 +19,17 @@ Slide numbers in items 1 to 14 are from before the end-of-shift slide was added 
 13. **Not added:** `LICENSE` (your call), `.github/workflows/pages.yml` (Pages serves from `main` directly, so a workflow isn't needed), images (none uploaded), and the old narration audio.
 14. **Slide 1 (Nov 24, at your request):** took out the "Lead Engineer, CMMC & GCC High · S1 Technology" line, and the same title in the README. Slide 11 still says "Joshua Richard · S1 Technology".
 15. **New slide 5, End-of-shift report (Nov 24, at your request):** how Grok uses read-only API access to the ticket board to build the CMMC End of Shift Report at the end of every shift. It shows the four sections and eight columns only. There are no ticket rows, no screenshot, and no SharePoint link, because the site is public. Slides 5 to 11 moved to 6 to 12.
+16. **Slide 3 roster updated (Nov 24, from your list):** nine work bots, in your chain of command, with their roles and full names. Added the shared rules card (drafts only; read-only in ConnectWise, the RMM, and MTX; no credentials, client data, or CUI; least privilege). ACE is new. FORGE is left off because it's personal. Usage percentages are unchanged. Notes rewritten to match.
 
 ## Open questions
 
 1. **License:** which one do you want, or none? None means all rights reserved.
-2. **Bot count (slide 1):** slide 3 lists 8 work bots. Is 8 the number for `[JOSHUA: number of work bots]`? I left the placeholder in, as you asked.
+2. **Bot count (slide 1):** slide 3 now lists 9 work bots. Is 9 the number for `[JOSHUA: number of work bots]`? I left the placeholder in, as you asked.
 3. **Hunter (slide 5):** the repo is public. Is it OK to name a coworker, or should it say "the team's skill library"?
 4. **RingCentral (slide 4):** is it fine to name the phone vendor publicly?
 5. **Slide 3 usage:** the percentages counted the personal bots too. Do you want a note like "share of all bot usage" so nobody adds them up and gets less than 100?
 6. **End-of-shift screenshot:** your screenshot only has EXAMPLE rows, but it shows your name and two vendor names. Do you want it on slide 5, or keep the column layout only?
-7. **Where the repo lives:** you mentioned an S1 Technology account. Moving it changes the live URL.
+7. **ACE:** it's a certification coach for your CCA. Keep it as work, or drop it like FORGE?
+8. **MTX:** what does it stand for? It's the only acronym on slide 3 I couldn't spell out.
+9. **Bot avatars:** want the avatar images on slide 3?
+10. **Where the repo lives:** you mentioned an S1 Technology account. Moving it changes the live URL.

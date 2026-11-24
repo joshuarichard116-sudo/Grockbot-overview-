@@ -177,6 +177,16 @@ table.carry td:first-child { font-weight: 650; width: 380px; }
 .tag { display: inline-block; font-size: 20px; font-weight: 700; padding: 3px 14px; border-radius: 999px; color: #fff; }
 .tag.p1 { background: #c93c3c; } .tag.p2 { background: #c2601f; } .tag.pod { background: #1f6fc2; } .tag.ven { background: #6b4bb8; }
 
+
+.bots3 { flex: 1; min-width: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 14px; }
+.bots3 .bot { padding: 14px 18px; }
+.bots3 .bot b { font-size: 27px; }
+.bots3 .bot span { display: block; font-size: 20px; line-height: 1.3; color: var(--fg); opacity: .88; margin-top: 2px; }
+.bots3 .bot small { font-size: 16px; margin-top: 6px; }
+.rules-list { margin: 8px 0 0; padding-left: 26px; font-size: 25px; line-height: 1.35; }
+.rules-list li { margin-bottom: 6px; }
+.slide .bars .bar { grid-template-columns: 210px 1fr 70px; font-size: 22px; }
+
 /* ---------- chrome: progress, counter, notes ---------- */
 #progress { position: fixed; left: 0; top: 0; height: 5px; background: var(--accent); transition: width .2s ease; z-index: 5; }
 #counter {
@@ -257,36 +267,45 @@ body:hover .navbtn { opacity: 1; }
 </section>
 
 <!-- 3 -->
-<section class="slide" data-title="One bot per job">
+<section class="slide" data-title="One bot per job" style="padding-bottom:140px">
   <div class="label">02 · The team</div>
-  <h2>One bot per job</h2>
-  <div class="body">
-    <div class="bots">
-      <div class="bot lead"><b>DELTA</b><span>Lead &amp; coordinator</span><small>Defense Enclave Lifecycle &amp; Tenant Architecture</small></div>
-      <div class="bot"><b>PATCH</b><span>Help desk &amp; IT Glue</span></div>
-      <div class="bot"><b>CHRONO</b><span>Time from phone calls</span></div>
-      <div class="bot"><b>NETTY</b><span>Networking</span></div>
-      <div class="bot"><b>PELICAN</b><span>Business development</span></div>
-      <div class="bot"><b>REMY</b><span>GCC High engineering</span></div>
-      <div class="bot"><b>SENTRY</b><span>CMMC maintenance board</span></div>
-      <div class="bot"><b>RADAR</b><span>Threat intelligence</span></div>
-    </div>
-    <div class="row">
-      <div class="col" style="flex:0 0 640px">
-        <div class="callout" style="font-size:34px">Why so many?<br><span style="font-weight:400">Least privilege. Each bot gets only the access its job needs.</span></div>
+  <h2 style="margin-bottom:36px">One bot per job</h2>
+  <div class="body" style="gap:24px">
+    <div class="row" style="gap:28px;flex:1;min-height:0">
+      <div class="bots3">
+        <div class="bot lead"><b>DELTA</b><span>Lead · runs the CMMC pod: coordination, ticket &amp; shift reports, scripts, email &amp; Teams triage, handoffs</span><small>Defense Enclave Lifecycle &amp; Tenant Architecture</small></div>
+        <div class="bot"><b>SENTRY</b><span>CMMC Level 2 pod manager: practice readiness, controls, oversight</span></div>
+        <div class="bot"><b>REMY</b><span>GCC High &amp; CMMC Level 2 engineer, in plain language</span><small>Readiness Engine for Mission-critical sYstems</small></div>
+        <div class="bot"><b>PATCH</b><span>Day-to-day MSP help desk tickets</span><small>Practical Assistant for Tickets, Configs &amp; Helpdesk</small></div>
+        <div class="bot"><b>NETTY</b><span>Networking: Cisco, Meraki, UniFi, FortiGate</span></div>
+        <div class="bot"><b>RADAR</b><span>Threat intel: M365 &amp; GCC High, attacks on MSPs, defense contractors, CISA KEV list</span><small>Real-time Analysis of Defense Alerts &amp; Risks</small></div>
+        <div class="bot"><b>CHRONO</b><span>Matches RingCentral calls to MTX tickets, drafts time entries</span><small>Call &amp; Hours Recording, Run-time Operations</small></div>
+        <div class="bot"><b>PELICAN</b><span>Business development: contract &amp; lead research for S1</span><small>Proposal, Eligibility &amp; Lead Intelligence for Contracts And Networking</small></div>
+        <div class="bot"><b>ACE</b><span>Certification coach, working toward CCA</span><small>Accelerated Certification Engine</small></div>
       </div>
-      <div class="col">
-        <div class="k muted small" style="letter-spacing:.04em">Share of usage, Oct 21 – Nov 20</div>
-        <div class="bars">
-          <div class="bar"><span>DELTA</span><div class="track"><div class="fill" style="width:52%"></div></div><span class="v">52%</span></div>
-          <div class="bar"><span>PATCH</span><div class="track"><div class="fill" style="width:19%"></div></div><span class="v">19%</span></div>
-          <div class="bar"><span>REMY + SENTRY</span><div class="track"><div class="fill" style="width:3%"></div></div><span class="v">3%</span></div>
+      <div class="col" style="flex:0 0 500px;gap:22px">
+        <div class="card" style="padding:24px 28px;border-color:var(--good)">
+          <div class="k" style="color:var(--good)">Same rules for every bot</div>
+          <ul class="rules-list">
+            <li>Messages are drafts only</li>
+            <li>Read-only in ConnectWise, the RMM, and MTX</li>
+            <li>Never hold credentials, client data, or CUI</li>
+            <li>Least privilege: only the access its job needs</li>
+          </ul>
+        </div>
+        <div>
+          <div class="muted" style="font-size:22px;margin-bottom:12px">Share of usage, Oct 21 – Nov 20</div>
+          <div class="bars">
+            <div class="bar"><span>DELTA</span><div class="track"><div class="fill" style="width:52%"></div></div><span class="v">52%</span></div>
+            <div class="bar"><span>PATCH</span><div class="track"><div class="fill" style="width:19%"></div></div><span class="v">19%</span></div>
+            <div class="bar"><span>REMY + SENTRY</span><div class="track"><div class="fill" style="width:3%"></div></div><span class="v">3%</span></div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="gloss"><b>GCC High</b> = Microsoft Government Community Cloud High · <b>CMMC</b> = Cybersecurity Maturity Model Certification</div>
-  <div class="notes-src"><p>This is the team. Each bot is scoped to one job. DELTA is the coordinator: it routes the work, raises the alerts, and writes the drafts. PATCH runs help desk tickets and IT Glue. CHRONO keeps time from phone calls. On the compliance side, REMY does GCC High engineering and SENTRY runs the CMMC maintenance board. Why not one bot? Least privilege. Each one only gets the access its job needs. REMY and SENTRY show low usage for one reason: the enclave isn't running yet.</p></div>
+  <div class="gloss" style="font-size:18px"><b>CMMC</b> = Cybersecurity Maturity Model Certification · <b>GCC High</b> = Microsoft Government Community Cloud High · <b>MSP</b> = managed service provider · <b>M365</b> = Microsoft 365 · <b>CISA KEV</b> = Cybersecurity and Infrastructure Security Agency Known Exploited Vulnerabilities · <b>CCA</b> = Certified CMMC Assessor · <b>RMM</b> = remote monitoring and management tool · <b>CUI</b> = Controlled Unclassified Information</div>
+  <div class="notes-src"><p>This is the team. Each bot is scoped to one job. DELTA is the lead and runs the CMMC pod: it coordinates the work, writes the ticket and shift reports, helps with scripts, triages email and Teams, and hands work off between the other bots. SENTRY is the CMMC Level 2 pod manager. It tracks practice readiness, controls, and pod oversight. REMY is the GCC High and CMMC Level 2 engineer, and it explains the technical side in plain language. PATCH is my day-to-day help desk partner for MSP (managed service provider) service desk tickets. NETTY is the networking specialist for Cisco, Meraki, UniFi, and FortiGate. RADAR does threat intelligence: Microsoft 365 and GCC High, attacks on MSPs, threats to defense contractors, and the CISA (Cybersecurity and Infrastructure Security Agency) Known Exploited Vulnerabilities list. CHRONO keeps time. It matches RingCentral calls to my MTX tickets and drafts the time entries for me to approve. PELICAN does business development research on contracts and leads for S1. And ACE is my certification coach, working toward the CCA, the Certified CMMC Assessor. Why not one bot? Least privilege. Each one only gets the access its job needs. And they all follow the same rules. Every message is a draft. They're read-only in ConnectWise, the RMM (remote monitoring and management tool), and MTX. And they never hold credentials, client data, or CUI, that's Controlled Unclassified Information. REMY and SENTRY show low usage for one reason: the enclave isn't running yet.</p></div>
 </section>
 
 <!-- 4 -->
