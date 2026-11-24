@@ -1,5 +1,5 @@
 ---
-slide: 6
+slide: 7
 title: Post-migration cleanup suite
 ---
 ## On screen

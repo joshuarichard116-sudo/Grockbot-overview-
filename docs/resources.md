@@ -1,6 +1,6 @@
 # Resources: FortiGate training
 
-Links used on slide 8. All six loaded (HTTP 200) when checked on Nov 24, 2026.
+Links used on slide 9. All six loaded (HTTP 200) when checked on Nov 24, 2026.
 
 ## Official Fortinet training
 

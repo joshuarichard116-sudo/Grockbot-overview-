@@ -8,7 +8,7 @@ How I use my Grok Bot seat for S1 Technology work: the daily ticket and time wor
 ## View the deck
 
 - **Online:** https://joshuarichard116-sudo.github.io/Grockbot-overview-/deck/
-- **Offline:** download the repo and open `deck/index.html` in any browser. It's one file with no internet needed (the FortiGate links on slide 8 need a connection, of course).
+- **Offline:** download the repo and open `deck/index.html` in any browser. It's one file with no internet needed (the FortiGate links on slide 9 need a connection, of course).
 
 | Key | Does |
 |---|---|
@@ -40,7 +40,7 @@ Add `#5` to the URL to jump to slide 5. Add `?notes` to open with notes showing.
 
 ## Resources
 
-FortiGate training (slide 8). Checked Nov 24, 2026.
+FortiGate training (slide 9). Checked Nov 24, 2026.
 
 **Official Fortinet training**
 - [Fortinet Training Institute (course catalog)](https://training.fortinet.com/)

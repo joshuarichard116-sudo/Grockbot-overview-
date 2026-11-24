@@ -18,19 +18,23 @@ This is the team. Each bot is scoped to one job. DELTA is the coordinator: it ro
 
 Here's the day-to-day workflow. When I start a ticket, DELTA starts a clock. If I'm on a call, CHRONO pulls the call time from RingCentral and matches it to the ticket. It keeps only the last four digits of the number, and it never logs what was said. When I'm done, the note and time entry are already drafted, using rules I wrote down once. Email-only work is ten minutes. Call work is the connected time, plus ten minutes to wrap up. I approve it, and PATCH posts it. Nothing goes out without me. And every thirty minutes on weekdays, I get an alert, but only when someone is waiting on a reply.
 
-## 5. IT Glue documentation
+## 5. End-of-shift report
+
+At the end of every shift, Grok builds an end-of-shift report for the pod. It reads the ticket board through a read-only API (application programming interface), so it can see the tickets but can't change them. The report sorts the work into four sections: P1 and P2, that's priority one and priority two tickets, then pod maintenance and vendor maintenance. For each ticket, it lists the vendor, a short description, the maintenance window, who's assigned, the estimated completion time, and the status. That helps the pod make sure high-priority tickets are being tracked, and that maintenance gets done within the requested or set maintenance window.
+
+## 6. IT Glue documentation
 
 Next, documentation. I had seven client organizations assigned to me in IT Glue, with forty onboarding and provisioning steps still unchecked. PATCH started by finding an existing example, showed it to me first, and matched that format. After that, it drafted the onboarding docs on read-only access, one client at a time, so nothing crosses over. Every draft passed the team's IT Glue styling check, a skill from Hunter's library, with zero errors. I review each one and bring it in myself.
 
-## 6. Post-migration cleanup suite
+## 7. Post-migration cleanup suite
 
 DELTA also helps me refine my PowerShell. The biggest piece is a post-migration cleanup suite. After an email migration, a PC holds on to the old tenant everywhere: Outlook profiles and caches, Teams caches, Office sign-in tokens, saved credentials, the OneDrive link, even the old work or school registration. The script closes every Microsoft 365 process, backs up autocomplete first, and clears all of it, so the PC behaves like new. It has its own automated test suite, built in Pester. And I've improved it over several versions, starting in September. Alongside it, a report-only checker finds leftover device management and policies without changing anything, and a small script removes the old company's Edge homepage policies for the current user only.
 
-## 7. Everyday Office and endpoint fixes
+## 8. Everyday Office and endpoint fixes
 
 The rest of the toolkit is everyday fixes. When Outlook won't open attachments, a guided script starts with the least invasive fix and stops as soon as Outlook works. As a last resort, it renames the old profile instead of deleting it. Others reset WebView2 when the old company's sign-in page keeps showing, repair the Teams meeting add-in in classic Outlook, clear printer drivers without touching Microsoft's built-ins, and reinstall Microsoft 365 Apps with a self-elevation check. The time each script saves over doing it by hand is still being measured.
 
-## 8. FortiGate training
+## 9. FortiGate training
 
 On the networking side, here are the FortiGate training resources. That's Fortinet's official training, plus the reference articles for FortiGate-to-Azure VPN (virtual private network) tunnels that come up in our tickets. The links are in the repo.
 
@@ -41,14 +45,14 @@ On the networking side, here are the FortiGate training resources. That's Fortin
 - BGP (Border Gateway Protocol) over an Azure VNet (virtual network) VPN: https://community.fortinet.com/fortigate-3/technical-tip-bgp-over-an-azure-vnet-vpn-103398
 - IPsec VPN DPD (Dead Peer Detection) options and idle tunnel flushing: https://community.fortinet.com/fortigate-3/technical-tip-explanation-of-ipsec-vpn-dpd-options-and-on-idle-tunnel-flushing-process-137398
 
-## 9. The CMMC Level 2 Enclave Toolkit
+## 10. The CMMC Level 2 Enclave Toolkit
 
 This next one points straight at the enclave: the CMMC Level 2 Enclave Toolkit. Every tool that goes into an enclave holding CUI, that's Controlled Unclassified Information, has to be evaluated the same way, with evidence. So I built a vendor-neutral template with thirteen criteria. Each one maps to the control families in NIST 800-171. That's the National Institute of Standards and Technology. It doesn't recommend vendors or list prices. It just captures the evidence an assessor is going to ask for.
 
-## 10. What carries into the enclave
+## 11. What carries into the enclave
 
 So, what carries into the enclave? Maintenance already has the ticket clock, the time rules, and SENTRY's maintenance board. Documentation has the IT Glue pattern. Tool decisions have the toolkit. Inside the enclave, AI (artificial intelligence) helps build small tools, like evidence collectors and read-only configuration checks. The tools run inside the boundary, and CUI never leaves it. The rules don't change, either. No client data or CUI goes into a bot. Every message is a draft. And I press Send. Next, I'm timing one control family end to end, so you'll get real numbers instead of estimates.
 
-## 11. Questions
+## 12. Questions
 
 That's the overview. Thanks for your time. Happy to take questions.

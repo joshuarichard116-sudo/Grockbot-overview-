@@ -1,5 +1,5 @@
 ---
-slide: 7
+slide: 8
 title: Everyday Office and endpoint fixes
 ---
 ## On screen
