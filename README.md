@@ -3,7 +3,7 @@
 How I use my Grok Bot seat for S1 Technology work: the daily ticket and time workflow, IT Glue documentation, PowerShell scripting, FortiGate training resources, and what carries into the CMMC (Cybersecurity Maturity Model Certification) enclave.
 
 **Talk:** Wednesday, Nov 25, 2026, 11:40 AM CT (Central Time)
-**Presenter:** Joshua Richard, Lead Engineer, CMMC & GCC High (Microsoft Government Community Cloud High), S1 Technology
+**Presenter:** Joshua Richard
 
 ## View the deck
 
