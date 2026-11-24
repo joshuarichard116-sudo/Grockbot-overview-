@@ -7,7 +7,8 @@ How I use my Grok Bot seat for S1 Technology work: the daily ticket and time wor
 
 ## View the deck
 
-- **Online:** https://joshuarichard116-sudo.github.io/Grockbot-overview-/deck/
+- **Page (with the script lab):** https://joshuarichard116-sudo.github.io/Grockbot-overview-/
+- **Slides for the talk:** https://joshuarichard116-sudo.github.io/Grockbot-overview-/deck/
 - **Offline:** download the repo and open `deck/index.html` in any browser. It's one file with no internet needed (the FortiGate links on slide 9 need a connection, of course).
 
 | Key | Does |
@@ -24,6 +25,7 @@ Add `#5` to the URL to jump to slide 5. Add `?notes` to open with notes showing.
 
 | Path | What |
 |---|---|
+| `index.html` | The scrolling page: every section of the talk plus the script lab (simulated PowerShell console) |
 | `deck/index.html` | The slide deck (plain HTML, CSS, JavaScript; no build step) |
 | `slides/` | One markdown file per slide: on-screen text, speaker notes, placeholders |
 | `docs/presenter-notes.md` | All speaker notes in order |
@@ -31,6 +33,10 @@ Add `#5` to the URL to jump to slide 5. Add `?notes` to open with notes showing.
 | `docs/acronyms.md` | Acronym glossary |
 | `docs/resources.md` | FortiGate training links |
 | `assets/img/` | Screenshots, if added later |
+
+## Script lab
+
+The page has a simulated PowerShell console for each S1 script, all built with Grok. PowerShell can't run in a browser, so the console plays back each script's real steps with example wording, in dry run (`-WhatIf`) or full run. When the sanitized `.ps1` files are added to `scripts/`, the Source tab shows them with copy and download buttons.
 
 ## Ground rules
 

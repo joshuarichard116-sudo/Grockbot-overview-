@@ -4,11 +4,875 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
 <title>Grok Bot Show &amp; Tell</title>
-<meta http-equiv="refresh" content="0; url=deck/">
-<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0d1117;color:#f0f3f6;font-family:system-ui,sans-serif;padding:16px}a{color:#58b6ff}</style>
+<meta name="description" content="How Joshua Richard uses a Grok Bot seat for S1 Technology work, with a live script tester.">
+<style>
+:root {
+  --bg: #f6f5fb;
+  --ink: #16142b;
+  --muted: #5d5a78;
+  --card: #ffffff;
+  --line: #e4e1f0;
+  --violet: #5b3df5;
+  --violet-soft: #ece8ff;
+  --teal: #0a9e91;
+  --teal-soft: #dcf5f2;
+  --coral: #f2603d;
+  --coral-soft: #ffe7e0;
+  --gold: #c98a00;
+  --ph-bg: #ffc53d;
+  --ph-fg: #1a1200;
+  --term: #14122a;
+  --term-ink: #e8e6ff;
+  --radius: 18px;
+  --shadow: 0 1px 2px rgba(22,20,43,.06), 0 8px 24px rgba(22,20,43,.06);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px; line-height: 1.6;
+}
+a { color: var(--violet); }
+code, pre, .mono { font-family: "Cascadia Code", Consolas, "SF Mono", Menlo, monospace; }
+code { font-size: .9em; background: var(--violet-soft); color: #3a23c4; padding: .08em .35em; border-radius: 6px; }
+mark.ph {
+  background: var(--ph-bg); color: var(--ph-fg); font-weight: 700;
+  padding: .05em .4em; border-radius: 6px; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+}
+svg.i { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto; }
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+@media (max-width: 600px) { .wrap { padding: 0 16px; } body { font-size: 16px; } }
+
+/* ---------- top bar ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  background: rgba(246,245,251,.86); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar .wrap { display: flex; align-items: center; gap: 20px; height: 60px; }
+.brand { font-weight: 750; letter-spacing: -.01em; display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.brand .dot { width: 12px; height: 12px; border-radius: 50%; background: conic-gradient(var(--violet), var(--teal), var(--coral), var(--violet)); }
+.nav { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; margin-left: auto; }
+.nav::-webkit-scrollbar { display: none; }
+.nav a { color: var(--muted); text-decoration: none; font-size: 15px; padding: 6px 12px; border-radius: 999px; white-space: nowrap; }
+.nav a:hover, .nav a.on { color: var(--ink); background: var(--card); box-shadow: var(--shadow); }
+@media (max-width: 860px) { .nav { display: none; } }
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative; overflow: hidden; color: #fff;
+  background:
+    radial-gradient(900px 420px at 85% -10%, rgba(255,255,255,.22), transparent 60%),
+    radial-gradient(700px 500px at -10% 110%, rgba(242,96,61,.55), transparent 60%),
+    linear-gradient(135deg, #4a2ee0 0%, #5b3df5 35%, #1aa79a 100%);
+}
+.hero .wrap { padding-top: 84px; padding-bottom: 88px; }
+.kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; background: rgba(255,255,255,.16); padding: 6px 14px; border-radius: 999px; }
+.hero h1 { font-size: clamp(38px, 6.4vw, 76px); line-height: 1.04; letter-spacing: -.025em; margin: 22px 0 14px; max-width: 900px; font-weight: 780; }
+.hero .lede { font-size: clamp(18px, 2.2vw, 22px); max-width: 720px; opacity: .94; margin: 0 0 30px; }
+.hero .by { font-weight: 600; opacity: .9; margin-bottom: 34px; }
+.btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer;
+  font: inherit; font-weight: 650; font-size: 16px; padding: 12px 20px; border-radius: 12px; border: 0;
+}
+.btn.light { background: #fff; color: var(--violet); }
+.btn.ghost { background: rgba(255,255,255,.14); color: #fff; border: 1px solid rgba(255,255,255,.35); }
+.btn.solid { background: var(--violet); color: #fff; }
+.btn.solid:disabled { background: #b9b2e6; cursor: not-allowed; }
+.btn.outline { background: var(--card); color: var(--ink); border: 1px solid var(--line); }
+.btn:focus-visible { outline: 3px solid var(--ph-bg); outline-offset: 2px; }
+.glance { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 48px; max-width: 760px; }
+.glance div { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.25); border-radius: 16px; padding: 18px 22px; }
+.glance b { display: block; font-size: 40px; line-height: 1.1; font-weight: 780; }
+.glance b mark.ph { font-size: 18px; white-space: nowrap; }
+.glance span { opacity: .9; }
+
+/* ---------- sections ---------- */
+section.band { padding: 84px 0; scroll-margin-top: 60px; }
+@media (max-width: 600px) { section.band { padding: 60px 0; } }
+section.band.alt { background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--violet); }
+.eyebrow.teal { color: var(--teal); } .eyebrow.coral { color: var(--coral); }
+h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.12; letter-spacing: -.02em; margin: 10px 0 14px; font-weight: 760; }
+.intro { color: var(--muted); font-size: 19px; max-width: 760px; margin: 0 0 40px; }
+h3 { margin: 0 0 6px; font-size: 20px; line-height: 1.3; }
+.grid { display: grid; gap: 18px; }
+.g2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.g3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.g4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+@media (max-width: 600px) { .g2, .g3, .g4 { grid-template-columns: 1fr; } }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
+.card p { margin: 0; color: var(--muted); }
+.ic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 14px; background: var(--violet-soft); color: var(--violet); }
+.ic.teal { background: var(--teal-soft); color: var(--teal); }
+.ic.coral { background: var(--coral-soft); color: var(--coral); }
+.step-n { font-size: 13px; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; color: var(--violet); margin-bottom: 4px; }
+.callout {
+  display: flex; gap: 14px; align-items: flex-start; margin-top: 22px;
+  border-radius: 16px; padding: 18px 22px; font-weight: 600; font-size: 18px;
+  background: var(--teal-soft); color: #065d55; border: 1px solid #b6e9e3;
+}
+.callout.violet { background: var(--violet-soft); color: #3a23c4; border-color: #d6ceff; }
+.gloss { margin-top: 26px; font-size: 14px; color: var(--muted); }
+.gloss b { color: var(--ink); }
+.stat { display: flex; align-items: baseline; gap: 14px; }
+.stat b { font-size: 52px; line-height: 1; font-weight: 800; background: linear-gradient(135deg, var(--violet), var(--teal)); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums; }
+
+/* bots */
+.bots { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.bot { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: flex; gap: 14px; box-shadow: var(--shadow); }
+.bot.lead { border: 2px solid var(--violet); }
+.bot img, .bot .mono-av { width: 52px; height: 52px; border-radius: 50%; flex: 0 0 52px; background: var(--term); }
+.bot .mono-av { display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 22px; background: linear-gradient(135deg, var(--violet), var(--teal)); }
+.bot b { display: block; letter-spacing: .04em; }
+.bot span { display: block; font-size: 15px; color: var(--ink); line-height: 1.45; }
+.bot small { display: block; font-size: 12.5px; color: var(--muted); margin-top: 6px; line-height: 1.35; }
+.team-side { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; margin-top: 22px; }
+.rules { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 10px; }
+.rules li { display: flex; gap: 10px; align-items: flex-start; }
+.rules li svg { color: var(--teal); margin-top: 2px; }
+.bars { display: grid; gap: 12px; margin-top: 10px; }
+.bar { display: grid; grid-template-columns: 130px 1fr 48px; align-items: center; gap: 12px; font-size: 15px; }
+.bar .t { height: 12px; background: #eeecf6; border-radius: 6px; overflow: hidden; }
+.bar .f { height: 100%; border-radius: 6px; background: linear-gradient(90deg, var(--violet), var(--teal)); }
+.bar .v { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* flow */
+.flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; counter-reset: s; }
+@media (max-width: 900px) { .flow { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .flow { grid-template-columns: 1fr; } }
+.flow .card { position: relative; padding-top: 22px; }
+.flow .card::before { counter-increment: s; content: counter(s); position: absolute; top: -14px; left: 20px; width: 30px; height: 30px; border-radius: 50%; background: var(--violet); color: #fff; font-weight: 800; display: grid; place-items: center; font-size: 15px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.chip { font-size: 14px; padding: 5px 12px; border-radius: 999px; background: #f1eff9; border: 1px solid var(--line); }
+.tag { display: inline-block; font-size: 13px; font-weight: 700; padding: 2px 11px; border-radius: 999px; color: #fff; }
+.tag.p1 { background: #d23c3c; } .tag.p2 { background: #d0661d; } .tag.pod { background: #1f6fc2; } .tag.ven { background: #6b4bb8; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--card); }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: #faf9fe; white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+
+/* ---------- script lab ---------- */
+.lab { display: grid; grid-template-columns: 340px 1fr; gap: 20px; align-items: start; }
+@media (max-width: 960px) {
+  .lab { grid-template-columns: 1fr; }
+  .list { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; }
+  .list .sbtn { flex: 0 0 240px; scroll-snap-align: start; }
+}
+.sim-note { display: flex; gap: 12px; align-items: flex-start; background: var(--coral-soft); border: 1px solid #ffc9b9; color: #8a2a12; border-radius: 14px; padding: 14px 18px; margin-bottom: 22px; font-size: 15.5px; }
+.list { display: grid; gap: 10px; }
+.sbtn {
+  width: 100%; text-align: left; font: inherit; cursor: pointer;
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; color: var(--ink);
+  display: grid; gap: 4px; transition: border-color .15s, box-shadow .15s, transform .15s;
+}
+.sbtn:hover { border-color: #c9c0fb; transform: translateY(-1px); }
+.sbtn[aria-selected="true"] { border: 2px solid var(--violet); box-shadow: 0 6px 20px rgba(91,61,245,.18); padding: 13px 15px; }
+.sbtn .n { font-family: "Cascadia Code", Consolas, Menlo, monospace; font-weight: 650; font-size: 14.5px; word-break: break-all; }
+.sbtn .d { font-size: 14px; color: var(--muted); line-height: 1.4; }
+.sbtn .cat { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.cat.mig { color: var(--violet); } .cat.fix { color: var(--teal); } .cat.rep { color: var(--coral); } .cat.test { color: var(--gold); }
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+.panel-head { padding: 22px 24px 0; }
+.panel-head h3 { font-family: "Cascadia Code", Consolas, Menlo, monospace; font-size: 19px; word-break: break-all; }
+.badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 4px; }
+.badge { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 650; padding: 4px 10px; border-radius: 999px; background: #f1eff9; color: var(--ink); }
+.badge.grok { background: linear-gradient(135deg, var(--violet), var(--teal)); color: #fff; }
+.badge svg.i { width: 15px; height: 15px; }
+.facts { color: var(--muted); font-size: 15px; margin: 8px 0 0; }
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); padding: 0 24px; margin-top: 18px; }
+.tab { font: inherit; font-weight: 650; font-size: 15px; background: none; border: 0; padding: 12px 14px; color: var(--muted); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -1px; display: inline-flex; gap: 8px; align-items: center; }
+.tab[aria-selected="true"] { color: var(--violet); border-bottom-color: var(--violet); }
+.tabpane { padding: 20px 24px 24px; }
+.controls { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; margin-bottom: 16px; }
+.switch { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 600; font-size: 15px; user-select: none; }
+.switch input { position: absolute; opacity: 0; pointer-events: none; }
+.switch .track { width: 44px; height: 26px; border-radius: 13px; background: #d8d4ea; position: relative; transition: background .15s; }
+.switch .track::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.25); transition: left .15s; }
+.switch input:checked + .track { background: var(--teal); }
+.switch input:checked + .track::after { left: 21px; }
+.switch input:focus-visible + .track { outline: 3px solid var(--ph-bg); outline-offset: 2px; }
+select.sel { font: inherit; font-size: 15px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--line); background: #fff; color: var(--ink); }
+.term {
+  background: var(--term); color: var(--term-ink); border-radius: 14px; overflow: hidden;
+  font-family: "Cascadia Code", Consolas, "SF Mono", Menlo, monospace; font-size: 14px; line-height: 1.6;
+}
+.term-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: #1e1b3a; color: #a9a4d6; font-size: 13px; }
+.term-bar i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.term-bar .sp { flex: 1; }
+.term-body { padding: 14px 16px; height: 360px; overflow: auto; white-space: pre-wrap; word-break: break-word; }
+.term-body .ps { color: #8fd0ff; }
+.term-body .ok { color: #6fe3b4; }
+.term-body .warn { color: #ffd166; }
+.term-body .wi { color: #c7b8ff; }
+.term-body .dim { color: #8a86b3; }
+.term-body .hd { color: #fff; font-weight: 700; }
+.cursor { display: inline-block; width: 8px; height: 1.1em; background: #e8e6ff; vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .cursor { animation: none; } html { scroll-behavior: auto; } }
+.src-empty { border: 2px dashed var(--line); border-radius: 14px; padding: 28px; text-align: center; color: var(--muted); }
+.src-empty svg { width: 34px; height: 34px; color: var(--violet); margin-bottom: 8px; }
+pre.src { margin: 0; background: var(--term); color: var(--term-ink); border-radius: 14px; padding: 16px; max-height: 420px; overflow: auto; font-size: 13.5px; line-height: 1.55; }
+.oneliner { margin-top: 18px; }
+.oneliner pre { margin: 8px 0 0; background: var(--term); color: var(--term-ink); border-radius: 12px; padding: 12px 14px; overflow-x: auto; font-size: 14px; }
+
+/* links */
+.links { display: grid; gap: 10px; margin-top: 14px; }
+.links a { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 12px; background: #faf9fe; border: 1px solid var(--line); color: var(--ink); text-decoration: none; font-weight: 600; }
+.links a:hover { border-color: #c9c0fb; }
+.links a small { display: block; font-weight: 400; color: var(--muted); font-size: 14px; }
+.links a .grow { flex: 1; }
+.links a svg.i { color: var(--violet); }
+
+/* footer */
+footer { background: var(--term); color: #cfcbf2; padding: 64px 0 48px; }
+footer h2 { color: #fff; }
+footer a { color: #b9a9ff; }
+footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
+</style>
 </head>
 <body>
-<p>Opening the deck… <a href="deck/">Go to the Grok Bot Show &amp; Tell deck</a></p>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-terminal" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="i-user-check" viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2a6 6 0 0 1 6 6v1"/><polyline points="16 11 18 13 22 9"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><line x1="9" y1="6" x2="20" y2="6"/><line x1="9" y1="12" x2="20" y2="12"/><line x1="9" y1="18" x2="20" y2="18"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></symbol>
+  <symbol id="i-network" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M5 16v-3h14v3"/><line x1="12" y1="8" x2="12" y2="13"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>
+  <symbol id="i-slides" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+  <symbol id="i-rotate" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.5 15a9 9 0 1 0 2.1-9.4L1 10"/></symbol>
+</svg>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="dot"></span>Grok Bot Show &amp; Tell</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#context">Context</a>
+      <a href="#team">The team</a>
+      <a href="#day">Day to day</a>
+      <a href="#docs">Documentation</a>
+      <a href="#scripts">Script lab</a>
+      <a href="#fortigate">FortiGate</a>
+      <a href="#enclave">The enclave</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap">
+    <span class="kicker"><svg class="i" style="width:16px;height:16px"><use href="#i-sparkle"/></svg>Grok Bot Show &amp; Tell · Nov 25, 2026</span>
+    <h1>What I built with my Grok Bot seat</h1>
+    <p class="lede">A tour of how I use Grok Bot for my S1 Technology work: the daily ticket workflow, documentation, scripting, and what carries into the enclave. You can try the scripts right on this page.</p>
+    <div class="by">Joshua Richard</div>
+    <div class="btns">
+      <a class="btn light" href="#scripts"><svg class="i"><use href="#i-terminal"/></svg>Try the scripts</a>
+      <a class="btn ghost" href="deck/"><svg class="i"><use href="#i-slides"/></svg>Open the slides</a>
+    </div>
+    <div class="glance">
+      <div><b><mark class="ph">[JOSHUA: number of work bots]</mark></b><span>bots, each scoped to one job</span></div>
+      <div><b>0</b><span>client names or data in any of it</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTEXT ================= -->
+<section class="band" id="context">
+  <div class="wrap">
+    <span class="eyebrow">01 · Context</span>
+    <h2>Why there's no enclave demo today</h2>
+    <p class="intro">The seat was planned around a GCC High enclave. That enclave isn't running yet, so I put the seat to work on the job I have now.</p>
+    <div class="grid g3">
+      <div class="card"><div class="ic"><svg class="i"><use href="#i-sparkle"/></svg></div><h3>The seat</h3><p>Came with my move into CMMC work. The plan was built around a GCC High enclave.</p></div>
+      <div class="card"><div class="ic coral"><svg class="i"><use href="#i-clock"/></svg></div><h3>The status</h3><p>The enclave isn't up and running yet, so there's nothing to demo inside it.</p></div>
+      <div class="card"><div class="ic teal"><svg class="i"><use href="#i-arrow"/></svg></div><h3>The approach</h3><p>Put it to work on today's job, and use the time to get ready.</p></div>
+    </div>
+    <div class="callout violet"><svg class="i"><use href="#i-layers"/></svg><span>Everything on this page carries straight over once the tenant is up and running.</span></div>
+    <p class="gloss"><b>CMMC</b> = Cybersecurity Maturity Model Certification, Level 2 · <b>GCC High</b> = Microsoft Government Community Cloud High</p>
+  </div>
+</section>
+
+<!-- ================= TEAM ================= -->
+<section class="band alt" id="team">
+  <div class="wrap">
+    <span class="eyebrow teal">02 · The team</span>
+    <h2>One bot per job</h2>
+    <p class="intro">Each bot gets one job and only the access that job needs. DELTA leads and hands work to the others.</p>
+    <div class="bots">
+      <div class="bot lead"><img src="assets/img/bots/delta.png" alt=""><div><b>DELTA</b><span>Lead. Runs the CMMC pod: coordination, ticket and shift reports, scripts, email and Teams triage, handoffs.</span><small>Defense Enclave Lifecycle &amp; Tenant Architecture</small></div></div>
+      <div class="bot"><img src="assets/img/bots/sentry.png" alt=""><div><b>SENTRY</b><span>CMMC Level 2 pod manager: practice readiness, controls, oversight.</span></div></div>
+      <div class="bot"><img src="assets/img/bots/remy.png" alt=""><div><b>REMY</b><span>GCC High and CMMC Level 2 engineer, explained in plain language.</span><small>Readiness Engine for Mission-critical sYstems</small></div></div>
+      <div class="bot"><img src="assets/img/bots/patch.png" alt=""><div><b>PATCH</b><span>Day-to-day MSP help desk tickets.</span><small>Practical Assistant for Tickets, Configs &amp; Helpdesk</small></div></div>
+      <div class="bot"><img src="assets/img/bots/netty.png" alt=""><div><b>NETTY</b><span>Networking: Cisco, Meraki, UniFi, FortiGate.</span></div></div>
+      <div class="bot"><img src="assets/img/bots/radar.png" alt=""><div><b>RADAR</b><span>Threat intel: M365 and GCC High, attacks on MSPs, defense contractors, the CISA KEV list.</span><small>Real-time Analysis of Defense Alerts &amp; Risks</small></div></div>
+      <div class="bot"><img src="assets/img/bots/chrono.png" alt=""><div><b>CHRONO</b><span>Matches RingCentral calls to MTX tickets and drafts time entries.</span><small>Call &amp; Hours Recording, Run-time Operations</small></div></div>
+      <div class="bot"><img src="assets/img/bots/pelican.png" alt=""><div><b>PELICAN</b><span>Business development: contract and lead research for S1.</span><small>Proposal, Eligibility &amp; Lead Intelligence for Contracts And Networking</small></div></div>
+      <div class="bot"><img src="assets/img/bots/ace.png" alt=""><div><b>ACE</b><span>Certification coach, working toward the CCA.</span><small>Accelerated Certification Engine</small></div></div>
+    </div>
+    <div class="team-side">
+      <div class="card">
+        <div class="ic teal"><svg class="i"><use href="#i-shield"/></svg></div>
+        <h3>Same rules for every bot</h3>
+        <ul class="rules">
+          <li><svg class="i"><use href="#i-check"/></svg>Every message is a draft. Nothing goes out without me.</li>
+          <li><svg class="i"><use href="#i-check"/></svg>Read-only in ConnectWise, the RMM, and MTX.</li>
+          <li><svg class="i"><use href="#i-check"/></svg>Never holds credentials, client data, or CUI.</li>
+          <li><svg class="i"><use href="#i-check"/></svg>Least privilege: only the access its job needs.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="ic"><svg class="i"><use href="#i-layers"/></svg></div>
+        <h3>Share of usage, Oct 21 – Nov 20</h3>
+        <div class="bars">
+          <div class="bar"><span>DELTA</span><div class="t"><div class="f" style="width:52%"></div></div><span class="v">52%</span></div>
+          <div class="bar"><span>PATCH</span><div class="t"><div class="f" style="width:19%"></div></div><span class="v">19%</span></div>
+          <div class="bar"><span>REMY + SENTRY</span><div class="t"><div class="f" style="width:3%"></div></div><span class="v">3%</span></div>
+        </div>
+        <p style="margin-top:12px;font-size:15px">REMY and SENTRY are low for one reason: the enclave isn't running yet.</p>
+      </div>
+    </div>
+    <p class="gloss"><b>MSP</b> = managed service provider · <b>M365</b> = Microsoft 365 · <b>CISA KEV</b> = Cybersecurity and Infrastructure Security Agency Known Exploited Vulnerabilities · <b>CCA</b> = Certified CMMC Assessor · <b>RMM</b> = remote monitoring and management tool · <b>CUI</b> = Controlled Unclassified Information</p>
+  </div>
+</section>
+
+<!-- ================= DAY TO DAY ================= -->
+<section class="band" id="day">
+  <div class="wrap">
+    <span class="eyebrow">03 · Day to day</span>
+    <h2>Tickets and time, drafted for me</h2>
+    <p class="intro">When I start a ticket, the clock starts. By the time I'm done, the note and time entry are waiting for my approval.</p>
+    <div class="flow">
+      <div class="card"><div class="ic"><svg class="i"><use href="#i-clock"/></svg></div><h3>Ticket starts</h3><p>DELTA starts a clock.</p></div>
+      <div class="card"><div class="ic teal"><svg class="i"><use href="#i-phone"/></svg></div><h3>Phone call</h3><p>CHRONO pulls the call time from RingCentral.</p></div>
+      <div class="card"><div class="ic coral"><svg class="i"><use href="#i-file"/></svg></div><h3>Draft ready</h3><p>Note and time entry, using my rules.</p></div>
+      <div class="card"><div class="ic"><svg class="i"><use href="#i-user-check"/></svg></div><h3>I approve</h3><p>Then PATCH posts it.</p></div>
+    </div>
+    <div class="grid g4" style="margin-top:18px">
+      <div class="card"><p>Email-only work</p><div class="stat"><b>10</b><span>min</span></div></div>
+      <div class="card"><p>Call work</p><h3 style="margin-top:6px">Connected time + 10 min wrap-up</h3></div>
+      <div class="card"><p>Reply alert</p><h3 style="margin-top:6px">Every 30 min</h3><p style="font-size:15px">Weekdays, only when someone's waiting</p></div>
+      <div class="card"><p>Time saved per week</p><h3 style="margin-top:8px"><mark class="ph">[JOSHUA: measured number]</mark></h3></div>
+    </div>
+    <p style="color:var(--muted);margin-top:18px"><b style="color:var(--ink)">Also built:</b> morning board, email triage, meeting prep, and end-of-day wrap. Built, used, then paused to keep usage down. They run on demand.</p>
+    <div class="callout"><svg class="i"><use href="#i-lock"/></svg><span>Phone numbers keep only the last four digits. Call content is never logged.</span></div>
+
+    <div style="margin-top:56px">
+      <span class="eyebrow coral">End of every shift</span>
+      <h2 style="font-size:clamp(26px,3vw,34px)">The end-of-shift report</h2>
+      <p class="intro" style="margin-bottom:24px">Grok reads the ticket board through a read-only API and builds the CMMC End of Shift Report, a Microsoft List the pod checks at shift change.</p>
+      <div class="grid g3">
+        <div class="card"><div class="ic teal"><svg class="i"><use href="#i-eye"/></svg></div><h3>Read-only access</h3><p>Grok can see the ticket board. It can't change it.</p></div>
+        <div class="card"><div class="ic"><svg class="i"><use href="#i-clock"/></svg></div><h3>End of every shift</h3><p>Grok builds the report on its own.</p></div>
+        <div class="card"><div class="ic coral"><svg class="i"><use href="#i-list"/></svg></div><h3>One list for the pod</h3><p>High-priority tickets stay tracked. Maintenance finishes within the requested or set window.</p></div>
+      </div>
+      <div class="table-wrap" style="margin-top:18px">
+        <table aria-label="End-of-shift report layout">
+          <thead><tr><th>Section</th><th>Ticket Number</th><th>Vendor Name</th><th>Description</th><th>Maintenance Window</th><th>Personnel Assigned</th><th>Est Completion Time</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tag p1">P1</span></td><td colspan="7" style="color:var(--muted)">High-priority tickets</td></tr>
+            <tr><td><span class="tag p2">P2</span></td><td colspan="7" style="color:var(--muted)">High-priority tickets</td></tr>
+            <tr><td><span class="tag pod">Pod Maintenance</span></td><td colspan="7" style="color:var(--muted)">Maintenance the pod runs</td></tr>
+            <tr><td><span class="tag ven">Vendor Maintenance</span></td><td colspan="7" style="color:var(--muted)">Maintenance a vendor runs</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="gloss"><b>API</b> = application programming interface · <b>P1 / P2</b> = Priority 1 / Priority 2</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DOCUMENTATION ================= -->
+<section class="band alt" id="docs">
+  <div class="wrap">
+    <span class="eyebrow teal">04 · Documentation</span>
+    <h2>IT Glue documentation</h2>
+    <p class="intro">PATCH drafted onboarding docs for my assigned clients, one client at a time, on read-only access.</p>
+    <div class="grid g3">
+      <div class="card"><div class="stat"><b>7</b><span>client organizations assigned</span></div></div>
+      <div class="card"><div class="stat"><b>40</b><span>onboarding and provisioning steps unchecked</span></div></div>
+      <div class="card"><div class="stat"><b>0</b><span>styling errors in the drafts</span></div></div>
+    </div>
+    <div class="flow" style="margin-top:30px">
+      <div class="card"><h3>Example first</h3><p>Found an existing record and showed me before touching anything.</p></div>
+      <div class="card"><h3>One client at a time</h3><p>Read-only access. Nothing crosses between clients.</p></div>
+      <div class="card"><h3>Styling check</h3><p>Using the skill from Hunter's team library.</p></div>
+      <div class="card"><h3>I publish</h3><p>I bring every draft in myself.</p></div>
+    </div>
+    <div class="callout"><svg class="i"><use href="#i-user-check"/></svg><span>The bots draft. I publish.</span></div>
+  </div>
+</section>
+
+<!-- ================= SCRIPT LAB ================= -->
+<section class="band" id="scripts">
+  <div class="wrap">
+    <span class="eyebrow coral">05 · Script lab</span>
+    <h2>Try the scripts</h2>
+    <p class="intro">These are the PowerShell scripts I use on S1 tickets, built with Grok and refined over several versions. Pick one, choose dry run or full run, and press Run to watch what it does step by step.</p>
+    <div class="sim-note" role="note"><svg class="i"><use href="#i-alert"/></svg><span><b>Simulated console.</b> PowerShell can't run in a browser, so nothing here touches your computer. The steps are the real ones each script runs; the wording is example output. Names and paths are sanitized.</span></div>
+
+    <div class="lab">
+      <div class="list" role="tablist" aria-label="Scripts" id="scriptList"></div>
+      <div class="panel" id="panel">
+        <div class="panel-head">
+          <h3 id="pName"></h3>
+          <div class="badges" id="pBadges"></div>
+          <p class="facts" id="pDesc"></p>
+          <p class="facts" id="pSaved"></p>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Script view">
+          <button class="tab" role="tab" aria-selected="true" id="tabRun" aria-controls="paneRun"><svg class="i" style="width:18px;height:18px"><use href="#i-play"/></svg>Run</button>
+          <button class="tab" role="tab" aria-selected="false" id="tabSrc" aria-controls="paneSrc"><svg class="i" style="width:18px;height:18px"><use href="#i-code"/></svg>Source</button>
+        </div>
+        <div class="tabpane" id="paneRun" role="tabpanel" aria-labelledby="tabRun">
+          <div class="controls">
+            <label class="switch"><input type="checkbox" id="whatIf" checked><span class="track"></span><span>Dry run (-WhatIf)</span></label>
+            <span id="extraCtl"></span>
+            <span style="flex:1"></span>
+            <button class="btn outline" id="resetBtn" type="button"><svg class="i"><use href="#i-rotate"/></svg>Clear</button>
+            <button class="btn solid" id="runBtn" type="button"><svg class="i"><use href="#i-play"/></svg>Run</button>
+          </div>
+          <div class="term" aria-live="polite">
+            <div class="term-bar"><i style="background:#ff6b6b"></i><i style="background:#ffd166"></i><i style="background:#6fe3b4"></i><span class="sp"></span><span>Windows PowerShell (simulated)</span></div>
+            <div class="term-body" id="term"></div>
+          </div>
+        </div>
+        <div class="tabpane" id="paneSrc" role="tabpanel" aria-labelledby="tabSrc" hidden>
+          <div id="srcBox"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card oneliner">
+      <div style="display:flex;gap:12px;align-items:center"><div class="ic teal" style="margin:0"><svg class="i"><use href="#i-rotate"/></svg></div><div><h3 style="margin:0">AD Connect delta sync</h3><p>The one-liner I run after directory changes.</p></div></div>
+      <pre>Start-ADSyncSyncCycle -PolicyType Delta</pre>
+    </div>
+    <p class="gloss"><b>M365</b> = Microsoft 365 · <b>OST / NST</b> = Outlook offline data files · <b>MDM</b> = Mobile Device Management · <b>AD</b> = Active Directory · <b>WAM</b> = Web Account Manager</p>
+  </div>
+</section>
+
+<!-- ================= FORTIGATE ================= -->
+<section class="band alt" id="fortigate">
+  <div class="wrap">
+    <span class="eyebrow">06 · Networking</span>
+    <h2>FortiGate training</h2>
+    <p class="intro">Where the team can learn FortiGate, Fortinet's firewall, plus the reference articles we use when a FortiGate-to-Azure tunnel comes up on a ticket.</p>
+    <div class="grid g2">
+      <div class="card">
+        <div class="ic"><svg class="i"><use href="#i-book"/></svg></div>
+        <h3>Official Fortinet training</h3>
+        <div class="links">
+          <a href="https://training.fortinet.com/" target="_blank" rel="noopener"><span class="grow">Fortinet Training Institute<small>Course catalog</small></span><svg class="i"><use href="#i-external"/></svg></a>
+          <a href="https://www.fortinet.com/training-certification" target="_blank" rel="noopener"><span class="grow">Training and certification<small>Overview</small></span><svg class="i"><use href="#i-external"/></svg></a>
+          <a href="https://www.fortinet.com/training/cybersecurity-professionals" target="_blank" rel="noopener"><span class="grow">For cybersecurity professionals<small>Training paths</small></span><svg class="i"><use href="#i-external"/></svg></a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ic teal"><svg class="i"><use href="#i-network"/></svg></div>
+        <h3>FortiGate + Azure site-to-site VPN</h3>
+        <div class="links">
+          <a href="https://community.fortinet.com/fortigate-3/technical-tip-deploying-s2s-vpn-between-microsoft-azure-virtual-network-gateway-and-fortigate-117984" target="_blank" rel="noopener"><span class="grow">Azure VPN gateway to FortiGate<small>Site-to-site setup</small></span><svg class="i"><use href="#i-external"/></svg></a>
+          <a href="https://community.fortinet.com/fortigate-3/technical-tip-bgp-over-an-azure-vnet-vpn-103398" target="_blank" rel="noopener"><span class="grow">BGP over an Azure VNet VPN<small>Dynamic routing</small></span><svg class="i"><use href="#i-external"/></svg></a>
+          <a href="https://community.fortinet.com/fortigate-3/technical-tip-explanation-of-ipsec-vpn-dpd-options-and-on-idle-tunnel-flushing-process-137398" target="_blank" rel="noopener"><span class="grow">IPsec DPD and idle tunnels<small>Why tunnels drop</small></span><svg class="i"><use href="#i-external"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <p class="gloss"><b>VPN</b> = virtual private network · <b>BGP</b> = Border Gateway Protocol · <b>VNet</b> = Azure virtual network · <b>IPsec</b> = Internet Protocol Security · <b>DPD</b> = Dead Peer Detection</p>
+  </div>
+</section>
+
+<!-- ================= ENCLAVE ================= -->
+<section class="band" id="enclave">
+  <div class="wrap">
+    <span class="eyebrow teal">07 · Pointed at the enclave</span>
+    <h2>The CMMC Level 2 Enclave Toolkit</h2>
+    <p class="intro">Every tool that goes into an enclave holding CUI has to be judged the same way, with evidence. This template does that, and it's vendor-neutral: no picks, no pricing, just evidence.</p>
+    <div class="flow" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+      <div class="card"><h3>Define the CUI boundary</h3></div>
+      <div class="card"><h3>Evaluate each tool</h3></div>
+      <div class="card"><h3>Map to NIST 800-171 families</h3></div>
+      <div class="card"><h3>Record decision and evidence</h3></div>
+      <div class="card"><h3>Feed the System Security Plan (SSP)</h3></div>
+    </div>
+    <div class="grid g2" style="margin-top:18px">
+      <div class="card"><div class="stat"><b>13</b><span>evaluation criteria per tool</span></div></div>
+      <div class="card"><h3>Vendor-neutral</h3><p>No picks, no pricing. Just the evidence an assessor will ask for.</p></div>
+    </div>
+
+    <div style="margin-top:64px">
+      <span class="eyebrow">08 · Go-live</span>
+      <h2>What carries into the enclave</h2>
+      <div class="table-wrap" style="margin-top:20px">
+        <table>
+          <thead><tr><th>Area</th><th>What carries over</th></tr></thead>
+          <tbody>
+            <tr><td><b>Maintenance</b></td><td>Ticket clock, time rules, SENTRY's maintenance board</td></tr>
+            <tr><td><b>Documentation</b></td><td>The IT Glue pattern: example first, draft, a person publishes</td></tr>
+            <tr><td><b>Tool decisions</b></td><td>The enclave toolkit, mapped to NIST SP 800-171</td></tr>
+            <tr><td><b>Inside the boundary</b></td><td>AI helps build small tools. The tools run inside. CUI never leaves.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout"><svg class="i"><use href="#i-shield"/></svg><span>No client data or CUI in any bot. Every message is a draft. I press Send.</span></div>
+      <p style="margin-top:18px"><b>Next:</b> timing one control family end to end, for real numbers. Due <mark class="ph">[JOSHUA: date]</mark></p>
+      <p class="gloss"><b>CUI</b> = Controlled Unclassified Information · <b>NIST SP</b> = National Institute of Standards and Technology Special Publication · <b>AI</b> = artificial intelligence</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <h2>Thank you. Questions?</h2>
+    <p>Joshua Richard · S1 Technology</p>
+    <div class="btns" style="margin-top:20px">
+      <a class="btn light" href="deck/"><svg class="i"><use href="#i-slides"/></svg>Open the slides</a>
+      <a class="btn ghost" href="#top"><svg class="i" style="transform:rotate(-90deg)"><use href="#i-arrow"/></svg>Back to top</a>
+    </div>
+    <p class="fine">Scripts and bots built with Grok. Names and paths are sanitized. Amber boxes mark numbers still being measured.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Each script: steps are what the script does, in order, from the talk notes.
+  // Output is example wording, not a real run.
+  var S = [
+    { id: 'reg-wipe', file: 'PostEmail-Migration-v3.ps1', alt: 'MS-Reg-Wipe.ps1', cat: 'mig', catName: 'Migration cleanup',
+      short: '"Fresh start" for a PC after an email migration.',
+      desc: 'After an email migration, a PC holds on to the old tenant everywhere. This clears all of it, so the PC behaves like new. ~1,700–1,950 lines · 48–56 functions.',
+      saved: true, admin: false,
+      steps: [
+        ['Close every Microsoft 365 app that is running', 'Stop Outlook, Teams, Word, Excel, OneDrive and other M365 processes'],
+        ['Back up Outlook autocomplete', 'Copy autocomplete to a backup folder before anything is cleared', 'safe'],
+        ['Remove Outlook profiles', 'Remove the old mail profiles'],
+        ['Clear OST / NST caches', 'Delete the Outlook offline data files'],
+        ['Clear offline address books', 'Delete cached offline address books'],
+        ['Clear the Autodiscover cache', 'Remove cached Autodiscover settings'],
+        ['Clear New Outlook data', 'Remove New Outlook local data'],
+        ['Clear Teams caches', 'Delete Teams cache folders'],
+        ['Clear Office sign-in tokens', 'Remove cached Office identities'],
+        ['Clear the licensing cache', 'Remove cached Office licensing'],
+        ['Clear the Web Account Manager cache', 'Remove WAM token broker data'],
+        ['Remove saved credentials', 'Remove old-tenant entries from Credential Manager'],
+        ['Unlink OneDrive', 'Disconnect the old OneDrive account'],
+        ['Remove the old work-or-school registration', 'Remove the old tenant registration']
+      ],
+      done: 'PC is ready for the new tenant. Sign in fresh.' },
+    { id: 'tests', file: 'MS-Reg-Wipe.Tests.ps1', cat: 'test', catName: 'Automated tests',
+      short: 'Pester test suite for the cleanup script.',
+      desc: 'Pester test suite for the cleanup script. 1,283 lines · 110 tests. Runs the same either way; it never changes the PC.',
+      saved: false, admin: false, tests: true,
+      steps: [
+        ['Discover tests', 'Discovery found 110 tests'],
+        ['Describe: closing Microsoft 365 apps', ''],
+        ['Describe: autocomplete backup happens before clearing', ''],
+        ['Describe: Outlook profiles and caches', ''],
+        ['Describe: Teams and Office sign-in caches', ''],
+        ['Describe: credentials, OneDrive link, and registration', ''],
+        ['Describe: -WhatIf changes nothing', '']
+      ],
+      done: 'Example output only. Run Invoke-Pester on a test machine for real results.' },
+    { id: 'leftovers', file: 'Check-OldTenantLeftovers.ps1', cat: 'rep', catName: 'Report only',
+      short: 'Finds old-tenant leftovers. Changes nothing.',
+      desc: 'Report-only checker for leftover device management and policies from the old company. It never changes anything, so -WhatIf has no effect.',
+      saved: false, admin: false, report: true,
+      steps: [
+        ['Check wallpaper and lock-screen policies', ''],
+        ['Check Intune enrollments', ''],
+        ['Check EnterpriseMgmt scheduled tasks', ''],
+        ['Check MDM certificates', ''],
+        ['Check device join status', ''],
+        ['Check linked OneDrive accounts', '']
+      ],
+      done: 'Report saved. Nothing was changed.' },
+    { id: 'edge', file: 'Remove-OldEdgePolicies.ps1', cat: 'fix', catName: 'Quick fix',
+      short: 'Removes the old company\u2019s Edge homepage and startup policies.',
+      desc: 'Removes the old company\u2019s Edge homepage and startup policies, for the current user only.',
+      saved: false, admin: false,
+      steps: [
+        ['Scope: current user only', 'Machine-wide policies are left alone', 'safe'],
+        ['Remove old Edge homepage policy', 'Delete the homepage value'],
+        ['Remove old Edge startup pages policy', 'Delete the startup page values']
+      ],
+      done: 'Restart Edge to see the change.' },
+    { id: 'outlook', file: 'Outlook-Wont-Open-PDF-Excel-Docs.ps1', cat: 'fix', catName: 'Guided fix',
+      short: 'Outlook won\u2019t open attachments. Least invasive fix first.',
+      desc: 'A guided fix that goes from least to most invasive and stops as soon as Outlook works. As a last resort it renames the old profile; it never deletes it. 577 lines · 15 functions.',
+      saved: true, admin: false, tiers: true,
+      steps: [
+        ['Least invasive fix first', 'Apply the lightest repair'],
+        ['Deeper fix', 'Apply the next repair'],
+        ['Last resort: rename the Outlook profile', 'Rename the old profile (never deleted) and create a fresh one']
+      ],
+      done: 'Outlook opens attachments again.' },
+    { id: 'webview', file: 'Reset-WebView2.ps1', cat: 'fix', catName: 'Quick fix',
+      short: 'Fixes the old sign-in page that keeps showing.',
+      desc: 'Reinstalls WebView2 and clears Office sign-in caches. Fixes the old company\u2019s sign-in page still showing in Office.',
+      saved: true, admin: true,
+      steps: [
+        ['Close Office apps', 'Stop Office processes'],
+        ['Reinstall WebView2', 'Reinstall the Microsoft Edge WebView2 Runtime'],
+        ['Clear Office sign-in caches', 'Remove cached Office identities']
+      ],
+      done: 'Open Office and sign in with the new account.' },
+    { id: 'teams', file: 'Fix-TeamsOutlookAddin.ps1', cat: 'fix', catName: 'Quick fix',
+      short: 'Repairs the Teams Meeting add-in in classic Outlook.',
+      desc: 'Repairs the Teams Meeting add-in in classic Outlook when the button goes missing.',
+      saved: true, admin: false,
+      steps: [
+        ['Close Outlook', 'Stop the Outlook process'],
+        ['Repair the Teams Meeting add-in', 'Re-register and re-enable the add-in'],
+        ['Check the add-in loads', '', 'safe']
+      ],
+      done: 'Open classic Outlook. The Teams Meeting button is back.' },
+    { id: 'printer', file: 'Reset-PrinterDrivers.ps1', cat: 'fix', catName: 'Deep fix',
+      short: 'Clears spooler, printers, ports, and drivers.',
+      desc: 'Clears the print spooler, printers, ports, and drivers. It never touches Microsoft\u2019s built-in printers.',
+      saved: true, admin: true,
+      steps: [
+        ['Stop the print spooler', 'Stop the Spooler service'],
+        ['Clear the spool folder', 'Delete stuck print jobs'],
+        ['Remove printers', 'Remove installed printers, skipping Microsoft built-ins'],
+        ['Remove printer ports', 'Remove unused ports'],
+        ['Remove printer drivers', 'Remove drivers, skipping Microsoft built-ins'],
+        ['Start the print spooler', 'Start the Spooler service']
+      ],
+      done: 'Ready to add printers again.' },
+    { id: 'm365', file: 'Reinstall-M365Apps.ps1', cat: 'fix', catName: 'Deep fix',
+      short: 'Reinstalls Microsoft 365 Apps and checks activation.',
+      desc: 'Reinstalls Microsoft 365 Apps with a self-elevation check and logging, then verifies activation. Saved as a shared runbook skill.',
+      saved: true, admin: true,
+      steps: [
+        ['Start logging', 'Write a log file for this run', 'safe'],
+        ['Uninstall Microsoft 365 Apps', 'Remove the current install'],
+        ['Install Microsoft 365 Apps', 'Install a fresh copy'],
+        ['Verify activation', '', 'safe']
+      ],
+      done: 'Microsoft 365 Apps reinstalled and activation checked.',
+      sample: "# Reinstall-M365Apps: run elevated, bypass for this process only\nStart-Process powershell -Verb RunAs -ArgumentList `\n  '-ExecutionPolicy','Bypass','-File',\n  'C:\\Users\\<username>\\Downloads\\Reinstall-M365Apps.ps1'" }
+  ];
+
+  var list = document.getElementById('scriptList');
+  var term = document.getElementById('term');
+  var whatIf = document.getElementById('whatIf');
+  var runBtn = document.getElementById('runBtn');
+  var extra = document.getElementById('extraCtl');
+  var cur = S[0], timer = null, srcCache = {};
+
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function icon(id, size) { return '<svg class="i"' + (size ? ' style="width:' + size + 'px;height:' + size + 'px"' : '') + '><use href="#i-' + id + '"/></svg>'; }
+
+  S.forEach(function (s, k) {
+    var b = el('button', 'sbtn'); b.type = 'button'; b.setAttribute('role', 'tab'); b.id = 'sb-' + s.id;
+    b.innerHTML = '<span class="cat ' + s.cat + '">' + s.catName + '</span><span class="n"></span><span class="d"></span>';
+    b.querySelector('.n').textContent = s.file;
+    b.querySelector('.d').textContent = s.short;
+    b.addEventListener('click', function () { select(k); });
+    list.appendChild(b);
+  });
+
+  function prompt() {
+    term.innerHTML = '';
+    line('PS C:\\Users\\<username>> ', 'ps', true);
+    term.appendChild(el('span', 'cursor'));
+  }
+  function line(text, cls, inline) {
+    var c = term.querySelector('.cursor'); if (c) c.remove();
+    var s = el('span', cls || '', text + (inline ? '' : '\n'));
+    term.appendChild(s); term.scrollTop = term.scrollHeight; return s;
+  }
+
+  function select(k) {
+    stop();
+    cur = S[k];
+    document.querySelectorAll('.sbtn').forEach(function (b, j) { b.setAttribute('aria-selected', j === k ? 'true' : 'false'); });
+    document.getElementById('pName').textContent = cur.file + (cur.alt ? ' / ' + cur.alt : '');
+    var badges = '<span class="badge grok">' + icon('sparkle', 15) + 'Built with Grok</span>';
+    badges += '<span class="badge">' + icon('layers', 15) + cur.catName + '</span>';
+    if (cur.admin) badges += '<span class="badge">' + icon('shield', 15) + 'Needs admin</span>';
+    if (cur.report) badges += '<span class="badge">' + icon('eye', 15) + 'Read-only</span>';
+    document.getElementById('pBadges').innerHTML = badges;
+    document.getElementById('pDesc').textContent = cur.desc;
+    document.getElementById('pSaved').innerHTML = cur.saved ? 'Time saved vs. by hand: <mark class="ph">[JOSHUA: manual vs script minutes]</mark>' : '';
+    var noWhatIf = cur.report || cur.tests;
+    whatIf.disabled = !!noWhatIf;
+    whatIf.parentNode.style.opacity = noWhatIf ? .45 : 1;
+    extra.innerHTML = '';
+    if (cur.tiers) {
+      extra.innerHTML = '<label style="font-size:15px;font-weight:600">Outlook starts working after: <select class="sel" id="tierSel">' +
+        '<option value="0">Least invasive fix</option><option value="1">Deeper fix</option><option value="2" selected>Last resort</option></select></label>';
+    }
+    prompt();
+    showSrcTab(false);
+    renderSource();
+  }
+
+  function stop() { runId++; if (timer) { clearTimeout(timer); timer = null; } runBtn.disabled = false; }
+
+  function sleep(ms) { return new Promise(function (r) { timer = setTimeout(r, reduce ? 0 : ms); }); }
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var runId = 0;
+  function jitter(a, b) { return a + Math.random() * (b - a); }
+  async function typeCmd(text, id) {
+    var c = term.querySelector('.cursor'); if (c) c.remove();
+    var span = el('span', 'ps', ''); term.appendChild(span);
+    var cur2 = el('span', 'cursor'); term.appendChild(cur2);
+    for (var i = 0; i < text.length; i++) { if (id !== runId) return; span.textContent += text[i]; await sleep(jitter(18, 55)); }
+    cur2.remove(); span.textContent += '\n';
+  }
+  async function progress(label, id) {
+    var span = line('', 'dim');
+    var w = 28;
+    for (var p = 0; p <= 100; p += Math.round(jitter(6, 18))) {
+      if (id !== runId) return;
+      var f = Math.round(w * p / 100);
+      span.textContent = '      ' + label + ' [' + '\u2588'.repeat(f) + ' '.repeat(w - f) + '] ' + p + '%\n';
+      await sleep(jitter(40, 110));
+    }
+    span.textContent = '      ' + label + ' [' + '\u2588'.repeat(w) + '] 100%\n';
+  }
+  async function run() {
+    stop();
+    var id = ++runId;
+    var dry = whatIf.checked && !whatIf.disabled;
+    runBtn.disabled = true;
+    term.innerHTML = '';
+    line('PS C:\\Users\\<username>> ', 'ps', true);
+    await typeCmd('.\\' + cur.file + (dry ? ' -WhatIf' : '') + (cur.tests ? '' : ' -Verbose'), id);
+    if (id !== runId) return;
+    await sleep(350);
+    line('');
+    if (cur.admin) {
+      line('VERBOSE: Checking for administrator rights...', 'warn'); await sleep(300);
+      line(dry ? '         Dry run: elevation not needed.' : '         Running elevated. OK', dry ? 'wi' : 'ok'); await sleep(200);
+    }
+    if (cur.tests) { line('Pester v5', 'hd'); line('Starting discovery in 1 file.', 'dim'); await sleep(500); }
+    var stopAt = cur.steps.length - 1;
+    if (cur.tiers) { var t = document.getElementById('tierSel'); stopAt = t ? +t.value : stopAt; }
+    var done = 0;
+    for (var i = 0; i <= stopAt; i++) {
+      if (id !== runId) return;
+      var st = cur.steps[i];
+      if (cur.tests) {
+        if (i === 0) { line(st[1] + '.', 'dim'); line('Running tests.', 'dim'); await sleep(400); continue; }
+        line('Describing ' + st[0].replace('Describe: ', ''), 'hd'); await sleep(jitter(250, 450));
+        line('  [+] example test result', 'ok'); await sleep(jitter(120, 260));
+        done++; continue;
+      }
+      line('[' + (i + 1) + '/' + (stopAt + 1) + '] ' + st[0], 'hd');
+      await sleep(jitter(150, 300));
+      if (st[1]) line('VERBOSE: ' + st[1] + '.', 'warn');
+      if (cur.report) {
+        await progress('Scanning', id);
+        line('      Checked', 'ok');
+      } else if (dry && st[1]) {
+        await sleep(jitter(200, 380));
+        line('      What if: Performing the operation "' + st[0] + '".', 'wi');
+      } else {
+        await progress(st[2] === 'safe' ? 'Checking' : 'Working ', id);
+        line('      OK', 'ok');
+      }
+      done++;
+      if (cur.tiers && i < stopAt) { await sleep(300); line('      Outlook still won\'t open attachments. Trying the next step.', 'warn'); }
+      if (cur.tiers && i === stopAt) { await sleep(300); line('      Outlook opens attachments. Stopping here.', 'ok'); }
+      await sleep(jitter(120, 260));
+    }
+    if (id !== runId) return;
+    line('');
+    line('------------------------------------------------', 'dim');
+    line('Summary', 'hd');
+    line('  Script : ' + cur.file, 'dim');
+    line('  Mode   : ' + (cur.tests ? 'Test run' : cur.report ? 'Report only' : dry ? 'Dry run (-WhatIf)' : 'Full run'), 'dim');
+    line('  Steps  : ' + done + ' of ' + (cur.tests ? cur.steps.length - 1 : stopAt + 1) + ' completed', 'dim');
+    if (dry) line('  Nothing was changed.', 'wi');
+    line('  ' + cur.done, cur.tests ? 'dim' : 'ok');
+    line('------------------------------------------------', 'dim');
+    line('');
+    line('PS C:\\Users\\<username>> ', 'ps', true);
+    term.appendChild(el('span', 'cursor'));
+    runBtn.disabled = false; timer = null;
+  }
+
+  // ---------- source view ----------
+  function showSrcTab(on) {
+    document.getElementById('tabRun').setAttribute('aria-selected', on ? 'false' : 'true');
+    document.getElementById('tabSrc').setAttribute('aria-selected', on ? 'true' : 'false');
+    document.getElementById('paneRun').hidden = on;
+    document.getElementById('paneSrc').hidden = !on;
+  }
+  function renderSource() {
+    var box = document.getElementById('srcBox');
+    var path = 'scripts/' + cur.file;
+    function empty() {
+      var h = '<div class="src-empty">' + icon('upload') + '<p style="margin:0 0 6px;color:var(--ink);font-weight:650">Source coming soon</p>' +
+        '<p style="margin:0">The sanitized script will be posted here and in the repo\u2019s <code>scripts/</code> folder.</p></div>';
+      if (cur.sample) h += '<p style="margin:18px 0 8px;font-weight:650">How I launch it</p><pre class="src"></pre>';
+      box.innerHTML = h;
+      if (cur.sample) box.querySelector('pre').textContent = cur.sample;
+    }
+    if (srcCache[path] === null) return empty();
+    function show(txt) {
+      box.innerHTML = '<div class="btns" style="margin-bottom:12px"><button class="btn outline" type="button" id="copyBtn">' + icon('copy') + 'Copy</button>' +
+        '<a class="btn solid" download href="' + path + '">' + icon('download') + 'Download</a></div><pre class="src"></pre>';
+      box.querySelector('pre').textContent = txt;
+      document.getElementById('copyBtn').onclick = function () {
+        try { navigator.clipboard.writeText(txt); this.lastChild.textContent = 'Copied'; } catch (e) {}
+      };
+    }
+    if (srcCache[path]) return show(srcCache[path]);
+    empty();
+    if (location.protocol === 'file:') return;
+    fetch(path, { cache: 'no-store' }).then(function (r) { return r.ok ? r.text() : null; })
+      .then(function (t) { srcCache[path] = t; if (t && cur.file === path.slice(8)) show(t); })
+      .catch(function () { srcCache[path] = null; });
+  }
+
+  document.getElementById('tabRun').addEventListener('click', function () { showSrcTab(false); });
+  document.getElementById('tabSrc').addEventListener('click', function () { showSrcTab(true); });
+  runBtn.addEventListener('click', run);
+  document.getElementById('resetBtn').addEventListener('click', function () { stop(); prompt(); });
+
+  var start = 0;
+  var m = location.hash.match(/^#script-(.+)$/);
+  if (m) S.forEach(function (s, k) { if (s.id === m[1]) start = k; });
+  select(start);
+
+  // highlight nav section
+  var links = document.querySelectorAll('.nav a');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) links.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id); });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    document.querySelectorAll('section.band[id]').forEach(function (s) { io.observe(s); });
+  }
+})();
+</script>
 </body>
 </html>
