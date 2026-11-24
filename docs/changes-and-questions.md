@@ -20,7 +20,10 @@ Slide numbers in items 1 to 14 are from before the end-of-shift slide was added 
 14. **Slide 1 (Nov 24, at your request):** took out the "Lead Engineer, CMMC & GCC High · S1 Technology" line, and the same title in the README. Slide 11 still says "Joshua Richard · S1 Technology".
 15. **New slide 5, End-of-shift report (Nov 24, at your request):** how Grok uses read-only API access to the ticket board to build the CMMC End of Shift Report at the end of every shift. It shows the four sections and eight columns only. There are no ticket rows, no screenshot, and no SharePoint link, because the site is public. Slides 5 to 11 moved to 6 to 12.
 16. **Slide 3 roster updated (Nov 24, from your list):** nine work bots, in your chain of command, with their roles and full names. Added the shared rules card (drafts only; read-only in ConnectWise, the RMM, and MTX; no credentials, client data, or CUI; least privilege). ACE is new. FORGE is left off because it's personal. Usage percentages are unchanged. Notes rewritten to match.
-17. **Bot avatars on slide 3 (Nov 24, at your request):** cropped from your screenshot and embedded, so the deck still works offline. SENTRY and REMY weren't in the screenshot, so they show a letter badge.
+17. **Bot avatars on slide 3 (Nov 24, at your request):** cropped from your screenshot and embedded, so the deck still works offline. SENTRY and REMY were added from a second screenshot.
+18. **New scrolling page (Nov 24, at your request):** the site's home page is now a scrolling page with every section of the talk, a new light, colorful style (violet, teal, and coral; different from the Talvex lab), and line icons only. The slides still live at `/deck/`.
+19. **Script lab:** a simulated PowerShell console for each script, labeled "Built with Grok". It types the command, streams verbose lines and progress bars, supports dry run (`-WhatIf`), and ends with a summary. It's marked as a simulation. The steps come from your talk notes. Source and download turn on once the real `.ps1` files are in `scripts/`.
+20. **SENTRY and REMY avatars** added from your second screenshot.
 
 ## Open questions
 
@@ -32,5 +35,5 @@ Slide numbers in items 1 to 14 are from before the end-of-shift slide was added 
 6. **End-of-shift screenshot:** your screenshot only has EXAMPLE rows, but it shows your name and two vendor names. Do you want it on slide 5, or keep the column layout only?
 7. **ACE:** it's a certification coach for your CCA. Keep it as work, or drop it like FORGE?
 8. **MTX:** what does it stand for? It's the only acronym on slide 3 I couldn't spell out.
-9. **SENTRY and REMY avatars:** send a screenshot that shows them and I'll swap out the letter badges.
+9. **Script files:** upload the S1 `.ps1` files and your NinjaOne scripts from this week. I'll sanitize them, add them to the Source tab, and set up an automatic Pester test run on GitHub.
 10. **Where the repo lives:** you mentioned an S1 Technology account. Moving it changes the live URL.
