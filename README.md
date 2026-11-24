@@ -29,7 +29,7 @@ Add `#5` to the URL to jump to slide 5. Add `?notes` to open with notes showing.
 | `deck/index.html` | The slide deck (plain HTML, CSS, JavaScript; no build step) |
 | `slides/` | One markdown file per slide: on-screen text, speaker notes, placeholders |
 | `docs/presenter-notes.md` | All speaker notes in order |
-| `docs/placeholders.md` | Every `[JOSHUA: ...]` still to fill in |
+| `docs/placeholders.md` | The rough estimates used in place of placeholders, to replace with measured numbers |
 | `docs/acronyms.md` | Acronym glossary |
 | `docs/resources.md` | FortiGate training links |
 | `assets/img/` | Screenshots, if added later |

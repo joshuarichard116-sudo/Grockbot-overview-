@@ -15,10 +15,10 @@ title: The CMMC Level 2 Enclave Toolkit
 - **Vendor-neutral** · No picks, no pricing. Just evidence.
 - Footer: CMMC = Cybersecurity Maturity Model Certification · CUI = Controlled Unclassified Information · NIST = National Institute of Standards and Technology
 
-No toolkit location is shown. If one is added, it goes in as [JOSHUA: where the toolkit lives for S1].
+No toolkit location is shown.
 
 ## Speaker notes
 This next one points straight at the enclave: the CMMC Level 2 Enclave Toolkit. Every tool that goes into an enclave holding CUI, that's Controlled Unclassified Information, has to be evaluated the same way, with evidence. So I built a vendor-neutral template with thirteen criteria. Each one maps to the control families in NIST 800-171. That's the National Institute of Standards and Technology. It doesn't recommend vendors or list prices. It just captures the evidence an assessor is going to ask for.
 
 ## Placeholders
-- [JOSHUA: where the toolkit lives for S1] (only if a location is shown; not shown right now)
+None

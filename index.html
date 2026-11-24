@@ -298,6 +298,8 @@ pre.src { margin: 0; background: var(--term); color: var(--term-ink); border-rad
   .flow::before { transform: none !important; transition: none !important; }
 }
 
+.est { font-weight: 700; color: var(--ink); background: linear-gradient(transparent 62%, rgba(255,197,61,.45) 62%); padding: 0 2px; }
+.est i { font-style: normal; font-size: .72em; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-left: 4px; }
 /* footer */
 footer { background: var(--term); color: #cfcbf2; padding: 64px 0 48px; }
 footer h2 { color: #fff; }
@@ -366,7 +368,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
         <a class="btn ghost" href="deck/"><svg class="i"><use href="#i-slides"/></svg>Open the slides</a>
       </div>
       <div class="glance">
-        <div><b><mark class="ph">[JOSHUA: number of work bots]</mark></b><span>bots, each scoped to one job</span></div>
+        <div><b>9</b><span>bots, each scoped to one job</span></div>
         <div><b>0</b><span>client names or data in any of it</span></div>
       </div>
     </div>
@@ -457,8 +459,9 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
       <div class="card"><p>Email-only work</p><div class="stat"><b>10</b><span>min</span></div></div>
       <div class="card"><p>Call work</p><h3 style="margin-top:6px">Connected time + 10 min wrap-up</h3></div>
       <div class="card"><p>Reply alert</p><h3 style="margin-top:6px">Every 30 min</h3><p style="font-size:15px">Weekdays, only when someone's waiting</p></div>
-      <div class="card"><p>Time saved per week</p><h3 style="margin-top:8px"><mark class="ph">[JOSHUA: measured number]</mark></h3></div>
+      <div class="card"><p>Time saved per week</p><h3 style="margin-top:8px"><span class="est">~3 hrs/week <i>est.</i></span></h3></div>
     </div>
+    <p style="color:var(--muted);margin-top:12px;font-size:14px">Time-saved figures marked "est." are rough estimates until I finish measuring them.</p>
     <p style="color:var(--muted);margin-top:18px"><b style="color:var(--ink)">Also built:</b> morning board, email triage, meeting prep, and end-of-day wrap. Built, used, then paused to keep usage down. They run on demand.</p>
     <div class="callout"><svg class="i"><use href="#i-lock"/></svg><span>Phone numbers keep only the last four digits. Call content is never logged.</span></div>
 
@@ -624,7 +627,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
         </table>
       </div>
       <div class="callout"><svg class="i"><use href="#i-shield"/></svg><span>No client data or CUI in any bot. Every message is a draft. I press Send.</span></div>
-      <p style="margin-top:18px"><b>Next:</b> timing one control family end to end, for real numbers. Due <mark class="ph">[JOSHUA: date]</mark></p>
+      <p style="margin-top:18px"><b>Next:</b> timing one control family end to end, for real numbers. Target date: <b>Dec 19, 2026</b></p>
       <p class="gloss"><b>CUI</b> = Controlled Unclassified Information · <b>NIST SP</b> = National Institute of Standards and Technology Special Publication · <b>AI</b> = artificial intelligence</p>
     </div>
   </div>
@@ -640,7 +643,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
       <a class="btn light" href="deck/"><svg class="i"><use href="#i-slides"/></svg>Open the slides</a>
       <a class="btn ghost" href="#top"><svg class="i" style="transform:rotate(-90deg)"><use href="#i-arrow"/></svg>Back to top</a>
     </div>
-    <p class="fine">Scripts and bots built with Grok. Names and paths are sanitized. Amber boxes mark numbers still being measured.</p>
+    <p class="fine">Scripts and bots built with Grok. Names and paths are sanitized. Time-saved figures marked "est." are rough estimates until they are measured.</p>
   </div>
 </footer>
 
@@ -649,7 +652,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
   // Each script: steps are what the script does, in order, from the talk notes.
   // Output is example wording, not a real run.
   var S = [
-    { id: 'reg-wipe', file: 'PostEmail-Migration-v3.ps1', alt: 'MS-Reg-Wipe.ps1', cat: 'mig', catName: 'Migration cleanup',
+    { id: 'reg-wipe', est: '~45 min by hand → ~5 min', file: 'PostEmail-Migration-v3.ps1', alt: 'MS-Reg-Wipe.ps1', cat: 'mig', catName: 'Migration cleanup',
       short: '"Fresh start" for a PC after an email migration.',
       desc: 'After an email migration, a PC holds on to the old tenant everywhere. This clears all of it, so the PC behaves like new. ~1,700–1,950 lines · 48–56 functions.',
       saved: true, admin: false,
@@ -707,7 +710,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
         ['Remove old Edge startup pages policy', 'Delete the startup page values']
       ],
       done: 'Restart Edge to see the change.' },
-    { id: 'outlook', file: 'Outlook-Wont-Open-PDF-Excel-Docs.ps1', cat: 'fix', catName: 'Guided fix',
+    { id: 'outlook', est: '~30 min by hand → ~5 min', file: 'Outlook-Wont-Open-PDF-Excel-Docs.ps1', cat: 'fix', catName: 'Guided fix',
       short: 'Outlook won\u2019t open attachments. Least invasive fix first.',
       desc: 'A guided fix that goes from least to most invasive and stops as soon as Outlook works. As a last resort it renames the old profile; it never deletes it. 577 lines · 15 functions.',
       saved: true, admin: false, tiers: true,
@@ -717,7 +720,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
         ['Last resort: rename the Outlook profile', 'Rename the old profile (never deleted) and create a fresh one']
       ],
       done: 'Outlook opens attachments again.' },
-    { id: 'webview', file: 'Reset-WebView2.ps1', cat: 'fix', catName: 'Quick fix',
+    { id: 'webview', est: '~20 min by hand → ~3 min', file: 'Reset-WebView2.ps1', cat: 'fix', catName: 'Quick fix',
       short: 'Fixes the old sign-in page that keeps showing.',
       desc: 'Reinstalls WebView2 and clears Office sign-in caches. Fixes the old company\u2019s sign-in page still showing in Office.',
       saved: true, admin: true,
@@ -727,7 +730,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
         ['Clear Office sign-in caches', 'Remove cached Office identities']
       ],
       done: 'Open Office and sign in with the new account.' },
-    { id: 'teams', file: 'Fix-TeamsOutlookAddin.ps1', cat: 'fix', catName: 'Quick fix',
+    { id: 'teams', est: '~15 min by hand → ~2 min', file: 'Fix-TeamsOutlookAddin.ps1', cat: 'fix', catName: 'Quick fix',
       short: 'Repairs the Teams Meeting add-in in classic Outlook.',
       desc: 'Repairs the Teams Meeting add-in in classic Outlook when the button goes missing.',
       saved: true, admin: false,
@@ -737,7 +740,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
         ['Check the add-in loads', '', 'safe']
       ],
       done: 'Open classic Outlook. The Teams Meeting button is back.' },
-    { id: 'printer', file: 'Reset-PrinterDrivers.ps1', cat: 'fix', catName: 'Deep fix',
+    { id: 'printer', est: '~30 min by hand → ~5 min', file: 'Reset-PrinterDrivers.ps1', cat: 'fix', catName: 'Deep fix',
       short: 'Clears spooler, printers, ports, and drivers.',
       desc: 'Clears the print spooler, printers, ports, and drivers. It never touches Microsoft\u2019s built-in printers.',
       saved: true, admin: true,
@@ -750,7 +753,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
         ['Start the print spooler', 'Start the Spooler service']
       ],
       done: 'Ready to add printers again.' },
-    { id: 'm365', file: 'Reinstall-M365Apps.ps1', cat: 'fix', catName: 'Deep fix',
+    { id: 'm365', est: '~45 min by hand → ~15 min', file: 'Reinstall-M365Apps.ps1', cat: 'fix', catName: 'Deep fix',
       short: 'Reinstalls Microsoft 365 Apps and checks activation.',
       desc: 'Reinstalls Microsoft 365 Apps with a self-elevation check and logging, then verifies activation. Saved as a shared runbook skill.',
       saved: true, admin: true,
@@ -805,7 +808,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
     if (cur.report) badges += '<span class="badge">' + icon('eye', 15) + 'Read-only</span>';
     document.getElementById('pBadges').innerHTML = badges;
     document.getElementById('pDesc').textContent = cur.desc;
-    document.getElementById('pSaved').innerHTML = cur.saved ? 'Time saved vs. by hand: <mark class="ph">[JOSHUA: manual vs script minutes]</mark>' : '';
+    document.getElementById('pSaved').innerHTML = cur.saved ? 'Time saved: <span class="est">' + cur.est + ' <i>est.</i></span>' : '';
     var noWhatIf = cur.report || cur.tests;
     whatIf.disabled = !!noWhatIf;
     whatIf.parentNode.style.opacity = noWhatIf ? .45 : 1;

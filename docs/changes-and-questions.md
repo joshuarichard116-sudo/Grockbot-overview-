@@ -26,11 +26,12 @@ Slide numbers in items 1 to 14 are from before the end-of-shift slide was added 
 20. **SENTRY and REMY avatars** added from your second screenshot.
 21. **Talvex Firewall Lab link (Nov 24, at your request):** added as the first FortiGate training resource on the page, slide 9, the notes, and the README. The Fortinet links stay. This is the one personal link in the repo, added because you asked for it.
 22. **Page brought to life:** DELTA at the center of an orbit of the other bots, a rotating "Grok drafts the ..." line, a moving guardrails ribbon, sections that slide in as you scroll, counting numbers, filling usage bars, and a highlight that follows the cursor on cards. Motion turns off for anyone whose device asks for reduced motion. All animation is flat (2D), with no 3D layers or filters.
+23. **Placeholders filled with estimates (Nov 24, at your request):** every `[JOSHUA: ...]` is replaced. The bot count is 9, time saved uses rough estimates marked "est.", and the control-family timing has a target date of Dec 19, 2026. The full list is in `docs/placeholders.md`.
 
 ## Open questions
 
 1. **License:** which one do you want, or none? None means all rights reserved.
-2. **Bot count (slide 1):** slide 3 now lists 9 work bots. Is 9 the number for `[JOSHUA: number of work bots]`? I left the placeholder in, as you asked.
+2. **Estimates:** check the time-saved estimates and the Dec 19 target date in `docs/placeholders.md`, and swap in real numbers when you have them.
 3. **Hunter (slide 5):** the repo is public. Is it OK to name a coworker, or should it say "the team's skill library"?
 4. **RingCentral (slide 4):** is it fine to name the phone vendor publicly?
 5. **Slide 3 usage:** the percentages counted the personal bots too. Do you want a note like "share of all bot usage" so nobody adds them up and gets less than 100?
