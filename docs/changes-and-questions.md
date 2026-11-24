@@ -4,7 +4,7 @@
 
 1. **Slide titles tightened.** Slide 3 "Bots, each scoped to one job" became "One bot per job". Slide 7 "Office and endpoint scripts" became "Everyday Office and endpoint fixes". The rest kept their titles. Shorter titles read from the back of the room.
 2. **One layout system for every slide.** Section label, big title, content, and an acronym footer. Fixed 1920×1080 canvas that scales to any screen, dark background, body text at least about 22px at full size, and amber for placeholders only.
-3. **Acronyms spelled out in a footer on each slide where they appear**, instead of inline. The on-screen lines stay short, and the rule (spell out on first use) still holds on every slide. Added footers that weren't in v4: slide 1 (CMMC, GCC High), slide 3, slide 7 (M365, AD), slide 8 (VPN, BGP, VNet, IPsec, DPD), slide 10 (NIST SP, AI, CUI).
+3. **Acronyms spelled out in a footer on each slide where they appear**, instead of inline. The on-screen lines stay short, and the rule (spell out on first use) still holds on every slide. Added footers that weren't in v4: slide 3, slide 7 (M365, AD), slide 8 (VPN, BGP, VNet, IPsec, DPD), slide 10 (NIST SP, AI, CUI).
 4. **Slide 6:** the long "Clears" sentence became 14 short chips. The version history became a small timeline. No items were removed.
 5. **Slide 7:** each script is one row with its placeholder on the right, so all five `[JOSHUA: manual vs script minutes]` line up.
 6. **Slide 8 built new** from your section 4 links. Short labels on screen (each one clickable), full URLs in the speaker notes and README. No course names, numbers, or certification levels added.
@@ -15,6 +15,7 @@
 11. **Search engines:** every page has `noindex, nofollow` so it won't show up in Google or Bing. A robots.txt wouldn't help, because GitHub only reads one at the root of your whole github.io site, not inside this project.
 12. **Repo layout:** the repo is `grockbot-overview-`, so the handoff's `grok-bot-show-and-tell/` contents sit at the repo root. A root `index.html` forwards to `deck/`.
 13. **Not added:** `LICENSE` (your call), `.github/workflows/pages.yml` (Pages serves from `main` directly, so a workflow isn't needed), images (none uploaded), and the old narration audio.
+14. **Slide 1 (Nov 24, at your request):** took out the "Lead Engineer, CMMC & GCC High · S1 Technology" line, and the same title in the README. Slide 11 still says "Joshua Richard · S1 Technology".
 
 ## Open questions
 

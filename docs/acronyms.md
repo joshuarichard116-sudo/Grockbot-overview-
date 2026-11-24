@@ -2,8 +2,8 @@
 
 | Acronym | Meaning | First used |
 |---|---|---|
-| CMMC | Cybersecurity Maturity Model Certification | Slide 1 |
-| GCC High | Microsoft Government Community Cloud High | Slide 1 |
+| CMMC | Cybersecurity Maturity Model Certification | Slide 2 |
+| GCC High | Microsoft Government Community Cloud High | Slide 2 |
 | DELTA | Defense Enclave Lifecycle & Tenant Architecture (lead bot) | Slide 3 |
 | M365 | Microsoft 365 | Slide 6 |
 | OST / NST | Outlook offline data files | Slide 6 |
