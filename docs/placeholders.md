@@ -1,16 +1,18 @@
-# Open placeholders
+# Estimates in place of placeholders
 
-Every `[JOSHUA: ...]` still to fill in, by slide. They show amber-highlighted in the deck. Fill them in `deck/index.html` (search for `class="ph"`) and in the matching `slides/` file.
+On Nov 24, 2026, Joshua asked for every `[JOSHUA: ...]` placeholder to be filled with a rough estimate. These are estimates, not measurements, and they're marked "est." on the page and the slides. Replace them with measured numbers when you have them.
 
-| Slide | Placeholder |
-|---|---|
-| 1 | `[JOSHUA: number of work bots]` |
-| 4 | `[JOSHUA: measured number]` |
-| 7 | `[JOSHUA: manual vs script minutes]` |
-| 8 | `[JOSHUA: manual vs script minutes]` (Outlook attachments) |
-| 8 | `[JOSHUA: manual vs script minutes]` (WebView2) |
-| 8 | `[JOSHUA: manual vs script minutes]` (Teams add-in) |
-| 8 | `[JOSHUA: manual vs script minutes]` (printer drivers) |
-| 8 | `[JOSHUA: manual vs script minutes]` (Microsoft 365 Apps reinstall) |
-| 10 | `[JOSHUA: where the toolkit lives for S1]` (only if a location is shown; not shown right now) |
-| 11 | `[JOSHUA: date]` |
+| Slide | What | Value used |
+|---|---|---|
+| 1 | Number of work bots | 9 (the bots on slide 3) |
+| 4 | Time saved per week | ~3 hrs/week (est.) |
+| 7 | Cleanup suite, by hand vs. script | ~45 min by hand → ~5 min (est.) |
+| 8 | Outlook attachments fix | ~30 min by hand → ~5 min (est.) |
+| 8 | WebView2 reset | ~20 min by hand → ~3 min (est.) |
+| 8 | Teams add-in fix | ~15 min by hand → ~2 min (est.) |
+| 8 | Printer driver reset | ~30 min by hand → ~5 min (est.) |
+| 8 | Microsoft 365 Apps reinstall | ~45 min by hand → ~15 min (est.) |
+| 10 | Where the toolkit lives | Not shown; line dropped |
+| 11 | Control-family timing due date | Dec 19, 2026 (target) |
+
+To change one, search for the old value in `index.html` (page), `deck/index.html` (slides), and the matching `slides/` file.
