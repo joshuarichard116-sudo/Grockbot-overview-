@@ -1,5 +1,5 @@
 ---
-slide: 8
+slide: 9
 title: FortiGate training
 ---
 ## On screen

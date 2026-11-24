@@ -169,6 +169,14 @@ table.carry td:first-child { font-weight: 650; width: 380px; }
 .end-slide h1 { font-size: 160px; margin: 10px 0 40px; }
 .end-slide .by { font-size: 38px; color: var(--muted); }
 
+
+.eos-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 22px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.eos-table th { text-align: left; padding: 14px 16px; background: var(--panel-2); color: var(--fg); font-weight: 650; border-bottom: 1px solid var(--line); }
+.eos-table td { padding: 12px 16px; border-bottom: 1px solid var(--line); color: var(--muted); }
+.eos-table tr:last-child td { border-bottom: 0; }
+.tag { display: inline-block; font-size: 20px; font-weight: 700; padding: 3px 14px; border-radius: 999px; color: #fff; }
+.tag.p1 { background: #c93c3c; } .tag.p2 { background: #c2601f; } .tag.pod { background: #1f6fc2; } .tag.ven { background: #6b4bb8; }
+
 /* ---------- chrome: progress, counter, notes ---------- */
 #progress { position: fixed; left: 0; top: 0; height: 5px; background: var(--accent); transition: width .2s ease; z-index: 5; }
 #counter {
@@ -302,6 +310,31 @@ body:hover .navbtn { opacity: 1; }
     <div class="callout guard" style="font-size:30px">Phone numbers keep the last four digits. Call content is never logged.</div>
   </div>
   <div class="notes-src"><p>Here's the day-to-day workflow. When I start a ticket, DELTA starts a clock. If I'm on a call, CHRONO pulls the call time from RingCentral and matches it to the ticket. It keeps only the last four digits of the number, and it never logs what was said. When I'm done, the note and time entry are already drafted, using rules I wrote down once. Email-only work is ten minutes. Call work is the connected time, plus ten minutes to wrap up. I approve it, and PATCH posts it. Nothing goes out without me. And every thirty minutes on weekdays, I get an alert, but only when someone is waiting on a reply.</p></div>
+</section>
+
+<!-- 5: end-of-shift report -->
+<section class="slide" data-title="End-of-shift report">
+  <div class="label">03 · Day to day</div>
+  <h2>End-of-shift report</h2>
+  <div class="body" style="gap:28px">
+    <ol class="steps">
+      <li><div class="num">1</div><b>Read-only access</b><span>Grok reads the ticket board through a read-only API</span></li>
+      <li><div class="num">2</div><b>End of every shift</b><span>Grok builds the report</span></li>
+      <li><div class="num">3</div><b>One list for the pod</b><span>CMMC End of Shift Report, a Microsoft List</span></li>
+    </ol>
+    <table class="eos-table" aria-label="Report layout: sections and columns">
+      <thead><tr><th>Section</th><th>Ticket Number</th><th>Vendor Name</th><th>Description</th><th>Maintenance Window</th><th>Personnel Assigned</th><th>Est Completion Time</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag p1">P1</span></td><td colspan="7">High-priority tickets</td></tr>
+        <tr><td><span class="tag p2">P2</span></td><td colspan="7">High-priority tickets</td></tr>
+        <tr><td><span class="tag pod">Pod Maintenance</span></td><td colspan="7">Maintenance the pod runs</td></tr>
+        <tr><td><span class="tag ven">Vendor Maintenance</span></td><td colspan="7">Maintenance a vendor runs</td></tr>
+      </tbody>
+    </table>
+    <div class="callout guard" style="font-size:30px">High-priority tickets stay tracked. Maintenance finishes within the requested or set window.</div>
+  </div>
+  <div class="gloss"><b>API</b> = application programming interface · <b>P1 / P2</b> = Priority 1 / Priority 2 · <b>CMMC</b> = Cybersecurity Maturity Model Certification</div>
+  <div class="notes-src"><p>At the end of every shift, Grok builds an end-of-shift report for the pod. It reads the ticket board through a read-only API (application programming interface), so it can see the tickets but can't change them. The report sorts the work into four sections: P1 and P2, that's priority one and priority two tickets, then pod maintenance and vendor maintenance. For each ticket, it lists the vendor, a short description, the maintenance window, who's assigned, the estimated completion time, and the status. That helps the pod make sure high-priority tickets are being tracked, and that maintenance gets done within the requested or set maintenance window.</p></div>
 </section>
 
 <!-- 5 -->
