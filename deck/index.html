@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="googlebot" content="noindex, nofollow">
+<title>Grok Bot Show &amp; Tell</title>
+<meta name="description" content="Grok Bot Show & Tell, Nov 25, 2026: how Joshua Richard uses Grok Bot for S1 Technology work.">
+<style>
+:root {
+  --bg: #0d1117;
+  --panel: #161b22;
+  --panel-2: #1c232d;
+  --line: #2d3643;
+  --fg: #f0f3f6;
+  --muted: #a9b4c0;
+  --accent: #58b6ff;
+  --accent-soft: rgba(88,182,255,.14);
+  --good: #5fd38a;
+  --ph-bg: #ffc53d;
+  --ph-fg: #1a1200;
+  --code-bg: #0a0d12;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); overflow: hidden; }
+body { font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif; }
+a { color: var(--accent); }
+
+/* ---------- stage: fixed 1920x1080, scaled to fit ---------- */
+#viewport { position: fixed; left: 0; right: 0; top: 0; bottom: 0; }
+#stage {
+  position: absolute; left: 50%; top: 50%;
+  width: 1920px; height: 1080px;
+  transform-origin: center center;
+}
+.slide {
+  position: absolute; inset: 0;
+  padding: 88px 120px 96px;
+  display: none; flex-direction: column;
+  background: var(--bg);
+  font-size: 34px; line-height: 1.35;
+}
+.slide.active { display: flex; }
+
+.label {
+  font-size: 24px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent); font-weight: 600; margin: 0 0 14px;
+}
+h1, h2 { margin: 0; font-weight: 650; letter-spacing: -.01em; }
+h2 { font-size: 68px; line-height: 1.1; margin-bottom: 48px; }
+.body { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 32px; }
+.gloss {
+  position: absolute; left: 120px; right: 120px; bottom: 34px;
+  font-size: 21px; color: var(--muted); line-height: 1.4;
+  border-top: 1px solid var(--line); padding-top: 14px;
+}
+.gloss b { color: var(--fg); font-weight: 600; }
+.muted { color: var(--muted); }
+.small { font-size: 26px; }
+
+/* placeholder: always visible, amber */
+mark.ph {
+  background: var(--ph-bg); color: var(--ph-fg);
+  padding: .04em .32em; border-radius: 6px; font-weight: 700;
+  white-space: nowrap; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+}
+
+.row { display: flex; gap: 32px; }
+.col { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+.card {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 18px;
+  padding: 30px 34px;
+}
+.card h3 { margin: 0 0 10px; font-size: 34px; font-weight: 650; }
+.card p { margin: 0; }
+.card .k { font-size: 22px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 8px; }
+
+.stat { display: flex; align-items: baseline; gap: 22px; }
+.stat .n { font-size: 96px; font-weight: 700; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
+.stat .n mark.ph { font-size: 40px; }
+.stat .t { font-size: 32px; }
+
+.callout {
+  border-left: 8px solid var(--accent); background: var(--accent-soft);
+  padding: 24px 32px; border-radius: 0 14px 14px 0; font-size: 38px; font-weight: 600;
+}
+.guard { border-left-color: var(--good); background: rgba(95,211,138,.12); }
+
+ol.steps { list-style: none; margin: 0; padding: 0; display: flex; gap: 20px; }
+ol.steps li {
+  flex: 1; background: var(--panel); border: 1px solid var(--line); border-radius: 18px;
+  padding: 26px 28px; position: relative;
+}
+ol.steps li .num {
+  display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
+  background: var(--accent); color: #04121f; font-weight: 800; font-size: 28px; margin-bottom: 14px;
+}
+ol.steps li b { display: block; font-size: 32px; margin-bottom: 6px; }
+ol.steps li span { color: var(--muted); font-size: 27px; }
+
+code, pre { font-family: "Cascadia Code", Consolas, "SF Mono", Menlo, monospace; }
+code { font-size: .88em; background: var(--panel-2); padding: .06em .3em; border-radius: 6px; }
+pre {
+  margin: 0; background: var(--code-bg); border: 1px solid var(--line); border-radius: 14px;
+  padding: 22px 26px; font-size: 21px; line-height: 1.45; white-space: pre; overflow: hidden;
+}
+pre .c { color: #8b98a8; }
+
+/* ---------- slide-specific ---------- */
+.title-slide { justify-content: center; }
+.title-slide .kicker { font-size: 30px; color: var(--accent); font-weight: 600; letter-spacing: .04em; margin-bottom: 28px; }
+.title-slide h1 { font-size: 104px; line-height: 1.04; max-width: 1500px; }
+.title-slide .by { font-size: 36px; color: var(--muted); margin-top: 30px; }
+.title-slide .by b { color: var(--fg); font-weight: 600; }
+.title-slide .glance { margin-top: 70px; display: flex; gap: 32px; }
+.title-slide .glance .card { min-width: 520px; }
+
+.flow3 { display: flex; align-items: stretch; gap: 0; }
+.flow3 .card { flex: 1; }
+.flow3 .arrow { width: 70px; display: grid; place-items: center; font-size: 46px; color: var(--accent); }
+
+.bots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.bot { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 20px 24px; }
+.bot b { display: block; font-size: 32px; letter-spacing: .04em; }
+.bot span { color: var(--muted); font-size: 26px; }
+.bot.lead { border-color: var(--accent); background: var(--accent-soft); }
+.bot small { display: block; font-size: 19px; color: var(--muted); margin-top: 6px; line-height: 1.3; }
+.bars { display: flex; flex-direction: column; gap: 16px; }
+.bar { display: grid; grid-template-columns: 300px 1fr 90px; align-items: center; gap: 18px; font-size: 28px; }
+.bar .track { height: 26px; background: var(--panel-2); border-radius: 13px; overflow: hidden; }
+.bar .fill { height: 100%; background: var(--accent); border-radius: 13px; }
+.bar .v { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+.rules { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.rules .card { padding: 24px 28px; }
+.rules .card b { display: block; font-size: 36px; margin-top: 4px; }
+.rules .card span { font-size: 25px; color: var(--muted); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 10px 12px; }
+.chips span { font-size: 23px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 6px 16px; }
+.mini { font-size: 25px; line-height: 1.38; }
+.mini b { font-family: "Cascadia Code", Consolas, Menlo, monospace; font-size: 24px; font-weight: 600; color: var(--fg); }
+.timeline { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 24px; }
+.timeline .pt { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 6px 14px; }
+.timeline .sep { color: var(--accent); }
+
+.scripts { display: flex; flex-direction: column; gap: 14px; }
+.script { display: grid; grid-template-columns: 1fr auto; gap: 2px 24px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 13px 22px; align-items: center; }
+.script .name { font-family: "Cascadia Code", Consolas, Menlo, monospace; font-size: 25px; font-weight: 600; white-space: nowrap; }
+.script .what { grid-column: 1 / span 2; font-size: 22px; color: var(--muted); line-height: 1.3; }
+.script .ph-cell { grid-column: 2; grid-row: 1; font-size: 20px; }
+
+.links { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.links li a {
+  display: block; text-decoration: none; color: var(--fg); background: var(--panel-2);
+  border: 1px solid var(--line); border-radius: 14px; padding: 14px 64px 14px 24px; font-size: 30px; position: relative;
+}
+.links li a::after { content: "\2197"; color: var(--accent); position: absolute; right: 24px; top: 50%; transform: translateY(-50%); }
+.links li a small { display: block; color: var(--muted); font-size: 22px; margin-top: 4px; }
+
+table.carry { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 32px; }
+table.carry th, table.carry td { text-align: left; padding: 20px 28px; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.carry th { font-size: 22px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+table.carry td:first-child { font-weight: 650; width: 380px; }
+
+.end-slide { justify-content: center; align-items: flex-start; }
+.end-slide .ty { font-size: 40px; color: var(--accent); font-weight: 600; }
+.end-slide h1 { font-size: 160px; margin: 10px 0 40px; }
+.end-slide .by { font-size: 38px; color: var(--muted); }
+
+/* ---------- chrome: progress, counter, notes ---------- */
+#progress { position: fixed; left: 0; top: 0; height: 5px; background: var(--accent); transition: width .2s ease; z-index: 5; }
+#counter {
+  position: fixed; right: 16px; bottom: 12px; z-index: 6;
+  font-size: 14px; color: var(--muted); background: rgba(13,17,23,.7);
+  padding: 4px 10px; border-radius: 8px; font-variant-numeric: tabular-nums;
+}
+#hint { position: fixed; left: 16px; bottom: 12px; z-index: 6; font-size: 13px; color: var(--muted); opacity: .75; transition: opacity 1s; }
+#hint.gone { opacity: 0; }
+#notes {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 7;
+  height: 34vh; display: none;
+  background: #0a0e14; border-top: 2px solid var(--accent);
+  padding: 18px 24px 40px; overflow: auto;
+  font-size: 19px; line-height: 1.55; color: var(--fg);
+}
+#notes.open { display: block; }
+#notes h4 { margin: 0 0 8px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+#notes p { margin: 0 0 10px; max-width: 1100px; }
+#notes ul { margin: 6px 0 0; padding-left: 20px; font-size: 15px; }
+#notes ul a { word-break: break-all; }
+.notes-src { display: none; }
+
+.navbtn {
+  position: fixed; top: 50%; transform: translateY(-50%); z-index: 6;
+  width: 44px; height: 64px; border: 0; border-radius: 10px;
+  background: rgba(255,255,255,.04); color: var(--muted); font-size: 26px; cursor: pointer; opacity: 0;
+  transition: opacity .2s;
+}
+body:hover .navbtn { opacity: 1; }
+#prev { left: 8px; } #next { right: 8px; }
+.navbtn:focus-visible { opacity: 1; outline: 2px solid var(--accent); }
+
+@media print {
+  html, body { overflow: visible; height: auto; }
+  #viewport { position: static; }
+  #stage { position: static; transform: none !important; width: 1920px; height: auto; }
+  .slide { display: flex !important; position: relative; height: 1080px; page-break-after: always; }
+  #progress, #counter, #hint, #notes, .navbtn { display: none !important; }
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="viewport"><div id="stage">
+
+<!-- 1 -->
+<section class="slide title-slide" data-title="What I built with my Grok Bot seat">
+  <div class="kicker">Grok Bot Show &amp; Tell · Nov 25, 2026</div>
+  <h1>What I built with my Grok Bot seat</h1>
+  <div class="by"><b>Joshua Richard</b> · Lead Engineer, CMMC &amp; GCC High · S1 Technology</div>
+  <div class="glance">
+    <div class="card"><div class="k">At a glance</div>
+      <div class="stat"><span class="n"><mark class="ph">[JOSHUA: number of work bots]</mark></span></div>
+      <p class="small muted" style="margin-top:12px">bots, each scoped to one job</p></div>
+    <div class="card"><div class="k">At a glance</div>
+      <div class="stat"><span class="n">0</span><span class="t">client names or data in any of it</span></div></div>
+  </div>
+  <div class="gloss"><b>CMMC</b> = Cybersecurity Maturity Model Certification · <b>GCC High</b> = Microsoft Government Community Cloud High</div>
+  <div class="notes-src"><p>Hi, everyone. I'm going to walk you through what I've built with my Grok Bot seat for my S1 work: the daily ticket workflow, documentation, scripting, and what carries into the enclave.</p></div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-title="Why there's no enclave demo today">
+  <div class="label">01 · Context</div>
+  <h2>Why there's no enclave demo today</h2>
+  <div class="body">
+    <div class="flow3">
+      <div class="card"><div class="k">The seat</div><h3>Came with my move into CMMC work</h3><p class="muted">The plan was built around a GCC High enclave.</p></div>
+      <div class="arrow">→</div>
+      <div class="card"><div class="k">The status</div><h3>The enclave isn't up and running yet</h3><p class="muted">So there's nothing to demo inside it.</p></div>
+      <div class="arrow">→</div>
+      <div class="card"><div class="k">The approach</div><h3>Put it to work on today's job</h3><p class="muted">And used the time to get ready.</p></div>
+    </div>
+    <div class="callout">Everything you're about to see carries straight over once the tenant is up and running.</div>
+  </div>
+  <div class="gloss"><b>CMMC</b> = Cybersecurity Maturity Model Certification, Level 2 · <b>GCC High</b> = Microsoft Government Community Cloud High</div>
+  <div class="notes-src"><p>First, some context. I got the Grok Bot seat when I moved into CMMC work. That's the Cybersecurity Maturity Model Certification, Level 2. The plan was built around a GCC High enclave. GCC High is Microsoft's Government Community Cloud High. That enclave isn't up and running yet. So I put the seat to work on the job I have right now, and used the time to get ready. All of it carries over once the new tenant is up and running.</p></div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-title="One bot per job">
+  <div class="label">02 · The team</div>
+  <h2>One bot per job</h2>
+  <div class="body">
+    <div class="bots">
+      <div class="bot lead"><b>DELTA</b><span>Lead &amp; coordinator</span><small>Defense Enclave Lifecycle &amp; Tenant Architecture</small></div>
+      <div class="bot"><b>PATCH</b><span>Help desk &amp; IT Glue</span></div>
+      <div class="bot"><b>CHRONO</b><span>Time from phone calls</span></div>
+      <div class="bot"><b>NETTY</b><span>Networking</span></div>
+      <div class="bot"><b>PELICAN</b><span>Business development</span></div>
+      <div class="bot"><b>REMY</b><span>GCC High engineering</span></div>
+      <div class="bot"><b>SENTRY</b><span>CMMC maintenance board</span></div>
+      <div class="bot"><b>RADAR</b><span>Threat intelligence</span></div>
+    </div>
+    <div class="row">
+      <div class="col" style="flex:0 0 640px">
+        <div class="callout" style="font-size:34px">Why so many?<br><span style="font-weight:400">Least privilege. Each bot gets only the access its job needs.</span></div>
+      </div>
+      <div class="col">
+        <div class="k muted small" style="letter-spacing:.04em">Share of usage, Oct 21 – Nov 20</div>
+        <div class="bars">
+          <div class="bar"><span>DELTA</span><div class="track"><div class="fill" style="width:52%"></div></div><span class="v">52%</span></div>
+          <div class="bar"><span>PATCH</span><div class="track"><div class="fill" style="width:19%"></div></div><span class="v">19%</span></div>
+          <div class="bar"><span>REMY + SENTRY</span><div class="track"><div class="fill" style="width:3%"></div></div><span class="v">3%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="gloss"><b>GCC High</b> = Microsoft Government Community Cloud High · <b>CMMC</b> = Cybersecurity Maturity Model Certification</div>
+  <div class="notes-src"><p>This is the team. Each bot is scoped to one job. DELTA is the coordinator: it routes the work, raises the alerts, and writes the drafts. PATCH runs help desk tickets and IT Glue. CHRONO keeps time from phone calls. On the compliance side, REMY does GCC High engineering and SENTRY runs the CMMC maintenance board. Why not one bot? Least privilege. Each one only gets the access its job needs. REMY and SENTRY show low usage for one reason: the enclave isn't running yet.</p></div>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-title="Ticket and time workflow">
+  <div class="label">03 · Day to day</div>
+  <h2>Ticket and time workflow</h2>
+  <div class="body">
+    <ol class="steps">
+      <li><div class="num">1</div><b>Ticket starts</b><span>DELTA starts a clock</span></li>
+      <li><div class="num">2</div><b>Phone call</b><span>CHRONO pulls call time from RingCentral</span></li>
+      <li><div class="num">3</div><b>Draft ready</b><span>Note + time, using my rules</span></li>
+      <li><div class="num">4</div><b>I approve</b><span>Then PATCH posts it</span></li>
+    </ol>
+    <div class="rules">
+      <div class="card"><span>Email-only work</span><b>10 min</b></div>
+      <div class="card"><span>Call work</span><b style="font-size:30px">Connected time + 10 min wrap-up</b></div>
+      <div class="card"><span>Reply alert</span><b style="font-size:30px">Every 30 min</b><span>Weekdays, only when someone's waiting</span></div>
+      <div class="card"><span>Time saved per week</span><b style="font-size:24px;margin-top:10px"><mark class="ph">[JOSHUA: measured number]</mark></b></div>
+    </div>
+    <p class="small muted" style="margin:0"><b style="color:var(--fg)">Also built:</b> morning board · email triage · meeting prep · end-of-day wrap. Built, used, then paused to keep usage down. Run on demand.</p>
+    <div class="callout guard" style="font-size:30px">Phone numbers keep the last four digits. Call content is never logged.</div>
+  </div>
+  <div class="notes-src"><p>Here's the day-to-day workflow. When I start a ticket, DELTA starts a clock. If I'm on a call, CHRONO pulls the call time from RingCentral and matches it to the ticket. It keeps only the last four digits of the number, and it never logs what was said. When I'm done, the note and time entry are already drafted, using rules I wrote down once. Email-only work is ten minutes. Call work is the connected time, plus ten minutes to wrap up. I approve it, and PATCH posts it. Nothing goes out without me. And every thirty minutes on weekdays, I get an alert, but only when someone is waiting on a reply.</p></div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-title="IT Glue documentation">
+  <div class="label">04 · Documentation</div>
+  <h2>IT Glue documentation</h2>
+  <div class="body">
+    <div class="row">
+      <div class="card col"><div class="stat"><span class="n">7</span><span class="t">client organizations assigned</span></div></div>
+      <div class="card col"><div class="stat"><span class="n">40</span><span class="t">onboarding &amp; provisioning steps unchecked</span></div></div>
+      <div class="card col"><div class="stat"><span class="n">0</span><span class="t">styling errors in the drafts</span></div></div>
+    </div>
+    <ol class="steps">
+      <li><div class="num">1</div><b>Example first</b><span>Found an existing record and showed me before touching anything</span></li>
+      <li><div class="num">2</div><b>One client at a time</b><span>Read-only access, nothing crosses between clients</span></li>
+      <li><div class="num">3</div><b>Styling check</b><span>Using the skill from Hunter's team library</span></li>
+      <li><div class="num">4</div><b>I publish</b><span>I bring every draft in myself</span></li>
+    </ol>
+    <div class="callout guard">The bots draft. I publish.</div>
+  </div>
+  <div class="notes-src"><p>Next, documentation. I had seven client organizations assigned to me in IT Glue, with forty onboarding and provisioning steps still unchecked. PATCH started by finding an existing example, showed it to me first, and matched that format. After that, it drafted the onboarding docs on read-only access, one client at a time, so nothing crosses over. Every draft passed the team's IT Glue styling check, a skill from Hunter's library, with zero errors. I review each one and bring it in myself.</p></div>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-title="Post-migration cleanup suite">
+  <div class="label">05 · Scripting toolkit</div>
+  <h2>Post-migration cleanup suite</h2>
+  <div class="body">
+    <div class="row" style="flex:1;min-height:0">
+      <div class="col" style="flex:1.25">
+        <div class="card">
+          <div class="mini"><b>PostEmail-Migration-v3.ps1</b> / <b>MS-Reg-Wipe.ps1</b></div>
+          <h3 style="margin-top:10px">"Fresh start" after an email migration</h3>
+          <p class="small muted">~1,700–1,950 lines · 48–56 functions</p>
+          <div class="k" style="margin-top:20px">Clears</div>
+          <div class="chips">
+            <span>Closes every M365 process</span><span>Outlook profiles</span><span>OST / NST caches</span><span>Autocomplete (backed up first)</span><span>Offline address books</span><span>Autodiscover cache</span><span>New Outlook data</span><span>Teams caches</span><span>Office sign-in tokens</span><span>Licensing cache</span><span>Web Account Manager cache</span><span>Saved credentials</span><span>OneDrive link</span><span>Old work-or-school registration</span>
+          </div>
+        </div>
+        <div class="card" style="padding:20px 30px"><span class="small muted">Time saved vs. by hand</span> &nbsp;<mark class="ph" style="font-size:26px">[JOSHUA: manual vs script minutes]</mark></div>
+      </div>
+      <div class="col">
+        <div class="card mini"><b>MS-Reg-Wipe.Tests.ps1</b><br>Pester test suite · <span style="color:var(--fg);font-weight:600">1,283 lines · 110 tests</span></div>
+        <div class="card mini"><b>Check-OldTenantLeftovers.ps1</b><br><span style="color:var(--good);font-weight:600">Report-only, changes nothing:</span> <span class="muted">wallpaper &amp; lock-screen policies, Intune enrollments, EnterpriseMgmt tasks, MDM certificates, join status, linked OneDrive</span></div>
+        <div class="card mini"><b>Remove-OldEdgePolicies.ps1</b><br><span class="muted">Old homepage &amp; startup policies, current user only</span></div>
+        <div>
+          <div class="k muted small" style="letter-spacing:.04em;margin-bottom:10px">Version history</div>
+          <div class="timeline"><span class="pt">Sep 30 "OLDWORKS"</span><span class="sep">→</span><span class="pt">Oct 2 "Updated"</span><span class="sep">→</span><span class="pt">Linux test run</span><span class="sep">→</span><span class="pt">Oct 29 "v3"</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="gloss"><b>M365</b> = Microsoft 365 · <b>OST / NST</b> = Outlook offline data files · <b>MDM</b> = Mobile Device Management · Names and paths shown are sanitized: no usernames, client names, or tenant IDs.</div>
+  <div class="notes-src"><p>DELTA also helps me refine my PowerShell. The biggest piece is a post-migration cleanup suite. After an email migration, a PC holds on to the old tenant everywhere: Outlook profiles and caches, Teams caches, Office sign-in tokens, saved credentials, the OneDrive link, even the old work or school registration. The script closes every Microsoft 365 process, backs up autocomplete first, and clears all of it, so the PC behaves like new. It has its own automated test suite, built in Pester. And I've improved it over several versions, starting in September. Alongside it, a report-only checker finds leftover device management and policies without changing anything, and a small script removes the old company's Edge homepage policies for the current user only.</p></div>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-title="Everyday Office and endpoint fixes">
+  <div class="label">06 · Scripting toolkit</div>
+  <h2>Everyday Office and endpoint fixes</h2>
+  <div class="body">
+    <div class="row" style="flex:1;min-height:0">
+      <div class="col" style="flex:1.9">
+        <div class="scripts">
+          <div class="script"><span class="name">Outlook-Wont-Open-PDF-Excel-Docs.ps1</span><span class="ph-cell"><mark class="ph">[JOSHUA: manual vs script minutes]</mark></span><span class="what">Least to most invasive, stops when Outlook works. Old profile renamed, never deleted. 577 lines, 15 functions.</span></div>
+          <div class="script"><span class="name">Reset-WebView2.ps1</span><span class="ph-cell"><mark class="ph">[JOSHUA: manual vs script minutes]</mark></span><span class="what">Reinstalls WebView2, clears Office sign-in caches. Fixes the old sign-in page still showing.</span></div>
+          <div class="script"><span class="name">Fix-TeamsOutlookAddin.ps1</span><span class="ph-cell"><mark class="ph">[JOSHUA: manual vs script minutes]</mark></span><span class="what">Repairs the Teams Meeting add-in in classic Outlook.</span></div>
+          <div class="script"><span class="name">Reset-PrinterDrivers.ps1</span><span class="ph-cell"><mark class="ph">[JOSHUA: manual vs script minutes]</mark></span><span class="what">Clears spooler, printers, ports, drivers. Never touches Microsoft built-ins.</span></div>
+          <div class="script"><span class="name">Reinstall-M365Apps.ps1</span><span class="ph-cell"><mark class="ph">[JOSHUA: manual vs script minutes]</mark></span><span class="what">Self-elevation check, logging, verifies activation. Saved as a shared runbook skill.</span></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mini"><div class="k">AD Connect delta sync</div><code style="font-size:19px">Start-ADSyncSyncCycle -PolicyType Delta</code></div>
+        <pre><span class="c"># Reinstall-M365Apps: run elevated,
+# bypass for this process only</span>
+Start-Process powershell -Verb RunAs `
+  -ArgumentList `
+  '-ExecutionPolicy','Bypass','-File',
+  'C:\Users\&lt;username&gt;\Downloads\
+   Reinstall-M365Apps.ps1'</pre>
+      </div>
+    </div>
+  </div>
+  <div class="gloss"><b>M365</b> = Microsoft 365 · <b>AD</b> = Active Directory · Paths are sanitized.</div>
+  <div class="notes-src"><p>The rest of the toolkit is everyday fixes. When Outlook won't open attachments, a guided script starts with the least invasive fix and stops as soon as Outlook works. As a last resort, it renames the old profile instead of deleting it. Others reset WebView2 when the old company's sign-in page keeps showing, repair the Teams meeting add-in in classic Outlook, clear printer drivers without touching Microsoft's built-ins, and reinstall Microsoft 365 Apps with a self-elevation check. The time each script saves over doing it by hand is still being measured.</p></div>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-title="FortiGate training">
+  <div class="label">07 · Networking</div>
+  <h2>FortiGate training</h2>
+  <div class="body">
+    <div class="row">
+      <div class="col">
+        <div class="card"><div class="k">Learn FortiGate</div><h3>Official Fortinet training</h3><p class="small muted" style="margin-bottom:20px">Where the team can learn FortiGate, Fortinet's firewall</p>
+          <ul class="links">
+            <li><a href="https://training.fortinet.com/" target="_blank" rel="noopener">Fortinet Training Institute<small>Course catalog</small></a></li>
+            <li><a href="https://www.fortinet.com/training-certification" target="_blank" rel="noopener">Training &amp; certification<small>Overview</small></a></li>
+            <li><a href="https://www.fortinet.com/training/cybersecurity-professionals" target="_blank" rel="noopener">For cybersecurity professionals<small>Training paths</small></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card"><div class="k">Troubleshooting reference</div><h3>FortiGate + Azure site-to-site VPN</h3><p class="small muted" style="margin-bottom:20px">Fortinet Community articles we use on tickets</p>
+          <ul class="links">
+            <li><a href="https://community.fortinet.com/fortigate-3/technical-tip-deploying-s2s-vpn-between-microsoft-azure-virtual-network-gateway-and-fortigate-117984" target="_blank" rel="noopener">Azure VPN gateway ↔ FortiGate<small>Site-to-site setup</small></a></li>
+            <li><a href="https://community.fortinet.com/fortigate-3/technical-tip-bgp-over-an-azure-vnet-vpn-103398" target="_blank" rel="noopener">BGP over an Azure VNet VPN<small>Dynamic routing</small></a></li>
+            <li><a href="https://community.fortinet.com/fortigate-3/technical-tip-explanation-of-ipsec-vpn-dpd-options-and-on-idle-tunnel-flushing-process-137398" target="_blank" rel="noopener">IPsec DPD &amp; idle tunnels<small>Why tunnels drop</small></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="gloss"><b>VPN</b> = virtual private network · <b>BGP</b> = Border Gateway Protocol · <b>VNet</b> = Azure virtual network · <b>IPsec</b> = Internet Protocol Security · <b>DPD</b> = Dead Peer Detection</div>
+  <div class="notes-src"><p>On the networking side, here are the FortiGate training resources. That's Fortinet's official training, plus the reference articles for FortiGate-to-Azure VPN (virtual private network) tunnels that come up in our tickets. The links are in the repo.</p>
+    <ul>
+      <li>Fortinet Training Institute (course catalog): <a href="https://training.fortinet.com/">https://training.fortinet.com/</a></li>
+      <li>Fortinet training and certification overview: <a href="https://www.fortinet.com/training-certification">https://www.fortinet.com/training-certification</a></li>
+      <li>Fortinet training for cybersecurity professionals: <a href="https://www.fortinet.com/training/cybersecurity-professionals">https://www.fortinet.com/training/cybersecurity-professionals</a></li>
+      <li>Site-to-site VPN between an Azure virtual network gateway and FortiGate: <a href="https://community.fortinet.com/fortigate-3/technical-tip-deploying-s2s-vpn-between-microsoft-azure-virtual-network-gateway-and-fortigate-117984">community.fortinet.com/…-117984</a></li>
+      <li>BGP (Border Gateway Protocol) over an Azure VNet (virtual network) VPN: <a href="https://community.fortinet.com/fortigate-3/technical-tip-bgp-over-an-azure-vnet-vpn-103398">community.fortinet.com/…-103398</a></li>
+      <li>IPsec VPN DPD (Dead Peer Detection) options and idle tunnel flushing: <a href="https://community.fortinet.com/fortigate-3/technical-tip-explanation-of-ipsec-vpn-dpd-options-and-on-idle-tunnel-flushing-process-137398">community.fortinet.com/…-137398</a></li>
+    </ul></div>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-title="CMMC Level 2 Enclave Toolkit">
+  <div class="label">08 · Pointed at the enclave</div>
+  <h2>The CMMC Level 2 Enclave Toolkit</h2>
+  <div class="body">
+    <ol class="steps">
+      <li><div class="num">1</div><b>Define the CUI boundary</b></li>
+      <li><div class="num">2</div><b>Evaluate each tool</b></li>
+      <li><div class="num">3</div><b>Map to NIST 800-171 families</b></li>
+      <li><div class="num">4</div><b>Record decision &amp; evidence</b></li>
+      <li><div class="num">5</div><b>Feed the System Security Plan (SSP)</b></li>
+    </ol>
+    <div class="row">
+      <div class="card col"><div class="stat"><span class="n">13</span><span class="t">evaluation criteria per tool</span></div></div>
+      <div class="card col" style="flex:1.4"><div class="k">Vendor-neutral</div><h3 style="font-size:40px">No picks, no pricing. Just evidence.</h3></div>
+    </div>
+  </div>
+  <div class="gloss"><b>CMMC</b> = Cybersecurity Maturity Model Certification · <b>CUI</b> = Controlled Unclassified Information · <b>NIST</b> = National Institute of Standards and Technology</div>
+  <div class="notes-src"><p>This next one points straight at the enclave: the CMMC Level 2 Enclave Toolkit. Every tool that goes into an enclave holding CUI, that's Controlled Unclassified Information, has to be evaluated the same way, with evidence. So I built a vendor-neutral template with thirteen criteria. Each one maps to the control families in NIST 800-171. That's the National Institute of Standards and Technology. It doesn't recommend vendors or list prices. It just captures the evidence an assessor is going to ask for.</p></div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-title="What carries into the enclave">
+  <div class="label">09 · Go-live</div>
+  <h2>What carries into the enclave</h2>
+  <div class="body" style="gap:28px">
+    <table class="carry">
+      <thead><tr><th>Area</th><th>What carries over</th></tr></thead>
+      <tbody>
+        <tr><td>Maintenance</td><td>Ticket clock, time rules, SENTRY's maintenance board</td></tr>
+        <tr><td>Documentation</td><td>The IT Glue pattern: example first, draft, human publishes</td></tr>
+        <tr><td>Tool decisions</td><td>The enclave toolkit, mapped to NIST SP 800-171</td></tr>
+        <tr><td>Inside the boundary</td><td>AI helps build small tools. The tools run inside. CUI never leaves.</td></tr>
+      </tbody>
+    </table>
+    <div class="callout guard">No client data or CUI in any bot · Every message is a draft · I press Send</div>
+    <p class="small" style="margin:0"><b>Next:</b> timing one control family end to end, for real numbers. Due <mark class="ph">[JOSHUA: date]</mark></p>
+  </div>
+  <div class="gloss"><b>NIST SP</b> = National Institute of Standards and Technology Special Publication · <b>AI</b> = artificial intelligence · <b>CUI</b> = Controlled Unclassified Information</div>
+  <div class="notes-src"><p>So, what carries into the enclave? Maintenance already has the ticket clock, the time rules, and SENTRY's maintenance board. Documentation has the IT Glue pattern. Tool decisions have the toolkit. Inside the enclave, AI (artificial intelligence) helps build small tools, like evidence collectors and read-only configuration checks. The tools run inside the boundary, and CUI never leaves it. The rules don't change, either. No client data or CUI goes into a bot. Every message is a draft. And I press Send. Next, I'm timing one control family end to end, so you'll get real numbers instead of estimates.</p></div>
+</section>
+
+<!-- 11 -->
+<section class="slide end-slide" data-title="Questions">
+  <div class="ty">Thank you</div>
+  <h1>Questions?</h1>
+  <div class="by">Joshua Richard · S1 Technology</div>
+  <div class="notes-src"><p>That's the overview. Thanks for your time. Happy to take questions.</p></div>
+</section>
+
+</div></div>
+
+<button class="navbtn" id="prev" aria-label="Previous slide">‹</button>
+<button class="navbtn" id="next" aria-label="Next slide">›</button>
+<div id="hint">← → to move · N for notes · F for full screen</div>
+<div id="counter"></div>
+<aside id="notes" aria-live="polite"></aside>
+
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var stage = document.getElementById('stage');
+  var notes = document.getElementById('notes');
+  var counter = document.getElementById('counter');
+  var progress = document.getElementById('progress');
+  var i = 0;
+
+  function fromHash() {
+    var n = parseInt((location.hash || '').replace('#', ''), 10);
+    return (n >= 1 && n <= slides.length) ? n - 1 : 0;
+  }
+  function fit() {
+    var w = window.innerWidth;
+    var h = window.innerHeight - (notes.classList.contains('open') ? notes.offsetHeight : 0);
+    var s = Math.min(w / 1920, h / 1080);
+    stage.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
+    stage.style.top = (h / 2) + 'px';
+  }
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (el, k) { el.classList.toggle('active', k === i); });
+    var src = slides[i].querySelector('.notes-src');
+    notes.innerHTML = '<h4>Speaker notes · Slide ' + (i + 1) + ' of ' + slides.length + ' · ' + slides[i].getAttribute('data-title') + '</h4>' + (src ? src.innerHTML : '<p>No notes.</p>');
+    counter.textContent = (i + 1) + ' / ' + slides.length;
+    progress.style.width = ((i + 1) / slides.length * 100) + '%';
+    document.title = 'Grok Bot Show & Tell · ' + (i + 1) + ' · ' + slides[i].getAttribute('data-title');
+    if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
+  }
+  function toggleNotes() { notes.classList.toggle('open'); fit(); }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    switch (e.key) {
+      case 'ArrowRight': case 'ArrowDown': case 'PageDown': case ' ': case 'Enter':
+        e.preventDefault(); show(i + 1); break;
+      case 'ArrowLeft': case 'ArrowUp': case 'PageUp': case 'Backspace':
+        e.preventDefault(); show(i - 1); break;
+      case 'Home': show(0); break;
+      case 'End': show(slides.length - 1); break;
+      case 'n': case 'N': toggleNotes(); break;
+      case 'f': case 'F':
+        if (!document.fullscreenElement && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+        else if (document.exitFullscreen) document.exitFullscreen();
+        break;
+    }
+  });
+  document.getElementById('prev').addEventListener('click', function () { show(i - 1); });
+  document.getElementById('next').addEventListener('click', function () { show(i + 1); });
+  var x0 = null;
+  document.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 50) show(i + (dx < 0 ? 1 : -1));
+    x0 = null;
+  });
+  window.addEventListener('hashchange', function () { show(fromHash()); });
+  window.addEventListener('resize', fit);
+  if (/[?&]notes\b/.test(location.search)) notes.classList.add('open');
+  show(fromHash());
+  fit();
+  setTimeout(function () { document.getElementById('hint').classList.add('gone'); }, 6000);
+})();
+</script>
+</body>
+</html>
