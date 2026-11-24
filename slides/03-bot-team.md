@@ -24,6 +24,8 @@ title: One bot per job
 - Share of usage, Oct 21 – Nov 20: DELTA 52% · PATCH 19% · REMY + SENTRY 3% (unchanged from v4)
 - Footer: CMMC = Cybersecurity Maturity Model Certification · GCC High = Microsoft Government Community Cloud High · MSP = managed service provider · M365 = Microsoft 365 · CISA KEV = Cybersecurity and Infrastructure Security Agency Known Exploited Vulnerabilities · CCA = Certified CMMC Assessor · RMM = remote monitoring and management tool · CUI = Controlled Unclassified Information
 
+Avatars (from Joshua's screenshot) are in `assets/img/bots/` and embedded in the deck. SENTRY and REMY weren't in the screenshot, so they show a letter badge for now.
+
 FORGE is left off on purpose: it's personal, not S1 work.
 
 ## Speaker notes
