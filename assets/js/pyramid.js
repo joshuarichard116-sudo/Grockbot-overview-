@@ -11,7 +11,7 @@
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ---- the team (8 bots; DELTA is the capstone) ----
-  var MINT = [127, 220, 207], TEAL = [74, 190, 178], PEACH = [232, 180, 138], WHITE = [236, 248, 245];
+  var MINT = [182, 208, 166], PEACH = [226, 151, 101], WHITE = [240, 242, 238];
   var RINGS = [
     { y: 330, R: 430, speed: 13, off: 20, col: MINT },    // day ops, near the apex
     { y: -300, R: 640, speed: 8, off: 60, col: PEACH }    // enclave and BD, near the base
@@ -47,12 +47,12 @@
     g.fillStyle = gr; g.fillRect(0, 0, size, size); return s;
   }
   var G_MINT = glowSprite(MINT.join(','), 128), G_PEACH = glowSprite(PEACH.join(','), 128),
-      G_WHITE = glowSprite(WHITE.join(','), 128), G_CORE = glowSprite('70,170,190', 256);
+      G_WHITE = glowSprite(WHITE.join(','), 128), G_CORE = glowSprite('150,175,140', 256);
   function avatar(b) {   // round avatar with a thin rim, drawn once
     var S = 160, s = document.createElement('canvas'); s.width = s.height = S;
     var g = s.getContext('2d'), r = S / 2;
     g.save(); g.beginPath(); g.arc(r, r, r - 5, 0, 6.2832); g.closePath(); g.clip();
-    g.fillStyle = '#14201e'; g.fillRect(0, 0, S, S); g.drawImage(b.img, 0, 0, S, S); g.restore();
+    g.fillStyle = '#181a1c'; g.fillRect(0, 0, S, S); g.drawImage(b.img, 0, 0, S, S); g.restore();
     g.beginPath(); g.arc(r, r, r - 4, 0, 6.2832);
     g.strokeStyle = 'rgba(' + b.col.join(',') + ',.95)'; g.lineWidth = 4; g.stroke();
     return s;
@@ -126,14 +126,14 @@
     faces.forEach(function (f, n) {
       var front = n >= 2;
       var gr = ctx.createLinearGradient(apex.x, apex.y, (f.a.x + f.b.x) / 2, (f.a.y + f.b.y) / 2);
-      gr.addColorStop(0, 'rgba(127,220,207,' + (0.22 * fade).toFixed(3) + ')');
-      gr.addColorStop(1, 'rgba(22,128,130,' + ((front ? 0.20 : 0.10) * fade).toFixed(3) + ')');
+      gr.addColorStop(0, 'rgba(182,208,166,' + (0.22 * fade).toFixed(3) + ')');
+      gr.addColorStop(1, 'rgba(84,104,78,' + ((front ? 0.20 : 0.10) * fade).toFixed(3) + ')');
       ctx.globalAlpha = 1; ctx.fillStyle = gr;
       ctx.beginPath(); ctx.moveTo(apex.x, apex.y); ctx.lineTo(f.a.x, f.a.y); ctx.lineTo(f.b.x, f.b.y); ctx.closePath(); ctx.fill();
       if (full && front) {   // holographic scanlines crawling up the near faces
         for (var k = 0; k < 2; k++) {
           var u = frac(t * 0.09 + k * 0.5), l1 = lerp(f.a, apex, u), l2 = lerp(f.b, apex, u);
-          line(l1, l2, '#bff3ea', 1, 0.28 * fade * Math.sin(Math.PI * u));
+          line(l1, l2, '#e4eedd', 1, 0.28 * fade * Math.sin(Math.PI * u));
         }
       }
     });
@@ -141,10 +141,10 @@
     var E = [];
     for (i = 0; i < 4; i++) { E.push([C[i], apex]); E.push([C[i], C[(i + 1) % 4]]); }
     ctx.lineCap = 'round';
-    E.forEach(function (e) { line(e[0], e[1], '#7fdccf', 5 * Math.max(0.6, scale * 2.2), 0.09 * fade); });
+    E.forEach(function (e) { line(e[0], e[1], '#b6d0a6', 5 * Math.max(0.6, scale * 2.2), 0.09 * fade); });
     E.forEach(function (e) {
       var back = (e[0].z + e[1].z) / 2 > (apex.z + C[0].z + C[2].z) / 3 + 1;
-      line(e[0], e[1], '#c9f4ec', 1.15, (back ? 0.35 : 0.9) * fade);
+      line(e[0], e[1], '#e9f0e4', 1.15, (back ? 0.35 : 0.9) * fade);
     });
     return { C: C, apex: apex };
   }
@@ -170,7 +170,7 @@
     var la = isD ? 1 : Math.max(p.la, b.hov, focusBot === b.i ? 1 : 0);
     if (la > 0.02) {
       var fs = Math.max(10, Math.round((isD ? 14 : 11.5) * Math.min(1.25, p.k)));
-      ctx.globalAlpha = p.a * la; ctx.fillStyle = '#f2fbf8'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      ctx.globalAlpha = p.a * la; ctx.fillStyle = '#f4f5f2'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
       ctx.font = '750 ' + fs + 'px "Segoe UI", system-ui, sans-serif';
       if ('letterSpacing' in ctx) ctx.letterSpacing = '0.08em';
       ctx.fillText(b.n, p.x, p.y + r * 1.32);
@@ -187,12 +187,12 @@
 
     // floor: soft rings and the orbit shadows, plus a faint reflection
     ctx.lineWidth = 1;
-    for (i = 1; i <= 4; i++) ring3d(FLOOR, 230 * i, '#7fdccf', 0.10 - i * 0.015);
-    ring3d(FLOOR, RINGS[1].R, '#e8b48a', 0.10, [2, 7]);
+    for (i = 1; i <= 4; i++) ring3d(FLOOR, 230 * i, '#b6d0a6', 0.10 - i * 0.015);
+    ring3d(FLOOR, RINGS[1].R, '#e29765', 0.10, [2, 7]);
     body(spin, 2 * FLOOR - bob, 1, 0.10, false, true);
     // orbit paths
-    ring3d(RINGS[0].y, RINGS[0].R, '#7fdccf', 0.28, [3, 7]);
-    ring3d(RINGS[1].y, RINGS[1].R, '#e8b48a', 0.24, [3, 7]);
+    ring3d(RINGS[0].y, RINGS[0].R, '#b6d0a6', 0.28, [3, 7]);
+    ring3d(RINGS[1].y, RINGS[1].R, '#e29765', 0.24, [3, 7]);
 
     // bots behind the pyramid first
     var order = BOTS.slice(1).sort(function (a, b) { return sats[b.i].z - sats[a.i].z; });
