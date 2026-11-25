@@ -249,20 +249,22 @@ pre.src { margin: 0; background: var(--term); color: var(--term-ink); border-rad
 .rot { display: inline-block; background: #fff; color: var(--violet); padding: 0 .3em; border-radius: 10px; transition: opacity .25s, transform .25s; }
 .rot.out { opacity: 0; transform: translateY(8px); }
 
-.orbit { position: relative; width: min(440px, 86vw); aspect-ratio: 1; margin: 0 auto; }
+.orbit { position: relative; width: min(440px, 86vw); aspect-ratio: 1; margin: 0 auto; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+.orbit.dragging { cursor: grabbing; }
 .orbit .spokes { position: absolute; inset: 0; width: 100%; height: 100%; }
 .orbit .ring { fill: none; stroke: rgba(255,255,255,.35); stroke-width: 1; stroke-dasharray: 3 6; }
 .orbit .ring.r2 { stroke: rgba(255,255,255,.18); }
-.orbit .sp { stroke: rgba(255,255,255,.85); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 14 200; stroke-dashoffset: 0; animation: pulse 3.6s linear infinite; }
-@keyframes pulse { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -214; } }
-.ringwrap { position: absolute; inset: 0; animation: spin 60s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.sat { position: absolute; left: 50%; top: 50%; width: 19%; margin: -9.5% 0 0 -9.5%; transform: rotate(var(--a)) translateY(-182%) rotate(calc(-1 * var(--a))); }
-.sat > * { animation: spin 60s linear infinite reverse; }
-.sat img { display: block; width: 100%; aspect-ratio: 1; border-radius: 50%; background: #14201e; border: 2px solid rgba(255,255,255,.55); box-shadow: 0 6px 18px rgba(14,24,22,.35); }
+.orbit .sp { stroke: rgba(255,255,255,.22); stroke-width: 1.5; stroke-linecap: round; }
+.orbit .pl { stroke: #fff; stroke-width: 2.5; stroke-linecap: round; }
+.ringwrap { position: absolute; inset: 0; }
+.sat { position: absolute; left: 50%; top: 50%; width: 19%; margin: -9.5% 0 0 -9.5%; }
+.sat img { display: block; width: 100%; aspect-ratio: 1; border-radius: 50%; background: #14201e; border: 2px solid rgba(255,255,255,.55); box-shadow: 0 6px 18px rgba(14,24,22,.35); transition: border-color .25s, box-shadow .25s; -webkit-user-drag: none; pointer-events: none; }
 .sat span { display: block; text-align: center; font-size: 11.5px; font-weight: 750; letter-spacing: .08em; margin-top: 4px; }
 .sat:hover img { border-color: #fff; }
-.core { position: absolute; left: 50%; top: 50%; width: 28%; transform: translate(-50%, -50%); text-align: center; }
+.sat.hit img { border-color: #fff; box-shadow: 0 0 0 5px rgba(255,255,255,.28), 0 6px 18px rgba(14,24,22,.35); }
+.orbit-hint { text-align: center; font-size: 12.5px; opacity: .75; margin: 8px 0 0; }
+.core { position: absolute; left: 50%; top: 50%; width: 28%; margin: -14% 0 0 -14%; text-align: center; z-index: 1; }
+.core img { -webkit-user-drag: none; pointer-events: none; }
 .core img { width: 100%; aspect-ratio: 1; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 10px rgba(255,255,255,.12), 0 0 0 22px rgba(255,255,255,.06), 0 10px 30px rgba(14,24,22,.4); animation: breathe 4s ease-in-out infinite; background: #14201e; }
 @keyframes breathe { 50% { box-shadow: 0 0 0 16px rgba(255,255,255,.14), 0 0 0 32px rgba(255,255,255,.05), 0 10px 30px rgba(14,24,22,.4); } }
 .core span { display: block; font-weight: 800; letter-spacing: .12em; margin-top: 6px; font-size: 13px; }
@@ -296,7 +298,7 @@ pre.src { margin: 0; background: var(--term); color: var(--term-ink); border-rad
 .feature .tagline { font-size: 12.5px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; color: #8fe9dc; }
 @media (max-width: 640px) { .feature { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) {
-  .aurora i, .ringwrap, .sat > *, .orbit .sp, .core img, .track-r { animation: none !important; }
+  .aurora i, .core img, .track-r { animation: none !important; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .flow::before { transform: none !important; transition: none !important; }
 }
@@ -463,7 +465,6 @@ button.att:hover { border-color: var(--violet); }
 .bot.picked { border: 2px solid var(--teal); padding: 17px; }
 .bot.picked img { box-shadow: 0 0 0 4px var(--teal-soft); }
 .sat { cursor: pointer; }
-.orbit:hover .ringwrap, .orbit:hover .sat > * { animation-play-state: paused; }
 .sat:focus-visible img { outline: 3px solid var(--ph-bg); }
 .ribbon:hover .track-r { animation-play-state: paused; }
 .stat { cursor: default; }
@@ -812,10 +813,11 @@ details.more > .more-b > .cb-h3:first-child { margin-top: 6px; }
       </div>
     </div>
     <div class="orbit" aria-label="DELTA in the center, routing work to the other bots">
-      <svg class="spokes" viewBox="0 0 400 400" aria-hidden="true"><circle cx="200" cy="200" r="160" class="ring"/><circle cx="200" cy="200" r="105" class="ring r2"/><line x1="200" y1="200" x2="200.0" y2="40.0" class="sp" style="animation-delay:0.00s"/><line x1="200" y1="200" x2="313.1" y2="86.9" class="sp" style="animation-delay:0.45s"/><line x1="200" y1="200" x2="360.0" y2="200.0" class="sp" style="animation-delay:0.90s"/><line x1="200" y1="200" x2="313.1" y2="313.1" class="sp" style="animation-delay:1.35s"/><line x1="200" y1="200" x2="200.0" y2="360.0" class="sp" style="animation-delay:1.80s"/><line x1="200" y1="200" x2="86.9" y2="313.1" class="sp" style="animation-delay:2.25s"/><line x1="200" y1="200" x2="40.0" y2="200.0" class="sp" style="animation-delay:2.70s"/><line x1="200" y1="200" x2="86.9" y2="86.9" class="sp" style="animation-delay:3.15s"/></svg>
-      <div class="ringwrap"><div class="sat" style="--a:0deg"><img src="assets/img/bots/sentry.png" alt=""><span>SENTRY</span></div><div class="sat" style="--a:51.43deg"><img src="assets/img/bots/remy.png" alt=""><span>REMY</span></div><div class="sat" style="--a:102.86deg"><img src="assets/img/bots/patch.png" alt=""><span>PATCH</span></div><div class="sat" style="--a:154.29deg"><img src="assets/img/bots/netty.png" alt=""><span>NETTY</span></div><div class="sat" style="--a:205.71deg"><img src="assets/img/bots/radar.png" alt=""><span>RADAR</span></div><div class="sat" style="--a:257.14deg"><img src="assets/img/bots/chrono.png" alt=""><span>CHRONO</span></div><div class="sat" style="--a:308.57deg"><img src="assets/img/bots/pelican.png" alt=""><span>PELICAN</span></div></div>
-      <div class="core"><img src="assets/img/bots/delta.png" alt=""><span>DELTA</span></div>
+      <svg class="spokes" viewBox="0 0 400 400" aria-hidden="true"><circle cx="200" cy="200" r="144" class="ring"/><circle cx="200" cy="200" r="96" class="ring r2"/><g class="sps"></g></svg>
+      <div class="ringwrap"><div class="sat"><img src="assets/img/bots/sentry.svg" alt=""><span>SENTRY</span></div><div class="sat"><img src="assets/img/bots/remy.svg" alt=""><span>REMY</span></div><div class="sat"><img src="assets/img/bots/patch.svg" alt=""><span>PATCH</span></div><div class="sat"><img src="assets/img/bots/netty.svg" alt=""><span>NETTY</span></div><div class="sat"><img src="assets/img/bots/radar.svg" alt=""><span>RADAR</span></div><div class="sat"><img src="assets/img/bots/chrono.svg" alt=""><span>CHRONO</span></div><div class="sat"><img src="assets/img/bots/pelican.svg" alt=""><span>PELICAN</span></div></div>
+      <div class="core"><img src="assets/img/bots/delta.svg" alt=""><span>DELTA</span></div>
     </div>
+    <p class="orbit-hint">Drag or flick to spin the team</p>
   </div>
 </section>
 
@@ -849,14 +851,14 @@ details.more > .more-b > .cb-h3:first-child { margin-top: 6px; }
     <div class="say" role="note" aria-label="Talking points"><div class="say-h"><svg class="i"><use href="#i-mic"/></svg>Say this</div><ul><li>I set Grok up as a team: one bot per job, and each bot only gets the access that job needs.</li><li>DELTA is the lead. It takes the work in and hands it to the right bot.</li><li>Every bot follows the same rules. Everything it writes is a draft, it's read-only in our tools, and it never holds credentials, client data, or CUI.</li><li>DELTA and PATCH get most of the use today. REMY and SENTRY are low for one reason: the enclave isn't running yet.</li></ul></div>
     <p class="intro">Each bot gets one job and only the access that job needs. DELTA leads and hands work to the others.</p>
     <div class="bots">
-      <div class="bot lead"><img src="assets/img/bots/delta.png" alt=""><div><b>DELTA</b><span>Lead. Runs the CMMC pod: coordination, ticket and shift reports, scripts, email and Teams triage, handoffs.</span><small>Defense Enclave Lifecycle &amp; Tenant Architecture</small></div></div>
-      <div class="bot"><img src="assets/img/bots/sentry.png" alt=""><div><b>SENTRY</b><span>CMMC Level 2 pod manager: practice readiness, controls, oversight.</span></div></div>
-      <div class="bot"><img src="assets/img/bots/remy.png" alt=""><div><b>REMY</b><span>GCC High and CMMC Level 2 engineer, explained in plain language.</span><small>Readiness Engine for Mission-critical sYstems</small></div></div>
-      <div class="bot"><img src="assets/img/bots/patch.png" alt=""><div><b>PATCH</b><span>Day-to-day MSP help desk tickets.</span><small>Practical Assistant for Tickets, Configs &amp; Helpdesk</small></div></div>
-      <div class="bot"><img src="assets/img/bots/netty.png" alt=""><div><b>NETTY</b><span>Networking: Cisco, Meraki, UniFi, FortiGate.</span></div></div>
-      <div class="bot"><img src="assets/img/bots/radar.png" alt=""><div><b>RADAR</b><span>Threat intel: M365 and GCC High, attacks on MSPs, defense contractors, the CISA KEV list.</span><small>Real-time Analysis of Defense Alerts &amp; Risks</small></div></div>
-      <div class="bot"><img src="assets/img/bots/chrono.png" alt=""><div><b>CHRONO</b><span>Matches RingCentral calls to MTX tickets and drafts time entries.</span><small>Call &amp; Hours Recording, Run-time Operations</small></div></div>
-      <div class="bot"><img src="assets/img/bots/pelican.png" alt=""><div><b>PELICAN</b><span>Business development: contract and lead research for S1.</span><small>Proposal, Eligibility &amp; Lead Intelligence for Contracts And Networking</small></div></div>
+      <div class="bot lead"><img src="assets/img/bots/delta.svg" alt=""><div><b>DELTA</b><span>Lead. Runs the CMMC pod: coordination, ticket and shift reports, scripts, email and Teams triage, handoffs.</span><small>Defense Enclave Lifecycle &amp; Tenant Architecture</small></div></div>
+      <div class="bot"><img src="assets/img/bots/sentry.svg" alt=""><div><b>SENTRY</b><span>CMMC Level 2 pod manager: practice readiness, controls, oversight.</span></div></div>
+      <div class="bot"><img src="assets/img/bots/remy.svg" alt=""><div><b>REMY</b><span>GCC High and CMMC Level 2 engineer, explained in plain language.</span><small>Readiness Engine for Mission-critical sYstems</small></div></div>
+      <div class="bot"><img src="assets/img/bots/patch.svg" alt=""><div><b>PATCH</b><span>Day-to-day MSP help desk tickets.</span><small>Practical Assistant for Tickets, Configs &amp; Helpdesk</small></div></div>
+      <div class="bot"><img src="assets/img/bots/netty.svg" alt=""><div><b>NETTY</b><span>Networking: Cisco, Meraki, UniFi, FortiGate.</span></div></div>
+      <div class="bot"><img src="assets/img/bots/radar.svg" alt=""><div><b>RADAR</b><span>Threat intel: M365 and GCC High, attacks on MSPs, defense contractors, the CISA KEV list.</span><small>Real-time Analysis of Defense Alerts &amp; Risks</small></div></div>
+      <div class="bot"><img src="assets/img/bots/chrono.svg" alt=""><div><b>CHRONO</b><span>Matches RingCentral calls to MTX tickets and drafts time entries.</span><small>Call &amp; Hours Recording, Run-time Operations</small></div></div>
+      <div class="bot"><img src="assets/img/bots/pelican.svg" alt=""><div><b>PELICAN</b><span>Business development: contract and lead research for S1.</span><small>Proposal, Eligibility &amp; Lead Intelligence for Contracts And Networking</small></div></div>
     </div>
     <div class="team-side">
       <div class="card">
@@ -1885,7 +1887,7 @@ details.more > .more-b > .cb-h3:first-child { margin-top: 6px; }
     PATCH: { role: 'Tickets, configs, and help desk' },
     SENTRY: { role: 'CMMC Level 2 pod manager: readiness, controls, oversight' }
   };
-  function av(name, cls) { return '<img src="assets/img/bots/' + name.toLowerCase() + '.png" alt=""' + (cls ? ' class="' + cls + '"' : '') + '>'; }
+  function av(name, cls) { return '<img src="assets/img/bots/' + name.toLowerCase() + '.svg" alt=""' + (cls ? ' class="' + cls + '"' : '') + '>'; }
   var AREAS = [
     { bot: 'REMY', kick: 'Access and sign-in', title: 'Who can get in, and how', f: 'access' },
     { bot: 'RADAR', kick: 'Audit logs', title: 'What happened yesterday, in one page', f: 'audit' },
@@ -2250,6 +2252,80 @@ details.more > .more-b > .cb-h3:first-child { margin-top: 6px; }
     s.addEventListener('click', go);
     s.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
   });
+
+  // orbit: DELTA in the middle, bots ride the ring; drag or flick to spin, pulses land on each bot
+  (function () {
+    var orbit = document.querySelector('.orbit'); if (!orbit) return;
+    var sats = Array.prototype.slice.call(orbit.querySelectorAll('.sat'));
+    var g = orbit.querySelector('.sps'), NS = 'http://www.w3.org/2000/svg';
+    var N = sats.length, R = 36, RV = 144, SAT_R = 38, CORE_R = 56;  // R in % of the box; RV, radii in the 400 viewBox
+    var lines = sats.map(function () {
+      var base = document.createElementNS(NS, 'line'), pl = document.createElementNS(NS, 'line');
+      base.setAttribute('class', 'sp'); pl.setAttribute('class', 'pl');
+      g.appendChild(base); g.appendChild(pl); return { base: base, pl: pl, hit: 0 };
+    });
+    var ang = 0, vel = reduce ? 0 : 0.006, BASE = reduce ? 0 : 0.006;  // degrees per ms (one turn a minute)
+    var hover = false, drag = null, moved = false, last = performance.now();
+    var PERIOD = 2600, PL = 16;  // pulse travel time (ms) and length (viewBox units)
+    function place(now) {
+      for (var i = 0; i < N; i++) {
+        var a = (ang + i * 360 / N - 90) * Math.PI / 180, c = Math.cos(a), sn = Math.sin(a);
+        sats[i].style.left = (50 + R * c) + '%'; sats[i].style.top = (50 + R * sn) + '%';
+        var x0 = 200 + CORE_R * c, y0 = 200 + CORE_R * sn, end = RV - SAT_R - 2;
+        var x1 = 200 + end * c, y1 = 200 + end * sn, L = lines[i];
+        L.base.setAttribute('x1', x0.toFixed(1)); L.base.setAttribute('y1', y0.toFixed(1));
+        L.base.setAttribute('x2', x1.toFixed(1)); L.base.setAttribute('y2', y1.toFixed(1));
+        var t = reduce ? -1 : ((now + i * PERIOD / N) % PERIOD) / PERIOD;  // 0..1 along the spoke
+        if (t < 0) { L.pl.setAttribute('opacity', 0); continue; }
+        var span = end - CORE_R, head = CORE_R + t * (span + PL), tail = Math.max(CORE_R, head - PL), hd = Math.min(end, head);
+        L.pl.setAttribute('opacity', hd > tail ? 1 : 0);
+        L.pl.setAttribute('x1', (200 + tail * c).toFixed(1)); L.pl.setAttribute('y1', (200 + tail * sn).toFixed(1));
+        L.pl.setAttribute('x2', (200 + hd * c).toFixed(1)); L.pl.setAttribute('y2', (200 + hd * sn).toFixed(1));
+        var arrived = head >= end;
+        if (arrived && !L.hit) { L.hit = 1; sats[i].classList.add('hit'); (function (el) { setTimeout(function () { el.classList.remove('hit'); }, 320); })(sats[i]); }
+        if (!arrived) L.hit = 0;
+      }
+    }
+    function angleAt(e) { var r = orbit.getBoundingClientRect(); return Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)) * 180 / Math.PI; }
+    function frame(now) {
+      var dt = Math.min(64, now - last); last = now;
+      if (!drag) {
+        var target = hover ? 0 : BASE;
+        vel += (target - vel) * (1 - Math.exp(-dt / 900));
+        ang += vel * dt;
+      }
+      place(now); requestAnimationFrame(frame);
+    }
+    orbit.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') hover = true; });
+    orbit.addEventListener('pointerleave', function () { hover = false; });
+    orbit.addEventListener('pointerdown', function (e) {
+      if (e.button !== 0) return;
+      drag = { a: angleAt(e), x: e.clientX, y: e.clientY, t: performance.now(), id: e.pointerId, samples: [] }; moved = false;
+    });
+    orbit.addEventListener('pointermove', function (e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      if (!moved && Math.hypot(e.clientX - drag.x, e.clientY - drag.y) < 5) return;
+      if (!moved) { moved = true; orbit.classList.add('dragging'); try { orbit.setPointerCapture(e.pointerId); } catch (err) {} }
+      var a = angleAt(e), d = a - drag.a; if (d > 180) d -= 360; if (d < -180) d += 360;
+      ang += d; drag.a = a; var now = performance.now();
+      drag.samples.push({ d: d, t: now }); while (drag.samples.length && now - drag.samples[0].t > 90) drag.samples.shift();
+    });
+    function end(e) {
+      if (!drag) return;
+      if (moved) {
+        var sum = 0, s = drag.samples, span = s.length ? Math.max(16, performance.now() - s[0].t) : 1;
+        s.forEach(function (p) { sum += p.d; });
+        vel = Math.max(-1.2, Math.min(1.2, s.length ? sum / span : 0));
+      }
+      drag = null; orbit.classList.remove('dragging');
+    }
+    orbit.addEventListener('pointerup', end); orbit.addEventListener('pointercancel', end);
+    orbit.addEventListener('click', function (e) { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
+    orbit.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); ang += (e.key === 'ArrowRight' ? 1 : -1) * 360 / N; }
+    });
+    place(last); requestAnimationFrame(frame);
+  })();
 
   // stats count again on hover
   document.querySelectorAll('.stat').forEach(function (st) {
