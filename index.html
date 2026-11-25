@@ -719,6 +719,7 @@ tbody tr:hover td { background: var(--violet-soft); }
       <a href="#scripts">Script lab</a>
       <a href="#enclave">The enclave</a>
       <a href="#automate">Automation ideas</a>
+      <a href="#cloudbuilder">Cloud builder</a>
       <a href="#skills">Skills</a>
     </nav>
     <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch to dark mode"><svg class="i moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.9" y1="4.9" x2="6.3" y2="6.3"/><line x1="17.7" y1="17.7" x2="19.1" y2="19.1"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.9" y1="19.1" x2="6.3" y2="17.7"/><line x1="17.7" y1="6.3" x2="19.1" y2="4.9"/></svg></button>
@@ -970,10 +971,272 @@ tbody tr:hover td { background: var(--violet-soft); }
   </div>
 </section>
 
-<!-- ================= SKILLS ================= -->
-<section class="band" id="skills">
+<!-- ================= ENCLAVE CLOUD BUILDER (Terraform) ================= -->
+<style>
+/* Cloud builder section: uses only the page's color tokens so it follows any theme */
+.cb-why { margin-bottom: 34px; }
+.cb-demo { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 18px; align-items: stretch; }
+@media (max-width: 900px) { .cb-demo { grid-template-columns: 1fr; } }
+.cb-pane { background: var(--term); color: var(--term-ink); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; min-width: 0; border: 1px solid var(--line); }
+.cb-bar { display: flex; align-items: center; gap: 10px; padding: 10px 14px; font-size: 13px; background: rgba(255,255,255,.06); color: var(--term-ink); }
+.cb-bar .sp { flex: 1; }
+.cb-bar svg.i { width: 16px; height: 16px; opacity: .8; }
+.cb-json { margin: 0; padding: 16px 18px; font-size: 13.5px; line-height: 1.6; overflow-x: auto; white-space: pre; flex: 1; }
+.cb-json .k { color: #9ecbff; } .cb-json .s { color: #b5f0c8; } .cb-json .n { color: #ffd59a; } .cb-json .p { opacity: .55; }
+.cb-json .hl { background: rgba(255,213,154,.16); border-radius: 4px; outline: 1px solid rgba(255,213,154,.35); transition: background .3s; }
+.cb-seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--card); gap: 2px; }
+.cb-seg button { font: inherit; font-size: 14px; font-weight: 650; border: 0; background: transparent; color: var(--muted); padding: 7px 14px; border-radius: 999px; cursor: pointer; display: inline-flex; gap: 7px; align-items: center; }
+.cb-seg button[aria-pressed="true"] { background: var(--violet); color: #fff; }
+.cb-seg button svg.i { width: 16px; height: 16px; }
+.cb-ctl { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 14px; }
+.cb-ctl .sp { flex: 1; }
+.cb-ctl label { font-size: 14px; color: var(--muted); display: inline-flex; gap: 8px; align-items: center; }
+.cb-ctl select { font: inherit; font-size: 14px; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink); }
+.cb-out { padding: 14px 16px; font-size: 13.5px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; flex: 1; min-height: 330px; max-height: 420px; overflow: auto; }
+.cb-out .ok { color: #6fe3b4; } .cb-out .add { color: #b5f0c8; } .cb-out .warn { color: #ffd166; } .cb-out .dim { opacity: .6; } .cb-out .hd { font-weight: 700; color: #fff; }
+.cb-pipe { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin: 26px 0 8px; counter-reset: cb; }
+@media (max-width: 900px) { .cb-pipe { grid-template-columns: repeat(2, 1fr); } }
+.cb-step { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 14px 12px; position: relative; cursor: pointer; text-align: left; font: inherit; color: var(--ink); transition: border-color .2s, transform .2s; }
+.cb-step::before { counter-increment: cb; content: counter(cb); display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--violet-soft); color: var(--violet); font-weight: 800; font-size: 13px; margin-bottom: 8px; }
+.cb-step b { display: block; font-size: 15px; line-height: 1.25; }
+.cb-step span { display: block; font-size: 13px; color: var(--muted); line-height: 1.35; margin-top: 4px; }
+.cb-step.gate::after { content: "Person approves"; position: absolute; top: 12px; right: 10px; font-size: 10.5px; font-weight: 750; letter-spacing: .06em; text-transform: uppercase; color: var(--coral); }
+.cb-step.on { border-color: var(--violet); transform: translateY(-2px); }
+.cb-step.on::before, .cb-step.done::before { background: var(--violet); color: #fff; }
+.cb-step:focus-visible { outline: 3px solid var(--ph-bg); outline-offset: 2px; }
+.cb-detail { background: var(--violet-soft); border-radius: 14px; padding: 14px 18px; font-size: 15.5px; min-height: 52px; }
+.cb-arch { display: grid; grid-template-columns: minmax(0, 1.6fr) auto minmax(0, 1fr); gap: 14px; align-items: stretch; margin-top: 10px; }
+@media (max-width: 900px) { .cb-arch { grid-template-columns: 1fr; } .cb-gate { transform: rotate(90deg); justify-self: center; } }
+.cb-zone { border: 2px dashed var(--line); border-radius: var(--radius); padding: 18px; position: relative; }
+.cb-zone.in { border-color: var(--teal); }
+.cb-zone.az { border-color: var(--violet); }
+.cb-zone > .zt { display: inline-flex; gap: 8px; align-items: center; font-size: 12.5px; font-weight: 750; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px; }
+.cb-zone.in > .zt { color: var(--teal); } .cb-zone.az > .zt { color: var(--violet); }
+.cb-zone > .zt svg.i { width: 16px; height: 16px; }
+.cb-boxes { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.cb-box { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.cb-box b { display: block; font-size: 14.5px; }
+.cb-box span { display: block; font-size: 13px; color: var(--muted); line-height: 1.35; margin-top: 3px; }
+.cb-gate { display: grid; place-items: center; align-content: center; gap: 6px; color: var(--coral); font-size: 12px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; text-align: center; min-width: 96px; }
+.cb-gate svg.i { width: 34px; height: 34px; }
+.cb-uses .card h3 { display: flex; gap: 10px; align-items: center; }
+.cb-uses .card h3 svg.i { width: 20px; height: 20px; color: var(--violet); }
+.cb-uses .card p b { color: var(--ink); font-weight: 650; }
+.cb-qa details { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 0 18px; margin-bottom: 10px; }
+.cb-qa summary { cursor: pointer; font-weight: 650; padding: 14px 0; list-style: none; display: flex; gap: 10px; align-items: center; }
+.cb-qa summary::-webkit-details-marker { display: none; }
+.cb-qa summary svg.i { width: 18px; height: 18px; color: var(--violet); transition: transform .2s; }
+.cb-qa details[open] summary svg.i { transform: rotate(90deg); }
+.cb-qa details p { margin: 0 0 14px; color: var(--muted); }
+.cb-h3 { font-size: 22px; margin: 46px 0 6px; }
+.cb-sub { color: var(--muted); margin: 0 0 16px; max-width: 760px; }
+.cb-status { display: inline-flex; gap: 8px; align-items: center; font-size: 12.5px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; color: var(--ph-fg); background: var(--ph-bg); padding: 4px 12px; border-radius: 999px; margin-left: 10px; vertical-align: middle; }
+</style>
+<section class="band" id="cloudbuilder">
   <div class="wrap">
-    <span class="eyebrow coral">07 · Skills I built</span>
+    <span class="eyebrow">07 · Scoping now</span>
+    <h2>The Enclave Cloud Builder <span class="cb-status">Scoping · not built yet</span></h2>
+    <p class="intro">Every new department project and every new customer needs its own environment. Building each one by hand doesn't scale. This is a Terraform application I'm scoping: describe the environment once in a short JSON file, build the whole thing locally inside the enclave, test it, then port the same file to Azure.</p>
+
+    <div class="grid g3 cb-why">
+      <div class="card"><div class="ic coral"><svg class="i"><use href="#i-activity"/></svg></div><h3>The pressure</h3><p>More departments and more customers means more projects, and each one needs a network, servers, access, and logging stood up before work can start.</p></div>
+      <div class="card"><div class="ic"><svg class="i"><use href="#i-file"/></svg></div><h3>The idea</h3><p>One JSON file describes the environment. Terraform reads it and builds everything from a library of approved, pre-hardened building blocks.</p></div>
+      <div class="card"><div class="ic teal"><svg class="i"><use href="#i-arrow"/></svg></div><h3>The payoff</h3><p>Build and test locally inside the enclave first. When it's right, change one line and the same file builds it in Azure Government.</p></div>
+    </div>
+
+    <h3 class="cb-h3">Try it: one file, two targets</h3>
+    <p class="cb-sub">Pick a blueprint, then switch the target. The JSON barely changes. That's the whole point. Output is an example, not a real run.</p>
+    <div class="cb-ctl">
+      <label>Blueprint
+        <select id="cbBp">
+          <option value="workload">CMMC L2 workload</option>
+          <option value="vdi">Secure remote desktops</option>
+          <option value="lab">Test and training lab</option>
+        </select>
+      </label>
+      <span class="sp"></span>
+      <div class="cb-seg" role="group" aria-label="Build target">
+        <button type="button" id="cbLocal" aria-pressed="true"><svg class="i"><use href="#i-lock"/></svg>Local (enclave)</button>
+        <button type="button" id="cbAzure" aria-pressed="false"><svg class="i"><use href="#i-globe"/></svg>Azure Government</button>
+      </div>
+      <button class="btn solid" id="cbRun" type="button"><svg class="i"><use href="#i-play"/></svg>Plan it</button>
+    </div>
+    <div class="cb-demo">
+      <div class="cb-pane"><div class="cb-bar"><svg class="i"><use href="#i-code"/></svg><span id="cbFile">project.json</span><span class="sp"></span><span>the only file you edit</span></div><pre class="cb-json" id="cbJson"></pre></div>
+      <div class="cb-pane"><div class="cb-bar"><svg class="i"><use href="#i-terminal"/></svg><span>cloud-builder plan</span><span class="sp"></span><span>simulated</span></div><div class="cb-out" id="cbOut" aria-live="polite"></div></div>
+    </div>
+
+    <h3 class="cb-h3">How a project flows</h3>
+    <p class="cb-sub">Six steps, the same every time. Click any step for detail. Two of them stop for a person.</p>
+    <div class="cb-pipe" id="cbPipe">
+      <button class="cb-step" type="button" data-d="Someone fills in a short JSON request: project name, blueprint, network range, how many servers of each role, and which security baseline. No CUI, no passwords, no customer data in the file. It's a description of infrastructure, nothing more."><b>Request</b><span>Fill in the JSON</span></button>
+      <button class="cb-step" type="button" data-d="The builder checks the file against a schema (are all required fields there, are the values allowed) and against policy rules (no public IPs on servers, encryption on, logging on, approved regions only). A bad request fails here, before anything is built."><b>Validate</b><span>Schema and policy checks</span></button>
+      <button class="cb-step gate" type="button" data-d="The builder turns the request into Terraform JSON using the approved modules, then runs terraform plan. The plan lists every resource it will create, change, or destroy. A person reads it and approves it. Nothing is built without that approval."><b>Plan</b><span>Exactly what will be built</span></button>
+      <button class="cb-step" type="button" data-d="Terraform applies the plan to the local sandbox inside the enclave, using a local mirror of the providers and modules, so nothing has to reach out to the internet. State is stored and locked inside the enclave."><b>Build locally</b><span>Inside the enclave</span></button>
+      <button class="cb-step" type="button" data-d="Automated checks confirm the environment matches the baseline: segmentation, logging, encryption, access. The plan, the checks, and the commit that changed the file are saved together as evidence for the SSP and the assessor."><b>Test and record</b><span>Evidence, automatically</span></button>
+      <button class="cb-step gate" type="button" data-d="Change the target from local to Azure Government. The same request now runs through the Azure versions of the same modules. A fresh plan is reviewed and approved by a person, then applied to the customer's Azure Government subscription."><b>Port to Azure</b><span>Same file, new target</span></button>
+    </div>
+    <div class="cb-detail" id="cbDetail">Click a step above, or press <b>Play the steps</b>.</div>
+    <div class="btns" style="margin-top:12px"><button class="btn outline" id="cbPlay" type="button"><svg class="i"><use href="#i-play"/></svg>Play the steps</button></div>
+
+    <h3 class="cb-h3">What it's made of</h3>
+    <p class="cb-sub">Everything that builds runs inside the boundary. The only thing that crosses to Azure is an approved plan.</p>
+    <div class="cb-arch">
+      <div class="cb-zone in"><div class="zt"><svg class="i"><use href="#i-lock"/></svg>Inside the enclave</div>
+        <div class="cb-boxes">
+          <div class="cb-box"><b>Request files</b><span>One JSON file per project, kept in version control</span></div>
+          <div class="cb-box"><b>Builder app</b><span>Validates the request and writes the Terraform JSON</span></div>
+          <div class="cb-box"><b>Module library</b><span>Approved, hardened building blocks, each with a local and an Azure version</span></div>
+          <div class="cb-box"><b>Provider mirror</b><span>Terraform and providers stored locally, so builds work offline</span></div>
+          <div class="cb-box"><b>State, locked</b><span>Treated as sensitive. Stays inside, never in a bot</span></div>
+          <div class="cb-box"><b>Local sandbox</b><span>Where each environment is built and tested first</span></div>
+        </div>
+      </div>
+      <div class="cb-gate"><svg class="i"><use href="#i-user-check"/></svg>Person approves<br>the plan</div>
+      <div class="cb-zone az"><div class="zt"><svg class="i"><use href="#i-globe"/></svg>Azure Government</div>
+        <div class="cb-boxes">
+          <div class="cb-box"><b>Customer subscription</b><span>One per customer or department project</span></div>
+          <div class="cb-box"><b>Same baseline</b><span>Network, access, logging, and encryption match the tested local build</span></div>
+          <div class="cb-box"><b>Least-privilege deploy identity</b><span>Can deploy to its own scope only</span></div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="cb-h3">Where it gets used</h3>
+    <div class="grid g3 cb-uses">
+      <div class="card"><h3><svg class="i"><use href="#i-user-check"/></svg>New customer onboarding</h3><p>Pick the blueprint, fill in the JSON, and the customer's environment is <b>built the same way as the last one</b>, not rebuilt from memory.</p></div>
+      <div class="card"><h3><svg class="i"><use href="#i-layers"/></svg>New department project</h3><p>A project that needs its own space gets a <b>tested copy of the baseline</b> instead of a ticket queue of manual setup.</p></div>
+      <div class="card"><h3><svg class="i"><use href="#i-wrench"/></svg>Test and training labs</h3><p>Spin up a <b>throwaway copy locally</b> to try a change or train someone, then tear it down. No cloud bill for practice.</p></div>
+      <div class="card"><h3><svg class="i"><use href="#i-rotate"/></svg>Rebuild after an incident</h3><p>If an environment has to be rebuilt, the file <b>is the rebuild plan</b>. Same network, same settings, same controls.</p></div>
+      <div class="card"><h3><svg class="i"><use href="#i-clipboard"/></svg>Assessor walk-through</h3><p>Show the assessor the baseline <b>as code</b>, every approved plan, and every change, all tied to who approved it and when.</p></div>
+      <div class="card"><h3><svg class="i"><use href="#i-activity"/></svg>Drift checks</h3><p>Re-run the plan against a live environment. If anything was changed by hand, <b>the plan shows it</b>. This feeds PATCH's drift idea in section 06.</p></div>
+    </div>
+
+    <h3 class="cb-h3">Why it helps with CMMC</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Requirement</th><th>How the builder helps</th></tr></thead>
+        <tbody>
+          <tr><td><b>CM 3.4.1</b> Baselines and inventory</td><td>The module library is the baseline. The request files and state are the inventory.</td></tr>
+          <tr><td><b>CM 3.4.2</b> Security settings</td><td>Hardened settings live inside the modules, so every build gets them.</td></tr>
+          <tr><td><b>CM 3.4.3</b> Change control</td><td>Every change is a reviewed file change plus an approved plan, with a name and a date.</td></tr>
+          <tr><td><b>CM 3.4.5</b> Who can change things</td><td>Only the deploy identity can build. People approve; nobody clicks in the portal.</td></tr>
+          <tr><td><b>SC 3.13.1 / 3.13.2</b> Boundaries and secure design</td><td>Segmentation and secure network design are built in, the same way every time.</td></tr>
+          <tr><td><b>AU 3.3.1</b> Logging</td><td>Logging is part of every blueprint, not a step someone can forget.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><svg class="i"><use href="#i-shield"/></svg><span>No CUI anywhere in it. The JSON describes infrastructure only. Passwords and keys are pulled at build time, never written in the file. Grok helps me write and review modules, but no bot ever sees state files, secrets, or CUI.</span></div>
+
+    <h3 class="cb-h3">Questions I expect</h3>
+    <div class="cb-qa">
+      <details><summary><svg class="i"><use href="#i-arrow"/></svg>Why not just build it in the Azure portal?</summary><p>Clicking works once. It doesn't work the twentieth time, and it leaves no record of what was set or why. A file is repeatable, reviewable, and becomes evidence on its own.</p></details>
+      <details><summary><svg class="i"><use href="#i-arrow"/></svg>Why JSON instead of Terraform's own language?</summary><p>Terraform reads JSON natively. JSON is easy for a form, a script, or another tool to write, so a request can come from a simple intake form later, and it's easy to validate against a schema before anything runs.</p></details>
+      <details><summary><svg class="i"><use href="#i-arrow"/></svg>Can it really build "Azure" locally?</summary><p>Not Azure itself. The local build is a working copy of the same design (networks, segmentation, servers, access, and logging) on the enclave's own infrastructure. Each building block has a local version and an Azure version behind the same inputs, so the request file doesn't change. Azure-only services are checked in the plan before anything is deployed.</p></details>
+      <details><summary><svg class="i"><use href="#i-arrow"/></svg>Does it need internet access inside the enclave?</summary><p>No. Terraform, the providers, and the modules are mirrored locally. Only the approved Azure deployment talks to Azure Government.</p></details>
+      <details><summary><svg class="i"><use href="#i-arrow"/></svg>What about Terraform's license?</summary><p>Terraform is under the Business Source License. OpenTofu is the open-source fork and reads the same files. That choice is part of the scoping, and it goes through the enclave toolkit like every other tool.</p></details>
+      <details><summary><svg class="i"><use href="#i-arrow"/></svg>What's the first step?</summary><p>One blueprint, end to end: the CMMC Level 2 workload, built locally, tested, and ported to a test Azure Government subscription. That gives real timing instead of guesses.</p></details>
+    </div>
+    <p class="gloss"><b>JSON</b> = JavaScript Object Notation · <b>CUI</b> = Controlled Unclassified Information · <b>CMMC</b> = Cybersecurity Maturity Model Certification · <b>SSP</b> = System Security Plan · <b>IP</b> = Internet Protocol · NIST SP 800-171 Rev. 2 families: <b>CM</b> Configuration Management, <b>SC</b> System and Communications Protection, <b>AU</b> Audit and Accountability</p>
+  </div>
+</section>
+<script>
+(function () {
+  var BP = {
+    workload: { name: 'example-eng-01', bp: 'cmmc-l2-workload', net: '10.40.0.0/16', subnets: ['app', 'data', 'mgmt'], vms: [['app', 2, 'medium'], ['data', 1, 'large'], ['jump', 1, 'small']], base: ['mfa', 'logging', 'encryption', 'no-public-ip'] },
+    vdi: { name: 'example-ops-02', bp: 'secure-remote-desktop', net: '10.41.0.0/16', subnets: ['hosts', 'mgmt'], vms: [['session-host', 3, 'medium']], base: ['mfa', 'logging', 'encryption', 'no-public-ip', 'session-timeout'] },
+    lab: { name: 'example-lab-03', bp: 'test-lab', net: '10.42.0.0/16', subnets: ['lab'], vms: [['test', 2, 'small']], base: ['logging', 'no-public-ip', 'auto-teardown'] }
+  };
+  var target = 'local', bp = 'workload';
+  var json = document.getElementById('cbJson'), out = document.getElementById('cbOut');
+  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+  function k(s) { return '<span class="k">"' + s + '"</span>'; }
+  function s(v) { return '<span class="s">"' + esc(v) + '"</span>'; }
+  function n(v) { return '<span class="n">' + v + '</span>'; }
+  function render(flash) {
+    var b = BP[bp];
+    var t = target === 'local' ? 'local' : 'azure-gov';
+    var region = target === 'local' ? 'enclave-sandbox' : 'usgovvirginia';
+    var L = [];
+    L.push('{');
+    L.push('  ' + k('project') + ': ' + s(b.name) + ',');
+    L.push('  ' + k('blueprint') + ': ' + s(b.bp) + ',');
+    L.push('  <span class="hl">' + k('target') + ': ' + s(t) + ',</span>');
+    L.push('  <span class="hl">' + k('region') + ': ' + s(region) + ',</span>');
+    L.push('  ' + k('network') + ': {');
+    L.push('    ' + k('address_space') + ': ' + s(b.net) + ',');
+    L.push('    ' + k('subnets') + ': [' + b.subnets.map(s).join(', ') + ']');
+    L.push('  },');
+    L.push('  ' + k('servers') + ': [');
+    b.vms.forEach(function (v, i) { L.push('    { ' + k('role') + ': ' + s(v[0]) + ', ' + k('count') + ': ' + n(v[1]) + ', ' + k('size') + ': ' + s(v[2]) + ' }' + (i < b.vms.length - 1 ? ',' : '')); });
+    L.push('  ],');
+    L.push('  ' + k('baseline') + ': [' + b.base.map(s).join(', ') + '],');
+    L.push('  ' + k('owner') + ': ' + s('requested-by-ticket') + ' <span class="p">// a ticket number, never a person’s data</span>');
+    L.push('}');
+    json.innerHTML = L.join('\n');
+    document.getElementById('cbLocal').setAttribute('aria-pressed', target === 'local');
+    document.getElementById('cbAzure').setAttribute('aria-pressed', target !== 'local');
+    out.innerHTML = '<span class="dim">Press Plan it to see what would be built ' + (target === 'local' ? 'in the local sandbox.' : 'in Azure Government.') + '</span>';
+    if (flash) json.querySelectorAll('.hl').forEach(function (h) { h.style.background = 'rgba(255,213,154,.4)'; setTimeout(function () { h.style.background = ''; }, 500); });
+  }
+  function lines() {
+    var b = BP[bp], az = target !== 'local', L = [];
+    var vmCount = b.vms.reduce(function (a, v) { return a + v[1]; }, 0);
+    L.push(['hd', '> cloud-builder validate project.json']);
+    L.push(['ok', '  Schema check passed']);
+    L.push(['ok', '  Policy: no public IPs, encryption on, logging on, approved region']);
+    L.push(['ok', '  No secrets or CUI fields found']);
+    L.push(['hd', '> cloud-builder plan --target ' + (az ? 'azure-gov' : 'local')]);
+    L.push(['dim', '  Using modules: ' + (az ? 'azure/' : 'local/') + b.bp + ' (approved library)']);
+    L.push(['dim', '  Providers from: ' + (az ? 'local mirror, azurerm (environment = usgovernment)' : 'local mirror (offline)')]);
+    L.push(['add', '  + ' + (az ? 'resource group' : 'project folder') + '   ' + b.name]);
+    L.push(['add', '  + ' + (az ? 'virtual network' : 'isolated network') + '   ' + b.net]);
+    b.subnets.forEach(function (sn) { L.push(['add', '  + subnet          ' + sn + (az ? ' + network security group' : ' + firewall rules')]); });
+    b.vms.forEach(function (v) { L.push(['add', '  + server x' + v[1] + '       ' + v[0] + ' (' + v[2] + ', hardened image)']); });
+    if (b.base.indexOf('logging') > -1) L.push(['add', '  + ' + (az ? 'log analytics workspace + diagnostic settings' : 'local log collector')]);
+    if (b.base.indexOf('encryption') > -1) L.push(['add', '  + ' + (az ? 'key vault (keys only, no secrets in the file)' : 'local key store')]);
+    if (b.base.indexOf('mfa') > -1) L.push(['add', '  + ' + (az ? 'conditional access assignment (MFA required)' : 'MFA required on the jump path')]);
+    if (b.base.indexOf('auto-teardown') > -1) L.push(['add', '  + teardown timer (lab removes itself)']);
+    L.push(['hd', '  Plan: ' + (b.subnets.length * 2 + vmCount + 3) + ' to add, 0 to change, 0 to destroy.']);
+    L.push(['warn', '  Waiting for a person to approve this plan. Nothing has been built.']);
+    L.push(['dim', '  Plan saved as evidence: plans/' + b.name + '-' + (az ? 'azure-gov' : 'local') + '.json']);
+    return L;
+  }
+  var timer = null;
+  function run() {
+    clearTimeout(timer);
+    out.innerHTML = '';
+    var L = lines(), i = 0;
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    (function next() {
+      if (i >= L.length) return;
+      var d = document.createElement('div'); d.className = L[i][0]; d.textContent = L[i][1]; out.appendChild(d); out.scrollTop = out.scrollHeight;
+      i++; timer = setTimeout(next, reduce ? 0 : 140);
+    })();
+  }
+  document.getElementById('cbLocal').addEventListener('click', function () { target = 'local'; render(true); });
+  document.getElementById('cbAzure').addEventListener('click', function () { target = 'azure'; render(true); });
+  document.getElementById('cbBp').addEventListener('change', function (e) { bp = e.target.value; render(false); });
+  document.getElementById('cbRun').addEventListener('click', run);
+  render(false);
+
+  var steps = Array.prototype.slice.call(document.querySelectorAll('#cbPipe .cb-step')), det = document.getElementById('cbDetail'), ptimer = null;
+  function pick(k2) {
+    steps.forEach(function (st, j) { st.classList.toggle('on', j === k2); st.classList.toggle('done', j < k2); });
+    det.innerHTML = '<b>' + (k2 + 1) + '. ' + steps[k2].querySelector('b').textContent + '.</b> ' + esc(steps[k2].dataset.d);
+  }
+  steps.forEach(function (st, j) { st.addEventListener('click', function () { clearTimeout(ptimer); pick(j); }); });
+  document.getElementById('cbPlay').addEventListener('click', function () {
+    clearTimeout(ptimer); var j = 0;
+    (function nx() { pick(j); j++; if (j < steps.length) ptimer = setTimeout(nx, 3200); })();
+  });
+})();
+</script>
+
+<!-- ================= SKILLS ================= -->
+<section class="band alt" id="skills">
+  <div class="wrap">
+    <span class="eyebrow coral">08 · Skills I built</span>
     <h2>Skills: the same steps, every time</h2>
     <p class="intro">A skill is a saved playbook for an AI assistant. It tells the assistant when to use it, what to ask, what to do, and what it must never do. I built these with Claude. No client data or CUI goes into any of them.</p>
 
@@ -1050,7 +1313,7 @@ tbody tr:hover td { background: var(--violet-soft); }
 <section class="band" id="golive">
   <div class="wrap">
     <div>
-      <span class="eyebrow">08 · Go-live</span>
+      <span class="eyebrow">09 · Go-live</span>
       <h2>What carries into the enclave</h2>
       <div class="table-wrap" style="margin-top:20px">
         <table>
@@ -1058,6 +1321,7 @@ tbody tr:hover td { background: var(--violet-soft); }
           <tbody>
             <tr><td><b>Maintenance</b></td><td>Ticket clock, time rules, SENTRY's maintenance board</td></tr>
             <tr><td><b>Tool decisions</b></td><td>The enclave toolkit, mapped to NIST SP 800-171</td></tr>
+            <tr><td><b>New environments</b></td><td>The cloud builder: one JSON file, built and tested inside, ported to Azure</td></tr>
             <tr><td><b>Inside the boundary</b></td><td>AI helps build small tools. The tools run inside. CUI never leaves.</td></tr>
           </tbody>
         </table>

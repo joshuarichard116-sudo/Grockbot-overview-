@@ -256,6 +256,35 @@ body:hover .navbtn { opacity: 1; }
 .lead-own { display: flex; gap: 18px; align-items: center; font-size: 26px; border-color: var(--accent); background: var(--accent-soft); }
 .lead-own .av { width: 56px; height: 56px; border-radius: 50%; flex: 0 0 56px; }
 .lead-own .propb { margin-left: auto; font-size: 19px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ph-fg); background: var(--ph-bg); padding: 4px 14px; border-radius: 999px; white-space: nowrap; }
+/* ---------- cloud builder slides ---------- */
+.cbj { margin: 0; background: var(--code-bg); border: 1px solid var(--line); border-radius: 16px; padding: 24px 28px; font-size: 23px; line-height: 1.5; white-space: pre; overflow: hidden; }
+.cbj .k { color: #9ecbff; } .cbj .s { color: #b5f0c8; } .cbj .n { color: #ffd59a; }
+.cbj .hl { background: rgba(255,213,154,.16); outline: 2px solid rgba(255,213,154,.45); border-radius: 6px; }
+.cbflow { display: flex; gap: 12px; }
+.cbflow > div { flex: 1; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 20px 20px 18px; position: relative; }
+.cbflow b { display: block; font-size: 29px; margin-bottom: 4px; }
+.cbflow span { display: block; font-size: 22px; color: var(--muted); line-height: 1.3; }
+.cbflow .gate { border-color: #e8875b; }
+.cbflow .gate::after { content: "Person approves"; position: absolute; top: -16px; right: 16px; font-size: 17px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; background: #e8875b; color: #1a0d05; padding: 2px 12px; border-radius: 999px; }
+.cbflow .num { display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--accent); color: #04121f; font-weight: 800; font-size: 22px; margin-bottom: 10px; }
+.cbzones { display: grid; grid-template-columns: 1.7fr 170px 1fr; gap: 16px; align-items: stretch; }
+.cbzone { border: 3px dashed var(--line); border-radius: 20px; padding: 22px 24px; }
+.cbzone.in { border-color: var(--good); } .cbzone.az { border-color: var(--accent); }
+.cbzone .zt { font-size: 21px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; margin-bottom: 14px; }
+.cbzone.in .zt { color: var(--good); } .cbzone.az .zt { color: var(--accent); }
+.cbzone .bx { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.cbzone.az .bx { grid-template-columns: 1fr; }
+.cbzone .bx div { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; font-size: 23px; font-weight: 600; line-height: 1.25; }
+.cbzone .bx div small { display: block; font-weight: 400; font-size: 18px; color: var(--muted); margin-top: 3px; }
+.cbgate { display: grid; place-items: center; align-content: center; text-align: center; color: #e8875b; font-size: 21px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; line-height: 1.3; }
+.cbgate .arr { font-size: 60px; line-height: 1; margin-bottom: 8px; }
+.cbuses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.cbuses div { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; }
+.cbuses b { display: block; font-size: 27px; }
+.cbuses span { display: block; font-size: 21px; color: var(--muted); line-height: 1.3; margin-top: 2px; }
+.cbctl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.cbctl div { font-size: 21px; line-height: 1.3; color: var(--muted); background: var(--panel-2); border-radius: 12px; padding: 12px 16px; }
+.cbctl div em { display: block; font-style: normal; font-family: "Cascadia Code", Consolas, Menlo, monospace; font-size: 19px; color: var(--good); font-weight: 600; }
 </style>
 </head>
 <body>
@@ -566,9 +595,104 @@ Start-Process powershell -Verb RunAs `
   <div class="notes-src"><p>Where does this go? Local tools, built to live inside the enclave. Start small, build each tool once, run it inside the boundary, and let it grow with the department. Local first, so these are small tools running inside, not cloud services reaching in. As the department grows, I'll keep cultivating new ideas and adding to the list. And I'll keep building training alongside it, so the team can run these tools and add their own. The bots draft. People decide. CUI, Controlled Unclassified Information, stays put.</p></div>
 </section>
 
+<!-- Cloud builder 1 -->
+<section class="slide" data-title="The Enclave Cloud Builder">
+  <div class="label">11 · Scoping now</div>
+  <h2 style="margin-bottom:30px">One JSON file. A whole environment.</h2>
+  <div class="body" style="gap:26px">
+    <div class="row" style="gap:36px;align-items:stretch">
+      <div class="col" style="flex:1.05;gap:22px">
+        <div class="card"><div class="k">The pressure</div><span style="font-size:28px">More departments and more customers means more projects, and each one needs an environment before work can start.</span></div>
+        <div class="card"><div class="k">The idea</div><span style="font-size:28px">A Terraform app. Describe the environment once in JSON. It builds the whole thing from approved, hardened building blocks.</span></div>
+        <div class="card"><div class="k">The payoff</div><span style="font-size:28px">Build and test it locally inside the enclave. Change one line, and the same file builds it in Azure Government.</span></div>
+      </div>
+      <div class="col" style="flex:1">
+<pre class="cbj">{
+  <span class="k">"project"</span>: <span class="s">"example-eng-01"</span>,
+  <span class="k">"blueprint"</span>: <span class="s">"cmmc-l2-workload"</span>,
+  <span class="hl"><span class="k">"target"</span>: <span class="s">"local"</span>,</span>   <span style="color:#ffd59a">&larr; or "azure-gov"</span>
+  <span class="k">"network"</span>: {
+    <span class="k">"address_space"</span>: <span class="s">"10.40.0.0/16"</span>,
+    <span class="k">"subnets"</span>: [<span class="s">"app"</span>, <span class="s">"data"</span>, <span class="s">"mgmt"</span>]
+  },
+  <span class="k">"servers"</span>: [
+    { <span class="k">"role"</span>: <span class="s">"app"</span>, <span class="k">"count"</span>: <span class="n">2</span> },
+    { <span class="k">"role"</span>: <span class="s">"data"</span>, <span class="k">"count"</span>: <span class="n">1</span> }
+  ],
+  <span class="k">"baseline"</span>: [<span class="s">"mfa"</span>, <span class="s">"logging"</span>,
+               <span class="s">"encryption"</span>, <span class="s">"no-public-ip"</span>]
+}</pre>
+        <div class="own lead-own" style="padding:14px 20px;font-size:24px"><span>Example file. No CUI, no passwords, no customer data.</span><span class="propb">Scoping · not built yet</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="gloss"><b>JSON</b> = JavaScript Object Notation · <b>CUI</b> = Controlled Unclassified Information · <b>MFA</b> = multifactor authentication · <b>IP</b> = Internet Protocol</div>
+  <div class="notes-src"><p>Now something I'm scoping right now, and I think it's one of the biggest things we can do for the enclave. I'm calling it the Enclave Cloud Builder. Here's the problem it solves. As the department grows and we take on more customers, every new project needs its own environment: a network, servers, access, logging, encryption. Right now that means someone builds it by hand, and the more customers we have, the faster we have to turn those out. Doing it by hand doesn't scale, and no two hand-built environments come out exactly the same.</p><p>So the idea is a Terraform application. Terraform is an infrastructure-as-code tool: you describe what you want in a file, and it builds it. Terraform reads JSON, JavaScript Object Notation, natively. So each project gets one short JSON file, like the one on the right. Project name, which blueprint, the network range, how many servers of each role, and the security baseline: MFA, logging, encryption, no public IPs. That's it. The builder takes that file and builds the whole environment out of a library of approved, already-hardened building blocks.</p><p>And here's the part I want you to remember. We build it locally first, inside the enclave, and test it there. When it's right, we change one line, the target, from local to azure-gov, and the same file builds the same environment in Azure Government. And notice what's not in that file: no CUI, no passwords, no customer data. It describes infrastructure, nothing else. To be clear, this is in scoping. It's not built yet.</p></div>
+</section>
+
+<!-- Cloud builder 2 -->
+<section class="slide" data-title="How the cloud builder works">
+  <div class="label">11 · Scoping now</div>
+  <h2 style="margin-bottom:34px">Built inside. Approved. Then ported.</h2>
+  <div class="body" style="gap:34px">
+    <div class="cbflow">
+      <div><div class="num">1</div><b>Request</b><span>Fill in the JSON</span></div>
+      <div><div class="num">2</div><b>Validate</b><span>Schema and policy checks</span></div>
+      <div class="gate"><div class="num">3</div><b>Plan</b><span>Exactly what will be built</span></div>
+      <div><div class="num">4</div><b>Build locally</b><span>Inside the enclave</span></div>
+      <div><div class="num">5</div><b>Test and record</b><span>Saved as evidence</span></div>
+      <div class="gate"><div class="num">6</div><b>Port to Azure</b><span>Same file, new target</span></div>
+    </div>
+    <div class="cbzones">
+      <div class="cbzone in"><div class="zt">Inside the enclave</div><div class="bx">
+        <div>Request files<small>One per project, in version control</small></div>
+        <div>Builder app<small>Validates, writes Terraform JSON</small></div>
+        <div>Module library<small>Hardened blocks, local and Azure versions</small></div>
+        <div>Provider mirror<small>Works offline, no internet needed</small></div>
+        <div>Locked state<small>Sensitive. Stays inside. Never in a bot</small></div>
+        <div>Local sandbox<small>Every build is tested here first</small></div>
+      </div></div>
+      <div class="cbgate"><div class="arr">&rarr;</div>Person<br>approves<br>the plan</div>
+      <div class="cbzone az"><div class="zt">Azure Government</div><div class="bx">
+        <div>Customer subscription<small>One per customer or project</small></div>
+        <div>Same tested baseline<small>Network, access, logging, encryption</small></div>
+        <div>Least-privilege deploy identity<small>Deploys to its own scope only</small></div>
+      </div></div>
+    </div>
+  </div>
+  <div class="notes-src"><p>Here's how a project would flow. Six steps, the same every time. One, someone fills in the JSON request. Two, the builder validates it: a schema check, so every required field is there and every value is allowed, and policy checks, like no public IPs on servers, encryption on, logging on, approved regions only. A bad request fails right there, before anything gets built. Three, the builder turns the request into Terraform and runs a plan. The plan lists every single thing it's going to create, change, or delete, and a person reads it and approves it. Nothing gets built without that. Four, it builds locally inside the enclave. Five, automated tests confirm the environment matches the baseline, and the plan, the test results, and the file change are saved together as evidence. Six, port to Azure: same file, the target changes to Azure Government, a new plan gets reviewed and approved by a person, and then it's built in the customer's subscription.</p><p>On the bottom is what it's made of. Everything that builds lives inside the enclave: the request files in version control, the builder app, the library of hardened modules, each with a local version and an Azure version behind the same inputs, a local mirror of Terraform and its providers so it works with no internet access, the state files, which we treat as sensitive and keep locked inside, and the local sandbox. The only thing that crosses over to Azure is an approved plan, deployed by an identity that can only touch its own scope.</p><p>If someone asks whether it can really run Azure locally: not Azure itself. The local build is a working copy of the same design, the networks, segmentation, servers, access, and logging, on the enclave's own infrastructure. Azure-only services are checked in the plan before anything is deployed.</p></div>
+</section>
+
+<!-- Cloud builder 3 -->
+<section class="slide" data-title="Why the cloud builder matters">
+  <div class="label">11 · Scoping now</div>
+  <h2 style="margin-bottom:28px">Faster projects, and the evidence builds itself</h2>
+  <div class="body" style="gap:22px">
+    <div class="cbuses">
+      <div><b>New customer onboarding</b><span>Built the same way as the last one, not from memory</span></div>
+      <div><b>New department project</b><span>A tested copy of the baseline, not a queue of manual setup</span></div>
+      <div><b>Test and training labs</b><span>Throwaway copy built locally. No cloud bill for practice</span></div>
+      <div><b>Rebuild after an incident</b><span>The file is the rebuild plan</span></div>
+      <div><b>Assessor walk-through</b><span>Baseline as code, every plan, every approval</span></div>
+      <div><b>Drift checks</b><span>Re-run the plan; hand changes show up</span></div>
+    </div>
+    <div class="cbctl">
+      <div><em>CM 3.4.1</em>The module library is the baseline; request files are the inventory</div>
+      <div><em>CM 3.4.2 / 3.4.5</em>Hardened settings in every build; only the deploy identity can build</div>
+      <div><em>CM 3.4.3</em>Every change is a reviewed file and an approved plan</div>
+      <div><em>SC 3.13.1 / 3.13.2</em>Segmentation and secure design built in every time</div>
+      <div><em>AU 3.3.1</em>Logging is part of every blueprint</div>
+      <div><em>First step</em>One blueprint end to end, for real timing</div>
+    </div>
+    <div class="callout guard" style="font-size:30px;padding:18px 28px">No CUI in it · Secrets pulled at build time, never in the file · Grok helps write modules; no bot sees state, secrets, or CUI</div>
+  </div>
+  <div class="gloss" style="font-size:18px"><b>CUI</b> = Controlled Unclassified Information · NIST SP 800-171 Rev. 2 families: <b>CM</b> Configuration Management, <b>SC</b> System and Communications Protection, <b>AU</b> Audit and Accountability</div>
+  <div class="notes-src"><p>So why does this matter? Two reasons: speed, and evidence. On top are the places it gets used. Onboarding a new customer: pick the blueprint, fill in the file, and it's built the same way as the last one, not rebuilt from memory. A new department project gets a tested copy of the baseline instead of a pile of manual setup tickets. Test and training labs: spin up a throwaway copy locally, try a change or train someone, and tear it down, with no cloud bill for practice. If we ever have to rebuild after an incident, the file is the rebuild plan. For an assessor, we can show the baseline as code, every plan, and every approval. And for drift, we just re-run the plan against a live environment, and anything someone changed by hand shows up.</p><p>The middle row is the CMMC angle. These are NIST SP 800-171 requirements, the ones behind CMMC Level 2. The module library is our configuration baseline, and the request files are the inventory, that's CM 3.4.1. Hardened settings are in every build, and only the deploy identity can build, 3.4.2 and 3.4.5. Every change is a reviewed file plus an approved plan, so change control, 3.4.3, comes for free. Segmentation and secure design are built in, that's SC 3.13.1 and 3.13.2. And logging is in every blueprint, AU 3.3.1. So the evidence builds itself as we work.</p><p>Same rules as everything else today. No CUI in it. Passwords and keys get pulled at build time and are never written in the file. Grok helps me write and review the modules, but no bot ever sees the state files, secrets, or CUI. The first step is one blueprint end to end, the CMMC Level 2 workload, built locally and ported to a test Azure Government subscription, so we get real timing instead of guesses.</p></div>
+</section>
+
 <!-- skills: dress it up -->
 <section class="slide" data-title="Skill: Dress It Up">
-  <div class="label">11 · Skills I built</div>
+  <div class="label">12 · Skills I built</div>
   <h2>Dress It Up: your style, without touching the words</h2>
   <div class="body" style="gap:26px">
     <p class="small" style="margin:0;max-width:1600px">A skill is a saved playbook for an AI assistant: when to use it, what to ask, what to do, and what it must never do. I built these with Claude. This one started as my “Pizzazz” style kit.</p>
@@ -585,7 +709,7 @@ Start-Process powershell -Verb RunAs `
 
 <!-- skills: scripting -->
 <section class="slide" data-title="Scripting skills">
-  <div class="label">11 · Skills I built</div>
+  <div class="label">12 · Skills I built</div>
   <h2>Scripting skills</h2>
   <div class="body" style="gap:26px">
     <div class="row">
@@ -604,7 +728,7 @@ Start-Process powershell -Verb RunAs `
 
 <!-- 11 -->
 <section class="slide" data-title="What carries into the enclave">
-  <div class="label">12 · Go-live</div>
+  <div class="label">13 · Go-live</div>
   <h2>What carries into the enclave</h2>
   <div class="body" style="gap:28px">
     <table class="carry">
@@ -612,6 +736,7 @@ Start-Process powershell -Verb RunAs `
       <tbody>
         <tr><td>Maintenance</td><td>Ticket clock, time rules, SENTRY's maintenance board</td></tr>
         <tr><td>Tool decisions</td><td>The enclave toolkit, mapped to NIST SP 800-171</td></tr>
+        <tr><td>New environments</td><td>The cloud builder: one JSON file, built inside, ported to Azure</td></tr>
         <tr><td>Inside the boundary</td><td>AI helps build small tools. The tools run inside. CUI never leaves.</td></tr>
       </tbody>
     </table>
@@ -619,7 +744,7 @@ Start-Process powershell -Verb RunAs `
     <p class="small" style="margin:0"><b>Next:</b> timing one control family end to end, for real numbers. Target date: <b>Dec 19, 2026</b></p>
   </div>
   <div class="gloss"><b>NIST SP</b> = National Institute of Standards and Technology Special Publication · <b>AI</b> = artificial intelligence · <b>CUI</b> = Controlled Unclassified Information</div>
-  <div class="notes-src"><p>So, what carries into the enclave? Maintenance already has the ticket clock, the time rules, and SENTRY's maintenance board. Tool decisions have the toolkit. Inside the enclave, AI (artificial intelligence) helps build small tools, like evidence collectors and read-only configuration checks. The tools run inside the boundary, and CUI never leaves it. The rules don't change, either. No client data or CUI goes into a bot. Every message is a draft. And I press Send. Next, I'm timing one control family end to end, so you'll get real numbers instead of estimates.</p></div>
+  <div class="notes-src"><p>So, what carries into the enclave? Maintenance already has the ticket clock, the time rules, and SENTRY's maintenance board. Tool decisions have the toolkit. New environments come from the cloud builder: one JSON file, built and tested inside, then ported to Azure. Inside the enclave, AI (artificial intelligence) helps build small tools, like evidence collectors and read-only configuration checks. The tools run inside the boundary, and CUI never leaves it. The rules don't change, either. No client data or CUI goes into a bot. Every message is a draft. And I press Send. Next, I'm timing one control family end to end, so you'll get real numbers instead of estimates.</p></div>
 </section>
 
 <!-- 12 -->
