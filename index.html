@@ -562,6 +562,87 @@ tbody tr:hover td { background: var(--violet-soft); }
 :root:not([data-theme="light"]) .rot, :root:not([data-theme="light"]) .btn.light, :root:not([data-theme="light"]) .feature .go { color: #5b3df5; }
 :root:not([data-theme="light"]) .tag.p1 { background: #c53a3a; }
 }
+
+/* ---------- section 08 presentation ---------- */
+.show { position: relative; background: #121029; color: #e8e6ff; border-radius: 22px; padding: 18px 22px 16px; box-shadow: 0 20px 50px rgba(20,18,43,.22); border: 1px solid #2a2650; outline: none; overflow: hidden; }
+.show:focus-visible { box-shadow: 0 0 0 3px var(--ph-bg); }
+.show::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: linear-gradient(90deg, var(--violet), var(--teal), var(--coral)); }
+.show-top { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.show-top .sp { flex: 1; }
+.show-top .prop { white-space: nowrap; }
+.show-count { font-size: 13px; color: #a9a4d6; font-variant-numeric: tabular-nums; }
+.show-fs { font: inherit; font-size: 13px; font-weight: 650; display: inline-flex; gap: 6px; align-items: center; color: #e8e6ff; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 8px; padding: 5px 10px; cursor: pointer; }
+.show-fs:hover { background: rgba(255,255,255,.16); }
+.show-fs svg.i { width: 15px; height: 15px; }
+.show-stage { display: grid; min-height: 520px; }
+.sl { grid-area: 1 / 1; padding: 22px 12px 10px; opacity: 0; visibility: hidden; transform: translateX(28px); transition: opacity .4s ease, transform .45s cubic-bezier(.2,.7,.2,1), visibility 0s .45s; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+.sl.on { opacity: 1; visibility: visible; transform: none; transition: opacity .4s ease, transform .45s cubic-bezier(.2,.7,.2,1); }
+.sl.back { transform: translateX(-28px); }
+.sl .kick { font-size: 13px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; color: #9ff0e6; margin-bottom: 10px; display: flex; gap: 8px; align-items: center; }
+.sl .kick svg.i { width: 16px; height: 16px; }
+.sl h3 { color: #fff; font-size: clamp(26px, 3.4vw, 42px); line-height: 1.12; letter-spacing: -.02em; margin: 0 0 14px; }
+.sl .lead { font-size: clamp(16px, 1.6vw, 20px); color: #cfcbf2; max-width: 760px; margin: 0 0 18px; line-height: 1.55; }
+.sl.title-sl { text-align: center; align-items: center; }
+.sl.title-sl h3 { font-size: clamp(34px, 5.4vw, 66px); background: linear-gradient(90deg, #fff, #c7b8ff 50%, #9ff0e6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.sl .tagline { font-size: clamp(17px, 1.8vw, 22px); color: #cfcbf2; max-width: 680px; margin: 0 auto 22px; }
+.av-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.av-row img { width: 52px; height: 52px; border-radius: 50%; border: 2px solid rgba(255,255,255,.35); background: #0b0a19; }
+.av-row img:first-child { border-color: #9ff0e6; }
+.show-start { margin-top: 22px; font-size: 14px; color: #a9a4d6; display: inline-flex; gap: 8px; align-items: center; }
+.guard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+.guard-grid div { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: 14px; padding: 14px 16px; font-size: 15.5px; color: #e8e6ff; display: flex; gap: 10px; align-items: flex-start; }
+.guard-grid svg.i { color: #9ff0e6; width: 20px; height: 20px; margin-top: 2px; }
+.nocui { display: flex; gap: 14px; align-items: center; background: rgba(47,208,192,.12); border: 1px solid rgba(47,208,192,.45); border-radius: 14px; padding: 14px 18px; margin-bottom: 14px; font-size: clamp(16px, 1.6vw, 19px); font-weight: 650; color: #fff; }
+.nocui svg.i { width: 28px; height: 28px; color: #9ff0e6; flex: 0 0 auto; }
+.owners { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.owner { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: 14px; padding: 14px; display: grid; grid-template-columns: 48px 1fr; gap: 12px; align-items: start; text-align: left; font: inherit; color: inherit; cursor: pointer; transition: border-color .2s, background .2s; }
+.owner:hover { border-color: #9ff0e6; background: rgba(255,255,255,.08); }
+.owner img { width: 48px; height: 48px; border-radius: 50%; border: 2px solid rgba(255,255,255,.3); background: #0b0a19; }
+.owner b { color: #fff; letter-spacing: .05em; display: block; }
+.owner .role { font-size: 13px; color: #a9a4d6; display: block; margin-bottom: 6px; }
+.owner ul { margin: 0; padding: 0; list-style: none; font-size: 14px; color: #e8e6ff; display: grid; gap: 3px; }
+.owner ul li::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #9ff0e6; margin-right: 8px; vertical-align: 2px; }
+.owner.lead { border-color: rgba(199,184,255,.55); }
+.area-head { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+.area-head img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid #9ff0e6; background: #0b0a19; }
+.area-head .who { font-size: 14px; color: #a9a4d6; }
+.area-head .who b { color: #fff; letter-spacing: .05em; }
+.acards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 8px; }
+.acard { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 6px; }
+.acard .t { display: flex; align-items: center; gap: 10px; }
+.acard .t .ic { margin: 0; width: 36px; height: 36px; background: rgba(47,208,192,.15); color: #9ff0e6; }
+.acard .t .fam { margin-left: auto; font-family: "Cascadia Code", Consolas, Menlo, monospace; font-size: 12px; font-weight: 700; color: #9ff0e6; background: rgba(47,208,192,.12); padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
+.acard h4 { margin: 4px 0 0; font-size: 18px; color: #fff; }
+.acard p { margin: 0; font-size: 14.5px; color: #cfcbf2; line-height: 1.5; }
+.acard .sees { margin-top: auto; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,.18); font-size: 14px; }
+.acard .sees b { color: #c7b8ff; }
+.acard .reads { font-size: 13px; color: #a9a4d6; }
+.acard .reads b { color: #9ff0e6; font-weight: 650; }
+.sl .psteps { margin-top: 10px; }
+.vision-q { font-size: clamp(22px, 2.6vw, 32px); font-weight: 700; color: #fff; line-height: 1.3; margin: 0 0 18px; max-width: 820px; }
+.vision-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 18px; }
+.vision-list div { border-left: 3px solid #9ff0e6; padding: 6px 0 6px 14px; color: #e8e6ff; font-size: 15.5px; }
+.vision-list b { display: block; color: #fff; font-size: 17px; margin-bottom: 2px; }
+.signoff { font-size: clamp(18px, 2vw, 24px); font-weight: 750; background: linear-gradient(90deg, #c7b8ff, #9ff0e6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.show-nav { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+.show-arrow { width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.06); color: #fff; display: grid; place-items: center; cursor: pointer; flex: 0 0 auto; }
+.show-arrow:hover:not(:disabled) { background: rgba(255,255,255,.16); }
+.show-arrow:disabled { opacity: .3; cursor: default; }
+.show-arrow svg.i { width: 18px; height: 18px; }
+.show-dots { flex: 1; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
+.show-dots button { width: 10px; height: 10px; padding: 0; border-radius: 999px; border: 0; background: rgba(255,255,255,.25); cursor: pointer; transition: width .25s, background .25s; }
+.show-dots button[aria-selected="true"] { width: 28px; background: #9ff0e6; }
+.show:fullscreen { border-radius: 0; padding: 28px 48px; display: flex; flex-direction: column; }
+.show:fullscreen .show-stage { flex: 1; }
+.show:fullscreen .sl { font-size: 1.15em; }
+@media (max-width: 700px) {
+  .show { padding: 14px 14px 12px; border-radius: 16px; }
+  .show-stage { min-height: 0; }
+  .sl { padding: 14px 2px 6px; justify-content: flex-start; }
+  .show-fs { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .sl, .sl.on { transition: none; transform: none; } }
+:root[data-theme="dark"] .show { border-color: #2e2a52; box-shadow: 0 20px 50px rgba(0,0,0,.45); }
 </style>
 </head>
 <body>
@@ -907,31 +988,22 @@ tbody tr:hover td { background: var(--violet-soft); }
   <div class="wrap">
     <span class="eyebrow teal">08 · What we could automate</span>
     <h2>Automation ideas for the enclave</h2>
-    <p class="intro">These are proposals, not built yet. Each one is a small tool that runs inside the boundary, reads only, and turns raw data into a draft a person reviews. They line up with NIST SP 800-171 requirements, so the output doubles as evidence for the System Security Plan (SSP). Pick one to see how it would flow.</p>
-    <span class="prop"><svg class="i" style="width:14px;height:14px"><use href="#i-sparkle"/></svg>Proposed · roadmap</span>
-    <div class="fchips" role="group" aria-label="Filter by area" id="famChips">
-      <button class="fchip" type="button" data-f="all" aria-pressed="true">All</button>
-      <button class="fchip" type="button" data-f="access" aria-pressed="false">Access and sign-in</button>
-      <button class="fchip" type="button" data-f="audit" aria-pressed="false">Audit logs</button>
-      <button class="fchip" type="button" data-f="config" aria-pressed="false">Configuration and patching</button>
-      <button class="fchip" type="button" data-f="assess" aria-pressed="false">Assessment and plan</button>
-      <button class="fchip" type="button" data-f="maint" aria-pressed="false">Maintenance</button>
-    </div>
-    <div class="ideas" id="ideas"></div>
-    <div class="pipe" aria-live="polite">
-      <h4>How it would flow</h4>
-      <p class="pname" id="pipeName"></p>
-      <div class="psteps">
-        <span class="pulse-dot" aria-hidden="true"></span>
-        <div class="pstep lit"><div class="pc2"><svg class="i"><use href="#i-search"/></svg></div><b>Read</b><span id="pipeSrc"></span></div>
-        <div class="pstep lit"><div class="pc2"><svg class="i"><use href="#i-list"/></svg></div><b>Build the report</b><span id="pipeOut"></span></div>
-        <div class="pstep lit"><div class="pc2"><svg class="i"><use href="#i-file"/></svg></div><b>Draft</b><span>Summary in plain language, marked draft</span></div>
-        <div class="pstep you"><div class="pc2"><svg class="i"><use href="#i-user-check"/></svg></div><b>A person reviews</b><span>Nothing is sent or changed until someone approves it</span></div>
-        <div class="pstep lit"><div class="pc2"><svg class="i"><use href="#i-clipboard"/></svg></div><b>File as evidence</b><span id="pipeEv"></span></div>
+    <p class="intro">A short presentation on what we could automate once the enclave is running. These are proposals, not built yet. Use the arrows, the dots, or your arrow keys.</p>
+    <div class="show" id="show" tabindex="0" role="region" aria-roledescription="presentation" aria-label="Automation ideas presentation">
+      <div class="show-top">
+        <span class="prop"><svg class="i" style="width:14px;height:14px"><use href="#i-sparkle"/></svg>Proposed · roadmap</span>
+        <span class="sp"></span>
+        <span class="show-count" id="showCount"></span>
+        <button class="show-fs" id="showFs" type="button"><svg class="i"><use href="#i-slides"/></svg><span>Present</span></button>
       </div>
-      <div class="boundary"><svg class="i"><use href="#i-lock"/></svg><span>Everything above runs inside the enclave. Read-only accounts, least privilege, and CUI never leaves the boundary or goes into any bot.</span></div>
+      <div class="show-stage" id="showStage" aria-live="polite"></div>
+      <div class="show-nav">
+        <button class="show-arrow" id="showPrev" type="button" aria-label="Previous slide"><svg class="i" style="transform:rotate(180deg)"><use href="#i-arrow"/></svg></button>
+        <div class="show-dots" id="showDots" role="tablist" aria-label="Slides"></div>
+        <button class="show-arrow" id="showNext" type="button" aria-label="Next slide"><svg class="i"><use href="#i-arrow"/></svg></button>
+      </div>
     </div>
-    <p class="gloss"><b>NIST SP 800-171</b> = the security requirements behind CMMC Level 2 (numbers shown are Rev. 2) · <b>AC</b> = Access Control · <b>IA</b> = Identification and Authentication · <b>AU</b> = Audit and Accountability · <b>CM</b> = Configuration Management · <b>SI</b> = System and Information Integrity · <b>RA</b> = Risk Assessment · <b>CA</b> = Security Assessment · <b>MA</b> = Maintenance · <b>MFA</b> = multifactor authentication · <b>POA&amp;M</b> = Plan of Action and Milestones · <b>RMM</b> = remote monitoring and management</p>
+    <p class="gloss"><b>CUI</b> = Controlled Unclassified Information · <b>NIST SP 800-171</b> = the security requirements behind CMMC Level 2 (numbers shown are Rev. 2) · <b>AC</b> = Access Control · <b>IA</b> = Identification and Authentication · <b>AU</b> = Audit and Accountability · <b>CM</b> = Configuration Management · <b>SI</b> = System and Information Integrity · <b>RA</b> = Risk Assessment · <b>CA</b> = Security Assessment · <b>MA</b> = Maintenance · <b>MFA</b> = multifactor authentication · <b>POA&amp;M</b> = Plan of Action and Milestones · <b>SSP</b> = System Security Plan · <b>RMM</b> = remote monitoring and management</p>
   </div>
 </section>
 
@@ -1374,68 +1446,149 @@ tbody tr:hover td { background: var(--violet-soft); }
 
   // ---------- enclave automation ideas (proposed, not built) ----------
   var IDEAS = [
-    { f: 'access', ic: 'user-check', fam: 'AC 3.1.1', name: 'Access review drafts',
+    { f: 'access', ic: 'user-check', fam: 'AC 3.1.1', name: 'Access review drafts', bot: 'REMY',
       what: 'Lists who can reach what inside the enclave and flags accounts that haven’t signed in recently or changed roles.',
       sees: 'A ready-to-sign access review, not a spreadsheet hunt.',
       src: 'Directory accounts, groups, and last sign-in (read-only)', out: 'Who has access, and what looks stale', ev: 'Signed review saved with the date' },
-    { f: 'access', ic: 'key', fam: 'IA 3.5.3', name: 'MFA coverage check',
+    { f: 'access', ic: 'key', fam: 'IA 3.5.3', name: 'MFA coverage check', bot: 'REMY',
       what: 'Checks every account in the enclave for multifactor authentication and lists any that are missing it.',
       sees: 'Who is covered and who isn’t, on one page.',
       src: 'Sign-in and authentication method settings (read-only)', out: 'Accounts with and without MFA', ev: 'Coverage report kept for the assessor' },
-    { f: 'audit', ic: 'activity', fam: 'AU 3.3.1', name: 'Audit log summary',
+    { f: 'audit', ic: 'activity', fam: 'AU 3.3.1', name: 'Audit log summary', bot: 'RADAR',
       what: 'Reads the day’s sign-in and admin logs and pulls out failed sign-ins, admin changes, and gaps where logging stopped.',
       sees: 'A short daily summary instead of raw logs.',
       src: 'Sign-in, admin, and system logs (read-only)', out: 'Notable events and logging gaps', ev: 'Daily summary filed with the logs it came from' },
-    { f: 'config', ic: 'sliders', fam: 'CM 3.4.1 / 3.4.2', name: 'Configuration drift check',
+    { f: 'config', ic: 'sliders', fam: 'CM 3.4.1 / 3.4.2', name: 'Configuration drift check', bot: 'PATCH',
       what: 'Compares each PC and server to the approved baseline and lists any setting that has drifted.',
       sees: 'Which machines drifted, and when they were brought back.',
       src: 'Device settings compared to the approved baseline', out: 'Settings that don’t match, by machine', ev: 'Drift report with the fix ticket linked' },
-    { f: 'config', ic: 'download', fam: 'SI 3.14.1 / RA 3.11.2', name: 'Patch compliance report',
+    { f: 'config', ic: 'download', fam: 'SI 3.14.1 / RA 3.11.2', name: 'Patch compliance report', bot: 'PATCH',
       what: 'Pulls patch status from the RMM and the latest vulnerability scan and sorts what’s missing by age.',
       sees: 'Patch status in plain language, by site.',
       src: 'RMM patch status and scan results (read-only)', out: 'Missing patches and open findings, oldest first', ev: 'Patch report saved for the period' },
-    { f: 'assess', ic: 'clipboard', fam: 'CA 3.12.2', name: 'POA&M tracker',
+    { f: 'assess', ic: 'clipboard', fam: 'CA 3.12.2', name: 'POA&M tracker', bot: 'SENTRY',
       what: 'Keeps the open gaps, owners, and due dates in one list and drafts reminders before a date slips.',
       sees: 'Open gaps, owners, and due dates in one view.',
       src: 'The current Plan of Action and Milestones (POA&M)', out: 'What’s open, overdue, or due soon', ev: 'Updated POA&M with change history' },
-    { f: 'assess', ic: 'file', fam: 'CA 3.12.4', name: 'SSP evidence freshness',
+    { f: 'assess', ic: 'file', fam: 'CA 3.12.4', name: 'SSP evidence freshness', bot: 'SENTRY',
       what: 'Checks when each piece of evidence behind the System Security Plan was last updated and flags anything stale.',
       sees: 'Which parts of the plan need fresh evidence.',
       src: 'The evidence folder and its last-updated dates', out: 'Stale or missing evidence, by requirement', ev: 'Freshness check stored with the SSP' },
-    { f: 'maint', ic: 'wrench', fam: 'MA 3.7.1', name: 'Maintenance log',
+    { f: 'maint', ic: 'wrench', fam: 'MA 3.7.1', name: 'Maintenance log', bot: 'SENTRY',
       what: 'Builds on SENTRY and the end-of-shift report: ties each maintenance ticket to its window and flags work done outside it.',
       sees: 'Proof that maintenance happened inside the window.',
       src: 'Ticket board, read-only API', out: 'Maintenance done, in or out of the window', ev: 'Maintenance record for the period' }
   ];
-  var ideasBox = document.getElementById('ideas');
-  if (ideasBox) {
-    IDEAS.forEach(function (d, k) {
-      var b = el('button', 'idea'); b.type = 'button'; b.dataset.f = d.f; b.setAttribute('aria-pressed', 'false');
-      b.innerHTML = '<div class="top"><div class="ic teal">' + icon(d.ic, 20) + '</div><span class="fam"></span></div><h3></h3><p></p><div class="sees"><b>What leadership sees:</b> <span></span></div>';
-      b.querySelector('.fam').textContent = d.fam;
-      b.querySelector('h3').textContent = d.name;
-      b.querySelector('p').textContent = d.what;
-      b.querySelector('.sees span').textContent = d.sees;
-      b.addEventListener('click', function () { pickIdea(k); });
-      ideasBox.appendChild(b);
+  // ---------- section 08: step-through presentation ----------
+  var BOTS = {
+    DELTA: { role: 'Lead. Coordinates the pod and rolls results into one summary.' },
+    REMY: { role: 'GCC High and CMMC Level 2 engineer' },
+    RADAR: { role: 'Threat intel and log watching' },
+    PATCH: { role: 'Tickets, configs, and help desk' },
+    SENTRY: { role: 'CMMC Level 2 pod manager: readiness, controls, oversight' }
+  };
+  function av(name, cls) { return '<img src="assets/img/bots/' + name.toLowerCase() + '.png" alt=""' + (cls ? ' class="' + cls + '"' : '') + '>'; }
+  var AREAS = [
+    { bot: 'REMY', kick: 'Access and sign-in', title: 'Who can get in, and how', f: 'access' },
+    { bot: 'RADAR', kick: 'Audit logs', title: 'What happened yesterday, in one page', f: 'audit' },
+    { bot: 'PATCH', kick: 'Configuration and patching', title: 'Are the machines still the way we built them?', f: 'config' },
+    { bot: 'SENTRY', kick: 'Assessment, plan, and maintenance', title: 'Keep the paperwork honest', f: 'assess', f2: 'maint' }
+  ];
+  var showStage = document.getElementById('showStage');
+  if (showStage) {
+    var slidesH = [];
+    // 1. title
+    slidesH.push('<div class="sl title-sl" data-t="Opener"><div class="kick" style="justify-content:center">' + icon('sparkle', 16) + 'Ideas for the enclave</div>' +
+      '<h3>Automate the busywork.<br>Keep the judgment.</h3>' +
+      '<p class="tagline">The bots do the legwork. People make the calls. Here is what that could look like inside the enclave once it’s running.</p>' +
+      '<div class="av-row">' + ['DELTA', 'REMY', 'RADAR', 'PATCH', 'SENTRY'].map(function (b) { return av(b); }).join('') + '</div>' +
+      '<span class="show-start">' + icon('arrow', 16) + 'Press the arrow or your right arrow key</span></div>');
+    // 2. no CUI
+    slidesH.push('<div class="sl" data-t="No CUI"><div class="kick">' + icon('lock', 16) + 'Ground rules first</div><h3>No CUI is touched. Not once.</h3>' +
+      '<div class="nocui">' + icon('shield', 28) + '<span>Grok helps write these checks. None of them open, copy, or move CUI, and no CUI ever goes into a bot.</span></div>' +
+      '<div class="guard-grid">' +
+      '<div>' + icon('eye') + '<span><b>Read-only.</b> The checks read settings, logs, and status. They don’t open files or change anything.</span></div>' +
+      '<div>' + icon('lock') + '<span><b>Runs inside.</b> Every check runs inside the enclave boundary, and the results stay there.</span></div>' +
+      '<div>' + icon('key') + '<span><b>Least privilege.</b> Each check gets a read-only account with only the access it needs.</span></div>' +
+      '<div>' + icon('user-check') + '<span><b>A person decides.</b> Bots only draft. Nothing is sent or changed until someone approves it.</span></div>' +
+      '</div></div>');
+    // 3. owners
+    var own = {};
+    IDEAS.forEach(function (d) { (own[d.bot] = own[d.bot] || []).push(d.name); });
+    slidesH.push('<div class="sl" data-t="Who owns what"><div class="kick">' + icon('user-check', 16) + 'Who owns what</div><h3>One bot per job, same as today</h3>' +
+      '<p class="lead">Each idea has one bot responsible for drafting it. DELTA coordinates and rolls everything into one summary. Click a bot to jump to its ideas.</p>' +
+      '<div class="owners"><button type="button" class="owner lead" data-go="-1">' + av('DELTA') + '<span><b>DELTA</b><span class="role">' + BOTS.DELTA.role + '</span><ul><li>Routes the work</li><li>One summary for leadership</li></ul></span></button>' +
+      AREAS.map(function (a, k) { return '<button type="button" class="owner" data-go="' + k + '">' + av(a.bot) + '<span><b>' + a.bot + '</b><span class="role">' + BOTS[a.bot].role + '</span><ul>' + own[a.bot].map(function (n) { return '<li>' + n.replace('&', '&amp;') + '</li>'; }).join('') + '</ul></span></button>'; }).join('') +
+      '</div></div>');
+    // 4-7. one slide per bot
+    AREAS.forEach(function (a) {
+      var items = IDEAS.filter(function (d) { return d.bot === a.bot; });
+      slidesH.push('<div class="sl" data-t="' + a.bot + '"><div class="area-head">' + av(a.bot) + '<div><div class="kick" style="margin:0">' + a.kick + '</div><div class="who">Owner: <b>' + a.bot + '</b> · ' + BOTS[a.bot].role + '</div></div></div>' +
+        '<h3 style="margin-top:8px">' + a.title + '</h3><div class="acards">' +
+        items.map(function (d) {
+          return '<div class="acard"><div class="t"><div class="ic">' + icon(d.ic, 18) + '</div><span class="fam">' + d.fam + '</span></div><h4>' + d.name.replace('&', '&amp;') + '</h4><p>' + d.what + '</p>' +
+            '<div class="reads"><b>Reads:</b> ' + d.src + '</div><div class="sees"><b>What leadership sees:</b> ' + d.sees + '</div></div>';
+        }).join('') + '</div></div>');
     });
-    function pickIdea(k) {
-      var d = IDEAS[k];
-      ideasBox.querySelectorAll('.idea').forEach(function (b, j) { b.setAttribute('aria-pressed', j === k ? 'true' : 'false'); });
-      document.getElementById('pipeName').textContent = d.name + ' · ' + d.fam;
-      document.getElementById('pipeSrc').textContent = d.src;
-      document.getElementById('pipeOut').textContent = d.out;
-      document.getElementById('pipeEv').textContent = d.ev;
+    // 8. flow
+    slidesH.push('<div class="sl" data-t="How it flows"><div class="kick">' + icon('activity', 16) + 'How every idea would flow</div><h3>Same five steps, every time</h3>' +
+      '<div class="psteps"><span class="pulse-dot" aria-hidden="true"></span>' +
+      '<div class="pstep lit"><div class="pc2">' + icon('search') + '</div><b>Read</b><span>Settings, logs, and status only. Read-only.</span></div>' +
+      '<div class="pstep lit"><div class="pc2">' + icon('list') + '</div><b>Build the report</b><span>Inside the enclave. No CUI in it.</span></div>' +
+      '<div class="pstep lit"><div class="pc2">' + icon('file') + '</div><b>Draft</b><span>The owner bot drafts a plain-language summary.</span></div>' +
+      '<div class="pstep you"><div class="pc2">' + icon('user-check') + '</div><b>A person reviews</b><span>Nothing goes out until someone approves it.</span></div>' +
+      '<div class="pstep lit"><div class="pc2">' + icon('clipboard') + '</div><b>File as evidence</b><span>Saved for the SSP and the assessor.</span></div>' +
+      '</div><div class="boundary">' + icon('lock') + '<span>Everything above runs inside the enclave. CUI never leaves the boundary or goes into any bot.</span></div></div>');
+    // 9. vision
+    slidesH.push('<div class="sl" data-t="The vision"><div class="kick">' + icon('sparkle', 16) + 'Where this goes</div><h3>Local tools, built to live inside the enclave</h3>' +
+      '<p class="vision-q">Start small. Build each tool once, run it inside the boundary, and let it grow with the department.</p>' +
+      '<div class="vision-list">' +
+      '<div><b>Local first</b>Small tools that run inside the enclave, not cloud services reaching in.</div>' +
+      '<div><b>Grows with the team</b>As the department grows, I’ll keep cultivating new ideas and adding to the list.</div>' +
+      '<div><b>Training alongside</b>I\u2019ll keep building training, so the team can run these tools and add their own.</div>' +
+      '</div><div class="signoff">The bots draft. People decide. CUI stays put.</div></div>');
+    showStage.innerHTML = slidesH.join('');
+    var sls = Array.prototype.slice.call(showStage.querySelectorAll('.sl'));
+    var dotsBox = document.getElementById('showDots'), si = 0;
+    sls.forEach(function (s, k) {
+      var d = document.createElement('button'); d.type = 'button'; d.setAttribute('role', 'tab');
+      d.setAttribute('aria-label', (k + 1) + ': ' + s.dataset.t); d.title = s.dataset.t;
+      d.addEventListener('click', function () { go(k); });
+      dotsBox.appendChild(d);
+    });
+    function go(k) {
+      k = Math.max(0, Math.min(sls.length - 1, k));
+      sls.forEach(function (s, j) { s.classList.toggle('on', j === k); s.classList.toggle('back', j < k); s.setAttribute('aria-hidden', j === k ? 'false' : 'true'); });
+      dotsBox.querySelectorAll('button').forEach(function (d, j) { d.setAttribute('aria-selected', j === k ? 'true' : 'false'); });
+      document.getElementById('showCount').textContent = (k + 1) + ' / ' + sls.length + ' · ' + sls[k].dataset.t;
+      document.getElementById('showPrev').disabled = k === 0;
+      document.getElementById('showNext').disabled = k === sls.length - 1;
+      si = k;
     }
-    document.querySelectorAll('#famChips .fchip').forEach(function (c) {
-      c.addEventListener('click', function () {
-        var f = c.dataset.f, first = -1;
-        document.querySelectorAll('#famChips .fchip').forEach(function (x) { x.setAttribute('aria-pressed', x === c ? 'true' : 'false'); });
-        ideasBox.querySelectorAll('.idea').forEach(function (b, j) { var on = f === 'all' || b.dataset.f === f; b.hidden = !on; if (on && first < 0) first = j; });
-        if (first >= 0) pickIdea(first);
-      });
+    document.getElementById('showPrev').addEventListener('click', function () { go(si - 1); });
+    document.getElementById('showNext').addEventListener('click', function () { go(si + 1); });
+    showStage.addEventListener('click', function (e) {
+      var o = e.target.closest('[data-go]'); if (!o) return;
+      var k = +o.dataset.go; go(k < 0 ? sls.length - 2 : 3 + k);
     });
-    pickIdea(0);
+    var showEl = document.getElementById('show'), showVis = false;
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { showVis = es[0].isIntersecting && es[0].intersectionRatio > 0.5; }, { threshold: [0, 0.5, 0.75] }).observe(showEl);
+    document.addEventListener('keydown', function (e) {
+      if (!(showVis || document.fullscreenElement === showEl) || e.altKey || e.ctrlKey || e.metaKey) return;
+      if (/INPUT|SELECT|TEXTAREA/.test((e.target.tagName || ''))) return;
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); go(si + 1); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(si - 1); }
+    });
+    var sx = null;
+    showStage.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+    showStage.addEventListener('touchend', function (e) { if (sx == null) return; var dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) go(si + (dx < 0 ? 1 : -1)); sx = null; });
+    var fsb = document.getElementById('showFs');
+    if (!showEl.requestFullscreen) fsb.hidden = true;
+    fsb.addEventListener('click', function () {
+      if (document.fullscreenElement) document.exitFullscreen(); else showEl.requestFullscreen().catch(function () {});
+    });
+    document.addEventListener('fullscreenchange', function () { fsb.lastChild.textContent = document.fullscreenElement === showEl ? 'Exit' : 'Present'; });
+    go(0);
   }
 
   // ---------- background: dot grid that leans toward the cursor; a click sends a ripple ----------
@@ -1548,7 +1701,7 @@ tbody tr:hover td { background: var(--violet-soft); }
     setTimeout(function () { wi = (wi + 1) % words.length; rot.textContent = words[wi]; rot.classList.remove('out'); }, 260);
   }, 2200);
 
-  var targets = document.querySelectorAll('section.band h2, section.band .intro, .card, .bot, .callout, .table-wrap, .feature, .sim-note, .lab, .pipe');
+  var targets = document.querySelectorAll('section.band h2, section.band .intro, .card, .bot, .callout, .table-wrap, .feature, .sim-note, .lab, .pipe, .show');
   targets.forEach(function (t) {
     t.classList.add('reveal');
     var sib = t.parentNode ? Array.prototype.indexOf.call(t.parentNode.children, t) : 0;

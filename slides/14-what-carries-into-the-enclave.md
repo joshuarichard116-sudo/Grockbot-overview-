@@ -1,9 +1,9 @@
 ---
-slide: 11
+slide: 14
 title: What carries into the enclave
 ---
 ## On screen
-*Section label:* 09 · Go-live
+*Section label:* 12 · Go-live
 
 | Area | What carries over |
 |---|---|
