@@ -7,7 +7,7 @@ title: What I built with my Grok Bot seat
 - **What I built with my Grok Bot seat**
 - Joshua Richard
 - At a glance:
-  - 9 · bots, each scoped to one job
+  - 8 · bots, each scoped to one job
   - 0 · client names or data in any of it
 
 ## Speaker notes
