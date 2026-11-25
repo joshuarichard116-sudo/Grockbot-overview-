@@ -558,21 +558,28 @@ tbody tr:hover td { background: var(--violet-soft); }
 .dress .opts button { font: inherit; font-size: 14px; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; min-height: 32px; }
 .dress .opts button[aria-pressed="true"] { border-color: var(--violet); box-shadow: 0 0 0 2px var(--violet-soft); font-weight: 650; }
 .dress .opts button i { width: 18px; height: 18px; border-radius: 50%; display: block; }
-.dress-prev { --a: #22c3e6; border-radius: 14px; padding: 18px; transition: background .35s, color .35s, border-color .35s; border: 1px solid #263244; background: #0d1420; color: #e6edf5; }
-.dress-prev[data-theme="light"] { background: #f7f9fb; color: #1a2330; border-color: #dbe2ea; }
-.dp-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--a); }
+.dress-prev { --a: #0b7a85; --bg: #eef1f4; --fg: #17232e; --mu: #5a6878; --hr: #d5dce3; border-radius: 14px; padding: 18px; transition: background .35s, color .35s, border-color .35s; border: 1px solid var(--hr); background: var(--bg); color: var(--fg); }
+.pals { display: grid; grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); gap: 6px; }
+.pal { font: inherit; text-align: left; cursor: pointer; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 12px; padding: 8px 10px; display: grid; gap: 3px; position: relative; }
+.pal[aria-pressed="true"] { border-color: var(--violet); box-shadow: 0 0 0 2px var(--violet-soft); }
+.pal .sw { display: flex; gap: 3px; }
+.pal .sw i { width: 16px; height: 16px; border-radius: 4px; border: 1px solid rgba(127,127,127,.35); }
+.pal b { font-size: 13.5px; }
+.pal small { font-size: 11.5px; color: var(--muted); line-height: 1.3; }
+.pal .sug { position: absolute; top: 7px; right: 8px; font-size: 10px; font-weight: 750; letter-spacing: .06em; text-transform: uppercase; color: var(--teal); }
+.dp-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--mu); }
 .dp-title { font-size: 20px; font-weight: 700; margin: 4px 0 8px; line-height: 1.25; }
 .dp-rule { height: 3px; width: 70px; border-radius: 3px; background: var(--a); margin-bottom: 10px; transition: width .35s; }
-.dp-text { font-size: 14px; opacity: .8; }
+.dp-text { font-size: 14px; color: var(--mu); }
 .dp-chips { display: flex; gap: 6px; margin-top: 10px; }
-.dp-chips span { font-size: 12px; padding: 2px 10px; border-radius: 6px; border: 1px solid var(--a); color: var(--a); }
+.dp-chips span { font-size: 12px; padding: 2px 10px; border-radius: 6px; border: 1px solid var(--a); color: var(--fg); }
 .dress-prev[data-mood="technical"] .dp-title { font-family: "Cascadia Code", Consolas, Menlo, monospace; font-size: 17px; letter-spacing: -.01em; }
 .dress-prev[data-mood="calm"] .dp-title { font-weight: 500; }
 .dress-prev[data-mood="calm"] .dp-rule { width: 36px; height: 2px; }
 .dress-prev[data-mood="calm"] .dp-chips span { border-radius: 999px; }
 .dress-prev[data-mood="bold"] .dp-title { font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
 .dress-prev[data-mood="bold"] .dp-rule { width: 100%; height: 5px; }
-.dress-prev[data-mood="bold"] .dp-chips span { background: var(--a); color: #0d1420; }
+.dress-prev[data-mood="bold"] .dp-chips span { background: var(--a); color: #111; }
 .dress-note { margin: 0; font-size: 13px; color: var(--muted); }
 
 /* ---------- section 08 presentation ---------- */
@@ -1254,7 +1261,7 @@ tbody tr:hover td { background: var(--violet-soft); }
       <div class="skill-body">
         <div class="skill-scope">
           <div class="scope-row"><b>Starts when</b><span>You say “dress it up,” or point it at a page, a README, or a report.</span></div>
-          <div class="scope-row"><b>Step 1 · Ask</b><span>A short interview: who reads it, light or dark, the mood (calm, technical, bold), any colors you have to use, how much flash, and a page you like. Skip any question and it picks a sensible default.</span></div>
+          <div class="scope-row"><b>Step 1 · Ask</b><span>A short interview: what you’re building and who reads it, light or dark, a palette, the mood (calm, technical, bold), how much flash, and a page you like. Palettes come as named choices, like Rustic or Control Room, with one suggested to fit your page. You can bring your own colors instead. Skip any question and it picks a sensible default.</span></div>
           <div class="scope-row"><b>Step 2 · Profile</b><span>Turns your answers into a style profile: a color palette checked for readable contrast, fonts, a clean line-icon set, and one signature touch. It saves the profile, so your next page matches.</span></div>
           <div class="scope-row"><b>Step 3 · Apply</b><span>Adds the banner, headings, icons, dividers, diagram colors, and spacing. Formatting only.</span></div>
           <div class="scope-row"><b>Step 4 · Prove it</b><span>Compares the text before and after to show no fact changed, checks every image and link, then shows you the before and after. You approve it.</span></div>
@@ -1262,17 +1269,17 @@ tbody tr:hover td { background: var(--violet-soft); }
           <div class="scope-row"><b>Runs</b><span>In a chat, or on its own when new docs land in a repository. Then it opens a pull request, and nothing goes live until someone merges it.</span></div>
         </div>
         <div class="dress" id="dress" aria-label="Try the Dress It Up questions">
-          <div class="dress-q"><b>Light or dark?</b><div class="opts" data-k="theme"><button type="button" data-v="dark" aria-pressed="true">Dark</button><button type="button" data-v="light" aria-pressed="false">Light</button></div></div>
+          <div class="dress-q"><b>What are you building?</b><div class="opts" data-k="kind"><button type="button" data-v="rustic" aria-pressed="false">Portfolio</button><button type="button" data-v="control" aria-pressed="true">Lab guide</button><button type="button" data-v="seaglass" aria-pressed="false">Runbook</button><button type="button" data-v="night" aria-pressed="false">Tech talk</button><button type="button" data-v="aurora" aria-pressed="false">Launch page</button></div></div>
+          <div class="dress-q"><b>Pick a palette</b><div class="pals" id="dressPals"></div></div>
           <div class="dress-q"><b>Pick a mood</b><div class="opts" data-k="mood"><button type="button" data-v="technical" aria-pressed="true">Technical</button><button type="button" data-v="calm" aria-pressed="false">Calm</button><button type="button" data-v="bold" aria-pressed="false">Bold</button></div></div>
-          <div class="dress-q"><b>Accent color</b><div class="opts" data-k="acc"><button type="button" data-v="#22c3e6" aria-pressed="true" aria-label="Cyan"><i style="background:#22c3e6"></i></button><button type="button" data-v="#3ddc84" aria-pressed="false" aria-label="Green"><i style="background:#3ddc84"></i></button><button type="button" data-v="#d9a21b" aria-pressed="false" aria-label="Amber"><i style="background:#d9a21b"></i></button><button type="button" data-v="#ff6b5a" aria-pressed="false" aria-label="Coral"><i style="background:#ff6b5a"></i></button></div></div>
-          <div class="dress-prev" id="dressPrev" data-theme="dark" data-mood="technical">
+          <div class="dress-prev" id="dressPrev" data-mood="technical">
             <div class="dp-eyebrow">Help desk runbook</div>
             <div class="dp-title">Reset a stuck Outlook profile</div>
             <div class="dp-rule"></div>
             <div class="dp-text">Same words as before. Only the look changed.</div>
             <div class="dp-chips"><span>Outlook</span><span>PowerShell</span></div>
           </div>
-          <p class="dress-note">A preview of the question step. Pick answers and watch the sample restyle.</p>
+          <p class="dress-note">A preview of the question step. Your answer to the first question suggests a palette; pick any other to override it.</p>
         </div>
       </div>
     </div>
@@ -1932,15 +1939,40 @@ tbody tr:hover td { background: var(--violet-soft); }
   }
 
   // ---------- Dress It Up question preview ----------
+  // Same five palettes as the kit's palette library (.github/pizzazz/STYLE.md)
   (function () {
-    var box = document.getElementById('dress'), pv = document.getElementById('dressPrev');
-    if (!box || !pv) return;
+    var box = document.getElementById('dress'), pv = document.getElementById('dressPrev'), pb = document.getElementById('dressPals');
+    if (!box || !pv || !pb) return;
+    var PALS = [
+      { id: 'rustic', n: 'Rustic', v: 'Warm and grounded', bg: '#FAF5EE', fg: '#27241D', mu: '#625B50', hr: '#D9D1C4', a: '#D9A21B' },
+      { id: 'control', n: 'Control Room', v: 'Crisp admin console', bg: '#EEF1F4', fg: '#17232E', mu: '#5A6878', hr: '#D5DCE3', a: '#0B7A85' },
+      { id: 'seaglass', n: 'Sea Glass', v: 'Calm and clean', bg: '#EEF4F2', fg: '#1B2624', mu: '#4D605B', hr: '#D3E2DD', a: '#1F8A70' },
+      { id: 'night', n: 'Night Shift', v: 'Dark, teal glow', bg: '#0F1716', fg: '#E6F1EE', mu: '#9FB5AF', hr: '#2F3D3A', a: '#FFCB9A' },
+      { id: 'aurora', n: 'Aurora', v: 'Bright and playful', bg: '#0F0D1F', fg: '#ECEBFF', mu: '#A9A5C9', hr: '#2E2A52', a: '#8F7BFF' }
+    ];
+    pb.innerHTML = PALS.map(function (p) {
+      return '<button type="button" class="pal" data-p="' + p.id + '" aria-pressed="false"><span class="sw"><i style="background:' + p.bg + '"></i><i style="background:' + p.fg + '"></i><i style="background:' + p.a + '"></i></span><b>' + p.n + '</b><small>' + p.v + '</small></button>';
+    }).join('');
+    function pick(id) {
+      var p = PALS.filter(function (x) { return x.id === id; })[0];
+      pb.querySelectorAll('.pal').forEach(function (x) { x.setAttribute('aria-pressed', x.dataset.p === id ? 'true' : 'false'); });
+      ['bg', 'fg', 'mu', 'hr', 'a'].forEach(function (k) { pv.style.setProperty('--' + k, p[k]); });
+    }
+    function suggest(id) {
+      pb.querySelectorAll('.pal').forEach(function (x) {
+        var t = x.querySelector('.sug'); if (t) t.remove();
+        if (x.dataset.p === id) x.insertAdjacentHTML('beforeend', '<span class="sug">Suggested</span>');
+      });
+      pick(id);
+    }
     box.addEventListener('click', function (e) {
+      var pal = e.target.closest('.pal'); if (pal) { pick(pal.dataset.p); return; }
       var b = e.target.closest('.opts button'); if (!b) return;
       var g = b.parentNode, k = g.dataset.k, v = b.dataset.v;
       g.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-      if (k === 'acc') pv.style.setProperty('--a', v); else pv.dataset[k] = v;
+      if (k === 'kind') suggest(v); else pv.dataset[k] = v;
     });
+    suggest('control');
   })();
 
   // ---------- background: dot grid that leans toward the cursor; a click sends a ripple ----------
