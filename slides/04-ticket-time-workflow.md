@@ -14,7 +14,6 @@ title: Ticket and time workflow
 - Call work · Connected time + 10 min wrap-up
 - Reply alert · Every 30 min · Weekdays, only when someone's waiting
 - Time saved per week · ~3 hrs/week (estimate)
-- Also built: morning board · email triage · meeting prep · end-of-day wrap. Built, used, then paused to keep usage down. Run on demand.
 - Callout: Phone numbers keep the last four digits. Call content is never logged.
 
 ## Speaker notes

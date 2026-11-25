@@ -695,9 +695,7 @@ tbody tr:hover td { background: var(--violet-soft); }
       <a href="#context">Context</a>
       <a href="#team">The team</a>
       <a href="#day">Day to day</a>
-      <a href="#docs">Documentation</a>
       <a href="#scripts">Script lab</a>
-      <a href="#fortigate">FortiGate</a>
       <a href="#enclave">The enclave</a>
       <a href="#automate">Automation ideas</a>
     </nav>
@@ -715,7 +713,7 @@ tbody tr:hover td { background: var(--violet-soft); }
       <span class="kicker"><svg class="i" style="width:16px;height:16px"><use href="#i-sparkle"/></svg>Grok Bot Show &amp; Tell · Nov 25, 2026</span>
       <h1>What I built with my Grok Bot seat</h1>
       <p class="rotline">Grok drafts the <span class="rot" id="rot">ticket notes</span>.<br>I press Send.</p>
-      <p class="lede">A tour of how I use Grok Bot for my S1 Technology work: the daily ticket workflow, documentation, scripting, and what carries into the enclave. You can try the scripts right on this page.</p>
+      <p class="lede">A tour of how I use Grok Bot for my S1 Technology work: the daily ticket workflow, the end-of-shift report, scripting, and automation for the enclave. You can try the scripts right on this page.</p>
       <div class="by">Joshua Richard</div>
       <div class="btns">
         <a class="btn light" href="#scripts"><svg class="i"><use href="#i-terminal"/></svg>Try the scripts</a>
@@ -816,7 +814,6 @@ tbody tr:hover td { background: var(--violet-soft); }
       <div class="card"><p>Time saved per week</p><h3 style="margin-top:8px"><span class="est">~3 hrs/week <i>est.</i></span></h3></div>
     </div>
     <p style="color:var(--muted);margin-top:12px;font-size:14px">Time-saved figures marked "est." are rough estimates until I finish measuring them.</p>
-    <p style="color:var(--muted);margin-top:18px"><b style="color:var(--ink)">Also built:</b> morning board, email triage, meeting prep, and end-of-day wrap. Built, used, then paused to keep usage down. They run on demand.</p>
     <div class="callout"><svg class="i"><use href="#i-lock"/></svg><span>Phone numbers keep only the last four digits. Call content is never logged.</span></div>
 
     <div style="margin-top:56px">
@@ -844,31 +841,10 @@ tbody tr:hover td { background: var(--violet-soft); }
   </div>
 </section>
 
-<!-- ================= DOCUMENTATION ================= -->
-<section class="band alt" id="docs">
-  <div class="wrap">
-    <span class="eyebrow teal">04 · Documentation</span>
-    <h2>IT Glue documentation</h2>
-    <p class="intro">PATCH drafted onboarding docs for my assigned clients, one client at a time, on read-only access.</p>
-    <div class="grid g3">
-      <div class="card"><div class="stat"><b>7</b><span>client organizations assigned</span></div></div>
-      <div class="card"><div class="stat"><b>40</b><span>onboarding and provisioning steps unchecked</span></div></div>
-      <div class="card"><div class="stat"><b>0</b><span>styling errors in the drafts</span></div></div>
-    </div>
-    <div class="flow" style="margin-top:30px">
-      <div class="card"><h3>Example first</h3><p>Found an existing record and showed me before touching anything.</p></div>
-      <div class="card"><h3>One client at a time</h3><p>Read-only access. Nothing crosses between clients.</p></div>
-      <div class="card"><h3>Styling check</h3><p>Using the skill from Hunter's team library.</p></div>
-      <div class="card"><h3>I publish</h3><p>I bring every draft in myself.</p></div>
-    </div>
-    <div class="callout"><svg class="i"><use href="#i-user-check"/></svg><span>The bots draft. I publish.</span></div>
-  </div>
-</section>
-
 <!-- ================= SCRIPT LAB ================= -->
 <section class="band" id="scripts">
   <div class="wrap">
-    <span class="eyebrow coral">05 · Script lab</span>
+    <span class="eyebrow coral">04 · Script lab</span>
     <h2>Try the scripts</h2>
     <p class="intro">These are the PowerShell scripts I use on S1 tickets, built with Grok and refined over several versions. Pick one, choose dry run or full run, and press Run to watch what it does step by step.</p>
     <div class="sim-note" role="note"><svg class="i"><use href="#i-alert"/></svg><span><b>Simulated console.</b> PowerShell can't run in a browser, so nothing here touches your computer. The steps are the real ones each script runs; the wording is example output. Names and paths are sanitized.</span></div>
@@ -927,45 +903,10 @@ tbody tr:hover td { background: var(--violet-soft); }
   </div>
 </section>
 
-<!-- ================= FORTIGATE ================= -->
-<section class="band alt" id="fortigate">
-  <div class="wrap">
-    <span class="eyebrow">06 · Networking</span>
-    <h2>FortiGate training</h2>
-    <p class="intro">Start with the hands-on lab I built, then go deeper with Fortinet's official training and the reference articles we use when a FortiGate-to-Azure tunnel comes up on a ticket.</p>
-    <a class="feature" href="https://joshuarichard116-sudo.github.io/jrichard-web/labs/talvex-firewall/" target="_blank" rel="noopener">
-      <div class="ic"><svg class="i"><use href="#i-network"/></svg></div>
-      <div><div class="tagline">Hands-on · built by me</div><h3>Talvex Firewall Lab</h3><p>My FortiGate-style training lab. Practice firewall work in the browser with guided missions.</p></div>
-      <span class="go">Open the lab<svg class="i" style="width:18px;height:18px"><use href="#i-arrow"/></svg></span>
-    </a>
-    <div class="grid g2">
-      <div class="card">
-        <div class="ic"><svg class="i"><use href="#i-book"/></svg></div>
-        <h3>Official Fortinet training</h3>
-        <div class="links">
-          <a href="https://training.fortinet.com/" target="_blank" rel="noopener"><span class="grow">Fortinet Training Institute<small>Course catalog</small></span><svg class="i"><use href="#i-external"/></svg></a>
-          <a href="https://www.fortinet.com/training-certification" target="_blank" rel="noopener"><span class="grow">Training and certification<small>Overview</small></span><svg class="i"><use href="#i-external"/></svg></a>
-          <a href="https://www.fortinet.com/training/cybersecurity-professionals" target="_blank" rel="noopener"><span class="grow">For cybersecurity professionals<small>Training paths</small></span><svg class="i"><use href="#i-external"/></svg></a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="ic teal"><svg class="i"><use href="#i-network"/></svg></div>
-        <h3>FortiGate + Azure site-to-site VPN</h3>
-        <div class="links">
-          <a href="https://community.fortinet.com/fortigate-3/technical-tip-deploying-s2s-vpn-between-microsoft-azure-virtual-network-gateway-and-fortigate-117984" target="_blank" rel="noopener"><span class="grow">Azure VPN gateway to FortiGate<small>Site-to-site setup</small></span><svg class="i"><use href="#i-external"/></svg></a>
-          <a href="https://community.fortinet.com/fortigate-3/technical-tip-bgp-over-an-azure-vnet-vpn-103398" target="_blank" rel="noopener"><span class="grow">BGP over an Azure VNet VPN<small>Dynamic routing</small></span><svg class="i"><use href="#i-external"/></svg></a>
-          <a href="https://community.fortinet.com/fortigate-3/technical-tip-explanation-of-ipsec-vpn-dpd-options-and-on-idle-tunnel-flushing-process-137398" target="_blank" rel="noopener"><span class="grow">IPsec DPD and idle tunnels<small>Why tunnels drop</small></span><svg class="i"><use href="#i-external"/></svg></a>
-        </div>
-      </div>
-    </div>
-    <p class="gloss"><b>VPN</b> = virtual private network · <b>BGP</b> = Border Gateway Protocol · <b>VNet</b> = Azure virtual network · <b>IPsec</b> = Internet Protocol Security · <b>DPD</b> = Dead Peer Detection</p>
-  </div>
-</section>
-
 <!-- ================= ENCLAVE ================= -->
 <section class="band" id="enclave">
   <div class="wrap">
-    <span class="eyebrow teal">07 · Pointed at the enclave</span>
+    <span class="eyebrow teal">05 · Pointed at the enclave</span>
     <h2>The CMMC Level 2 Enclave Toolkit</h2>
     <p class="intro">Every tool that goes into an enclave holding CUI has to be judged the same way, with evidence. This template does that, and it's vendor-neutral: no picks, no pricing, just evidence.</p>
     <div class="flow" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
@@ -986,7 +927,7 @@ tbody tr:hover td { background: var(--violet-soft); }
 <!-- ================= ENCLAVE AUTOMATION IDEAS ================= -->
 <section class="band alt" id="automate">
   <div class="wrap">
-    <span class="eyebrow teal">08 · What we could automate</span>
+    <span class="eyebrow teal">06 · What we could automate</span>
     <h2>Automation ideas for the enclave</h2>
     <p class="intro">A short presentation on what we could automate once the enclave is running. These are proposals, not built yet. Use the arrows, the dots, or your arrow keys.</p>
     <div class="show" id="show" tabindex="0" role="region" aria-roledescription="presentation" aria-label="Automation ideas presentation">
@@ -1011,14 +952,13 @@ tbody tr:hover td { background: var(--violet-soft); }
 <section class="band" id="golive">
   <div class="wrap">
     <div>
-      <span class="eyebrow">09 · Go-live</span>
+      <span class="eyebrow">07 · Go-live</span>
       <h2>What carries into the enclave</h2>
       <div class="table-wrap" style="margin-top:20px">
         <table>
           <thead><tr><th>Area</th><th>What carries over</th></tr></thead>
           <tbody>
             <tr><td><b>Maintenance</b></td><td>Ticket clock, time rules, SENTRY's maintenance board</td></tr>
-            <tr><td><b>Documentation</b></td><td>The IT Glue pattern: example first, draft, a person publishes</td></tr>
             <tr><td><b>Tool decisions</b></td><td>The enclave toolkit, mapped to NIST SP 800-171</td></tr>
             <tr><td><b>Inside the boundary</b></td><td>AI helps build small tools. The tools run inside. CUI never leaves.</td></tr>
           </tbody>
@@ -1694,7 +1634,7 @@ tbody tr:hover td { background: var(--violet-soft); }
 
 
   // ---------- motion ----------
-  var words = ['ticket notes', 'time entries', 'IT Glue docs', 'shift reports', 'PowerShell fixes', 'email replies'];
+  var words = ['ticket notes', 'time entries', 'shift reports', 'PowerShell fixes', 'email replies'];
   var rot = document.getElementById('rot'), wi = 0;
   if (rot && !reduce) setInterval(function () {
     rot.classList.add('out');

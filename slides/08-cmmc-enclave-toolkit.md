@@ -1,9 +1,9 @@
 ---
-slide: 10
+slide: 8
 title: The CMMC Level 2 Enclave Toolkit
 ---
 ## On screen
-*Section label:* 08 · Pointed at the enclave
+*Section label:* 06 · Pointed at the enclave
 
 1. Define the CUI boundary
 2. Evaluate each tool

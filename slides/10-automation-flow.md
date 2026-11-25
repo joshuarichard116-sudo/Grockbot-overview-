@@ -1,9 +1,9 @@
 ---
-slide: 12
+slide: 10
 title: Same five steps, every time
 ---
 ## On screen
-*Section label:* 10 · What we could automate
+*Section label:* 08 · What we could automate
 
 1. Read: settings, logs, and status only. Read-only.
 2. Build the report: inside the enclave. No CUI in it.

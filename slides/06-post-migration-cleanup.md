@@ -1,9 +1,9 @@
 ---
-slide: 7
+slide: 6
 title: Post-migration cleanup suite
 ---
 ## On screen
-*Section label:* 05 · Scripting toolkit
+*Section label:* 04 · Scripting toolkit
 
 - **PostEmail-Migration-v3.ps1 / MS-Reg-Wipe.ps1** · "Fresh start" after an email migration · ~1,700–1,950 lines · 48–56 functions
 - **Clears:** closes every M365 process · Outlook profiles · OST / NST caches · Autocomplete (backed up first) · Offline address books · Autodiscover cache · New Outlook data · Teams caches · Office sign-in tokens · Licensing cache · Web Account Manager cache · Saved credentials · OneDrive link · Old work-or-school registration

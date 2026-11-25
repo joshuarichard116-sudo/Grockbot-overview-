@@ -265,7 +265,7 @@ body:hover .navbtn { opacity: 1; }
     <div class="card"><div class="k">At a glance</div>
       <div class="stat"><span class="n">0</span><span class="t">client names or data in any of it</span></div></div>
   </div>
-  <div class="notes-src"><p>Hi, everyone. I'm going to walk you through what I've built with my Grok Bot seat for my S1 work: the daily ticket workflow, documentation, scripting, and what carries into the enclave.</p></div>
+  <div class="notes-src"><p>Hi, everyone. I'm going to walk you through what I've built with my Grok Bot seat for my S1 work: the daily ticket workflow, the end-of-shift report, scripting, and automation for the enclave.</p></div>
 </section>
 
 <!-- 2 -->
@@ -346,7 +346,6 @@ body:hover .navbtn { opacity: 1; }
       <div class="card"><span>Time saved per week</span><b style="font-size:34px"><span class="est">~3 hrs/week <i>est.</i></span></b></div>
     </div>
     <p class="muted" style="margin:0;font-size:22px">Time saved is a rough estimate until measured.</p>
-    <p class="small muted" style="margin:0"><b style="color:var(--fg)">Also built:</b> morning board · email triage · meeting prep · end-of-day wrap. Built, used, then paused to keep usage down. Run on demand.</p>
     <div class="callout guard" style="font-size:30px">Phone numbers keep the last four digits. Call content is never logged.</div>
   </div>
   <div class="notes-src"><p>Here's the day-to-day workflow. When I start a ticket, DELTA starts a clock. If I'm on a call, CHRONO pulls the call time from RingCentral and matches it to the ticket. It keeps only the last four digits of the number, and it never logs what was said. When I'm done, the note and time entry are already drafted, using rules I wrote down once. Email-only work is ten minutes. Call work is the connected time, plus ten minutes to wrap up. I approve it, and PATCH posts it. Nothing goes out without me. And every thirty minutes on weekdays, I get an alert, but only when someone is waiting on a reply.</p></div>
@@ -378,29 +377,8 @@ body:hover .navbtn { opacity: 1; }
 </section>
 
 <!-- 5 -->
-<section class="slide" data-title="IT Glue documentation">
-  <div class="label">04 · Documentation</div>
-  <h2>IT Glue documentation</h2>
-  <div class="body">
-    <div class="row">
-      <div class="card col"><div class="stat"><span class="n">7</span><span class="t">client organizations assigned</span></div></div>
-      <div class="card col"><div class="stat"><span class="n">40</span><span class="t">onboarding &amp; provisioning steps unchecked</span></div></div>
-      <div class="card col"><div class="stat"><span class="n">0</span><span class="t">styling errors in the drafts</span></div></div>
-    </div>
-    <ol class="steps">
-      <li><div class="num">1</div><b>Example first</b><span>Found an existing record and showed me before touching anything</span></li>
-      <li><div class="num">2</div><b>One client at a time</b><span>Read-only access, nothing crosses between clients</span></li>
-      <li><div class="num">3</div><b>Styling check</b><span>Using the skill from Hunter's team library</span></li>
-      <li><div class="num">4</div><b>I publish</b><span>I bring every draft in myself</span></li>
-    </ol>
-    <div class="callout guard">The bots draft. I publish.</div>
-  </div>
-  <div class="notes-src"><p>Next, documentation. I had seven client organizations assigned to me in IT Glue, with forty onboarding and provisioning steps still unchecked. PATCH started by finding an existing example, showed it to me first, and matched that format. After that, it drafted the onboarding docs on read-only access, one client at a time, so nothing crosses over. Every draft passed the team's IT Glue styling check, a skill from Hunter's library, with zero errors. I review each one and bring it in myself.</p></div>
-</section>
-
-<!-- 6 -->
 <section class="slide" data-title="Post-migration cleanup suite">
-  <div class="label">05 · Scripting toolkit</div>
+  <div class="label">04 · Scripting toolkit</div>
   <h2>Post-migration cleanup suite</h2>
   <div class="body">
     <div class="row" style="flex:1;min-height:0">
@@ -431,9 +409,9 @@ body:hover .navbtn { opacity: 1; }
   <div class="notes-src"><p>DELTA also helps me refine my PowerShell. The biggest piece is a post-migration cleanup suite. After an email migration, a PC holds on to the old tenant everywhere: Outlook profiles and caches, Teams caches, Office sign-in tokens, saved credentials, the OneDrive link, even the old work or school registration. The script closes every Microsoft 365 process, backs up autocomplete first, and clears all of it, so the PC behaves like new. It has its own automated test suite, built in Pester. And I've improved it over several versions, starting in September. Alongside it, a report-only checker finds leftover device management and policies without changing anything, and a small script removes the old company's Edge homepage policies for the current user only.</p></div>
 </section>
 
-<!-- 7 -->
+<!-- 6 -->
 <section class="slide" data-title="Everyday Office and endpoint fixes">
-  <div class="label">06 · Scripting toolkit</div>
+  <div class="label">05 · Scripting toolkit</div>
   <h2>Everyday Office and endpoint fixes</h2>
   <div class="body">
     <div class="row" style="flex:1;min-height:0">
@@ -462,49 +440,9 @@ Start-Process powershell -Verb RunAs `
   <div class="notes-src"><p>The rest of the toolkit is everyday fixes. When Outlook won't open attachments, a guided script starts with the least invasive fix and stops as soon as Outlook works. As a last resort, it renames the old profile instead of deleting it. Others reset WebView2 when the old company's sign-in page keeps showing, repair the Teams meeting add-in in classic Outlook, clear printer drivers without touching Microsoft's built-ins, and reinstall Microsoft 365 Apps with a self-elevation check. The time savings on screen are rough estimates for now. I'm still measuring them.</p></div>
 </section>
 
-<!-- 8 -->
-<section class="slide" data-title="FortiGate training">
-  <div class="label">07 · Networking</div>
-  <h2>FortiGate training</h2>
-  <div class="body">
-    <div class="row">
-      <div class="col">
-        <div class="card"><div class="k">Learn FortiGate</div><h3>Official Fortinet training</h3><p class="small muted" style="margin-bottom:20px">Where the team can learn FortiGate, Fortinet's firewall</p>
-          <ul class="links">
-            <li><a href="https://training.fortinet.com/" target="_blank" rel="noopener">Fortinet Training Institute<small>Course catalog</small></a></li>
-            <li><a href="https://www.fortinet.com/training-certification" target="_blank" rel="noopener">Training &amp; certification<small>Overview</small></a></li>
-            <li><a href="https://www.fortinet.com/training/cybersecurity-professionals" target="_blank" rel="noopener">For cybersecurity professionals<small>Training paths</small></a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card"><div class="k">Troubleshooting reference</div><h3>FortiGate + Azure site-to-site VPN</h3><p class="small muted" style="margin-bottom:20px">Fortinet Community articles we use on tickets</p>
-          <ul class="links">
-            <li><a href="https://community.fortinet.com/fortigate-3/technical-tip-deploying-s2s-vpn-between-microsoft-azure-virtual-network-gateway-and-fortigate-117984" target="_blank" rel="noopener">Azure VPN gateway ↔ FortiGate<small>Site-to-site setup</small></a></li>
-            <li><a href="https://community.fortinet.com/fortigate-3/technical-tip-bgp-over-an-azure-vnet-vpn-103398" target="_blank" rel="noopener">BGP over an Azure VNet VPN<small>Dynamic routing</small></a></li>
-            <li><a href="https://community.fortinet.com/fortigate-3/technical-tip-explanation-of-ipsec-vpn-dpd-options-and-on-idle-tunnel-flushing-process-137398" target="_blank" rel="noopener">IPsec DPD &amp; idle tunnels<small>Why tunnels drop</small></a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <a class="lab-link" href="https://joshuarichard116-sudo.github.io/jrichard-web/labs/talvex-firewall/" target="_blank" rel="noopener"><span><b>Hands-on: Talvex Firewall Lab</b><small>My FortiGate-style training lab, with guided missions</small></span><span class="go">Open the lab →</span></a>
-  </div>
-  <div class="gloss"><b>VPN</b> = virtual private network · <b>BGP</b> = Border Gateway Protocol · <b>VNet</b> = Azure virtual network · <b>IPsec</b> = Internet Protocol Security · <b>DPD</b> = Dead Peer Detection</div>
-  <div class="notes-src"><p>On the networking side, here are the FortiGate training resources. That's Fortinet's official training, plus the reference articles for FortiGate-to-Azure VPN (virtual private network) tunnels that come up in our tickets. The links are in the repo. And for hands-on practice, there's the Talvex Firewall Lab I built.</p>
-    <ul>
-      <li>Talvex Firewall Lab (hands-on): <a href="https://joshuarichard116-sudo.github.io/jrichard-web/labs/talvex-firewall/">https://joshuarichard116-sudo.github.io/jrichard-web/labs/talvex-firewall/</a></li>
-      <li>Fortinet Training Institute (course catalog): <a href="https://training.fortinet.com/">https://training.fortinet.com/</a></li>
-      <li>Fortinet training and certification overview: <a href="https://www.fortinet.com/training-certification">https://www.fortinet.com/training-certification</a></li>
-      <li>Fortinet training for cybersecurity professionals: <a href="https://www.fortinet.com/training/cybersecurity-professionals">https://www.fortinet.com/training/cybersecurity-professionals</a></li>
-      <li>Site-to-site VPN between an Azure virtual network gateway and FortiGate: <a href="https://community.fortinet.com/fortigate-3/technical-tip-deploying-s2s-vpn-between-microsoft-azure-virtual-network-gateway-and-fortigate-117984">community.fortinet.com/…-117984</a></li>
-      <li>BGP (Border Gateway Protocol) over an Azure VNet (virtual network) VPN: <a href="https://community.fortinet.com/fortigate-3/technical-tip-bgp-over-an-azure-vnet-vpn-103398">community.fortinet.com/…-103398</a></li>
-      <li>IPsec VPN DPD (Dead Peer Detection) options and idle tunnel flushing: <a href="https://community.fortinet.com/fortigate-3/technical-tip-explanation-of-ipsec-vpn-dpd-options-and-on-idle-tunnel-flushing-process-137398">community.fortinet.com/…-137398</a></li>
-    </ul></div>
-</section>
-
-<!-- 9 -->
+<!-- 7 -->
 <section class="slide" data-title="CMMC Level 2 Enclave Toolkit">
-  <div class="label">08 · Pointed at the enclave</div>
+  <div class="label">06 · Pointed at the enclave</div>
   <h2>The CMMC Level 2 Enclave Toolkit</h2>
   <div class="body">
     <ol class="steps">
@@ -523,9 +461,9 @@ Start-Process powershell -Verb RunAs `
   <div class="notes-src"><p>This next one points straight at the enclave: the CMMC Level 2 Enclave Toolkit. Every tool that goes into an enclave holding CUI, that's Controlled Unclassified Information, has to be evaluated the same way, with evidence. So I built a vendor-neutral template with thirteen criteria. Each one maps to the control families in NIST 800-171. That's the National Institute of Standards and Technology. It doesn't recommend vendors or list prices. It just captures the evidence an assessor is going to ask for.</p></div>
 </section>
 
-<!-- 11 -->
+<!-- 8 -->
 <section class="slide" data-title="Automation ideas for the enclave">
-  <div class="label">09 · What we could automate</div>
+  <div class="label">07 · What we could automate</div>
   <h2 style="margin-bottom:22px">Automate the busywork. Keep the judgment.</h2>
   <div class="body" style="gap:22px">
     <div class="callout guard" style="margin:0">No CUI is touched. Grok helps write these checks; none of them open, copy, or move CUI, and no CUI goes into any bot.</div>
@@ -541,9 +479,9 @@ Start-Process powershell -Verb RunAs `
   <div class="notes-src"><p>Here's where I want to take this once the enclave is running. The short version: automate the busywork, keep the judgment. First, the ground rule. No CUI, that's Controlled Unclassified Information, gets touched. Grok helps me write these checks, but none of them open, copy, or move CUI, and no CUI ever goes into a bot. Each idea has one bot that owns it, same as today. REMY takes access and sign-in: drafting access reviews and checking that every account has MFA, multifactor authentication. RADAR takes the audit logs and turns them into a short daily summary. PATCH takes configuration drift and patch compliance. SENTRY takes the paperwork side: the POA&amp;M, that's the Plan of Action and Milestones, the freshness of the evidence behind the SSP, the System Security Plan, and a maintenance log. DELTA coordinates and rolls it all into one summary for leadership. Each one lines up with a NIST 800-171 requirement, so the output doubles as evidence. These are proposals. None of them are built yet.</p></div>
 </section>
 
-<!-- 12 -->
+<!-- 9 -->
 <section class="slide" data-title="How every idea would flow">
-  <div class="label">10 · What we could automate</div>
+  <div class="label">08 · What we could automate</div>
   <h2>Same five steps, every time</h2>
   <div class="body">
     <ol class="steps">
@@ -559,9 +497,9 @@ Start-Process powershell -Verb RunAs `
   <div class="notes-src"><p>Every one of these ideas would run the same five steps. It reads settings, logs, and status, read-only. It builds a report inside the enclave, with no CUI in it. The bot that owns it drafts a plain-language summary. A person reviews it, and nothing goes out until someone approves it. Then it's filed as evidence for the SSP, the System Security Plan, and for the assessor. All of it runs inside the boundary, on read-only accounts with least privilege, and CUI, Controlled Unclassified Information, never leaves.</p></div>
 </section>
 
-<!-- 13 -->
+<!-- 10 -->
 <section class="slide" data-title="The vision">
-  <div class="label">11 · Where this goes</div>
+  <div class="label">09 · Where this goes</div>
   <h2>Local tools, built to live inside the enclave</h2>
   <div class="body" style="gap:30px">
     <p style="font-size:40px;line-height:1.3;margin:0;max-width:1500px;font-weight:600">Start small. Build each tool once, run it inside the boundary, and let it grow with the department.</p>
@@ -576,16 +514,15 @@ Start-Process powershell -Verb RunAs `
   <div class="notes-src"><p>Where does this go? Local tools, built to live inside the enclave. Start small, build each tool once, run it inside the boundary, and let it grow with the department. Local first, so these are small tools running inside, not cloud services reaching in. As the department grows, I'll keep cultivating new ideas and adding to the list. And I'll keep building training alongside it, so the team can run these tools and add their own. The bots draft. People decide. CUI, Controlled Unclassified Information, stays put.</p></div>
 </section>
 
-<!-- 14 -->
+<!-- 11 -->
 <section class="slide" data-title="What carries into the enclave">
-  <div class="label">12 · Go-live</div>
+  <div class="label">10 · Go-live</div>
   <h2>What carries into the enclave</h2>
   <div class="body" style="gap:28px">
     <table class="carry">
       <thead><tr><th>Area</th><th>What carries over</th></tr></thead>
       <tbody>
         <tr><td>Maintenance</td><td>Ticket clock, time rules, SENTRY's maintenance board</td></tr>
-        <tr><td>Documentation</td><td>The IT Glue pattern: example first, draft, human publishes</td></tr>
         <tr><td>Tool decisions</td><td>The enclave toolkit, mapped to NIST SP 800-171</td></tr>
         <tr><td>Inside the boundary</td><td>AI helps build small tools. The tools run inside. CUI never leaves.</td></tr>
       </tbody>
@@ -594,10 +531,10 @@ Start-Process powershell -Verb RunAs `
     <p class="small" style="margin:0"><b>Next:</b> timing one control family end to end, for real numbers. Target date: <b>Dec 19, 2026</b></p>
   </div>
   <div class="gloss"><b>NIST SP</b> = National Institute of Standards and Technology Special Publication · <b>AI</b> = artificial intelligence · <b>CUI</b> = Controlled Unclassified Information</div>
-  <div class="notes-src"><p>So, what carries into the enclave? Maintenance already has the ticket clock, the time rules, and SENTRY's maintenance board. Documentation has the IT Glue pattern. Tool decisions have the toolkit. Inside the enclave, AI (artificial intelligence) helps build small tools, like evidence collectors and read-only configuration checks. The tools run inside the boundary, and CUI never leaves it. The rules don't change, either. No client data or CUI goes into a bot. Every message is a draft. And I press Send. Next, I'm timing one control family end to end, so you'll get real numbers instead of estimates.</p></div>
+  <div class="notes-src"><p>So, what carries into the enclave? Maintenance already has the ticket clock, the time rules, and SENTRY's maintenance board. Tool decisions have the toolkit. Inside the enclave, AI (artificial intelligence) helps build small tools, like evidence collectors and read-only configuration checks. The tools run inside the boundary, and CUI never leaves it. The rules don't change, either. No client data or CUI goes into a bot. Every message is a draft. And I press Send. Next, I'm timing one control family end to end, so you'll get real numbers instead of estimates.</p></div>
 </section>
 
-<!-- 15 -->
+<!-- 12 -->
 <section class="slide end-slide" data-title="Questions">
   <div class="ty">Thank you</div>
   <h1>Questions?</h1>
