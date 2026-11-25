@@ -4,7 +4,7 @@ On Nov 24, 2026, Joshua asked for every `[JOSHUA: ...]` placeholder to be filled
 
 | Slide | What | Value used |
 |---|---|---|
-| 1 | Number of work bots | 9 (the bots on slide 3) |
+| 1 | Number of work bots | 8 (the bots on slide 3) |
 | 4 | Time saved per week | ~3 hrs/week (est.) |
 | 7 | Cleanup suite, by hand vs. script | ~45 min by hand → ~5 min (est.) |
 | 8 | Outlook attachments fix | ~30 min by hand → ~5 min (est.) |

@@ -36,6 +36,7 @@ Slide numbers in items 1 to 14 are from before the end-of-shift slide was added 
 30. **Section 08 as a presentation (Nov 25, at your request):** the automation ideas are now a step-through presentation on the page (arrows, dots, arrow keys, swipe, and a Present button for full screen). Its slides are the opener ("Automate the busywork. Keep the judgment."), a no-CUI notice, who owns what, one slide per owner bot, how it flows, and the vision of local tools inside the enclave. Owners: REMY (access review, MFA), RADAR (audit logs), PATCH (config drift, patch compliance), SENTRY (POA&M, SSP evidence, maintenance log), and DELTA coordinating. The deck has three matching slides (11 to 13) with speaker notes, so it's now 15 slides.
 31. **Trimmed for the talk (Nov 25, at your request):** took out the less important parts so the talk stays on the core: the bot team, the scripts, the end-of-shift report, and the enclave automation with its no-CUI notice. Removed: the IT Glue documentation section, the FortiGate training section (including the Talvex lab link and Fortinet links, and `docs/resources.md`), the "Also built: morning board..." line on the ticket slide, and the IT Glue row in "What carries into the enclave". The deck is now 13 slides, and sections are renumbered.
 32. **Enclave Cloud Builder (Nov 25, at your request):** a new page section 07 ("Scoping now") and three deck slides after "The vision", with speaker notes, on the Terraform application you are scoping. One JSON file per project describes the environment; it is validated, planned (a person approves), built and tested locally inside the enclave, then ported to Azure Government with the same file and a second approval. The page has a "one file, two targets" demo (pick a blueprint, switch Local or Azure Government, press Plan it), a clickable six-step flow, an architecture view, six use cases, a NIST SP 800-171 mapping (CM 3.4.1, 3.4.2, 3.4.3, 3.4.5, SC 3.13.1/3.13.2, AU 3.3.1), and answers to likely questions. It is labeled "Scoping · not built yet". No timings or savings figures were added. Skills is now section 08 and Go-live 09 on the page; the deck has 20 slides.
+32. **Follow-up to the trim (Nov 25, from your answers):** the Talvex Firewall Lab link is back, as a "training alongside" card under the automation ideas on the page and on the vision slide in the deck. The rest of the FortiGate training stays out. ACE is off the bot team (page, deck, hero orbit, notes), so the bot count is now 8.
 
 ## Open questions
 
@@ -44,10 +45,9 @@ Slide numbers in items 1 to 14 are from before the end-of-shift slide was added 
 3. **RingCentral (slide 4):** is it fine to name the phone vendor publicly?
 4. **Slide 3 usage:** the percentages counted the personal bots too. Do you want a note like "share of all bot usage" so nobody adds them up and gets less than 100?
 5. **End-of-shift screenshot:** your screenshot only has EXAMPLE rows, but it shows your name and two vendor names. Do you want it on slide 5, or keep the column layout only?
-6. **ACE:** it's a certification coach for your CCA. Keep it as work, or drop it like FORGE?
-7. **MTX:** what does it stand for? It's the only acronym on slide 3 I couldn't spell out.
-8. **Script files:** upload the S1 `.ps1` files and your NinjaOne scripts from this week. I'll sanitize them, add them to the Source tab, and set up an automatic Pester test run on GitHub.
-9. **Enclave ideas:** are any of the eight already in place, or ones you don't want shown? I can mark them "in place" or remove them.
-10. **Bot owners for the enclave ideas:** I picked REMY, RADAR, PATCH, and SENTRY based on their roles. Swap any you'd assign differently.
-11. **Where the repo lives:** you mentioned an S1 Technology account. Moving it changes the live URL.
-12. **Cloud builder:** Terraform or OpenTofu (the open-source fork)? The page says that choice is part of scoping. Also check the blueprint names (CMMC L2 workload, secure remote desktops, test lab) match what you have in mind.
+6. **MTX:** what does it stand for? It's the only acronym on slide 3 I couldn't spell out.
+7. **Script files:** upload the S1 `.ps1` files and your NinjaOne scripts from this week. I'll sanitize them, add them to the Source tab, and set up an automatic Pester test run on GitHub.
+8. **Enclave ideas:** are any of the eight already in place, or ones you don't want shown? I can mark them "in place" or remove them.
+9. **Bot owners for the enclave ideas:** I picked REMY, RADAR, PATCH, and SENTRY based on their roles. Swap any you'd assign differently.
+10. **Where the repo lives:** you mentioned an S1 Technology account. Moving it changes the live URL.
+11. **Cloud builder:** Terraform or OpenTofu (the open-source fork)? The page says that choice is part of scoping. Also check the blueprint names (CMMC L2 workload, secure remote desktops, test lab) match what you have in mind.

@@ -7,9 +7,8 @@
 | DELTA | Defense Enclave Lifecycle & Tenant Architecture (lead bot) | Slide 3 |
 | MSP | managed service provider | Slide 3 |
 | CISA KEV | Cybersecurity and Infrastructure Security Agency Known Exploited Vulnerabilities | Slide 3 |
-| CCA | Certified CMMC Assessor | Slide 3 |
 | RMM | remote monitoring and management tool | Slide 3 |
-| REMY, PATCH, RADAR, CHRONO, PELICAN, ACE | Bot names; full names are on slide 3 | Slide 3 |
+| REMY, PATCH, RADAR, CHRONO, PELICAN | Bot names; full names are on slide 3 | Slide 3 |
 | API | application programming interface | Slide 5 |
 | P1 / P2 | Priority 1 / Priority 2 | Slide 5 |
 | M365 | Microsoft 365 | Slide 3 |
