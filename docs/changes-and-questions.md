@@ -33,6 +33,7 @@ Slide numbers in items 1 to 14 are from before the end-of-shift slide was added 
 27. **Clickable fake PC (Nov 25, at your request):** buttons on the simulated screen work. Before the fix, Retry, Try again, Activate, the attachment, and the rest reproduce the error, with a shake and a message. After a full run, Connect, Next, Open, Teams Meeting, and Add device show it working.
 28. **More interactive page:** a scroll progress line under the top bar. Cards lift on hover. Click a bot (or a bot in the hero orbit, which pauses on hover) to highlight it. The step flows have a "Play the steps" button and clickable steps. "Simulate the end of a shift" fills the report with rows clearly marked EXAMPLE. Stats count again on hover. The guardrails ribbon pauses on hover. The go-live date shows a live countdown, worked out from today's date. The background dots are stronger, glow around the cursor, and ripple when you click empty space.
 29. **Dark mode:** a toggle in the top bar. It follows your system setting until you pick one, then remembers your choice in that browser.
+30. **Section 08 as a presentation (Nov 25, at your request):** the automation ideas are now a step-through presentation on the page (arrows, dots, arrow keys, swipe, and a Present button for full screen). Its slides are the opener ("Automate the busywork. Keep the judgment."), a no-CUI notice, who owns what, one slide per owner bot, how it flows, and the vision of local tools inside the enclave. Owners: REMY (access review, MFA), RADAR (audit logs), PATCH (config drift, patch compliance), SENTRY (POA&M, SSP evidence, maintenance log), and DELTA coordinating. The deck has three matching slides (11 to 13) with speaker notes, so it's now 15 slides.
 
 ## Open questions
 
@@ -46,4 +47,5 @@ Slide numbers in items 1 to 14 are from before the end-of-shift slide was added 
 8. **MTX:** what does it stand for? It's the only acronym on slide 3 I couldn't spell out.
 9. **Script files:** upload the S1 `.ps1` files and your NinjaOne scripts from this week. I'll sanitize them, add them to the Source tab, and set up an automatic Pester test run on GitHub.
 10. **Enclave ideas:** are any of the eight already in place, or ones you don't want shown? I can mark them "in place" or remove them.
-11. **Where the repo lives:** you mentioned an S1 Technology account. Moving it changes the live URL.
+11. **Bot owners for the enclave ideas:** I picked REMY, RADAR, PATCH, and SENTRY based on their roles. Swap any you'd assign differently.
+12. **Where the repo lives:** you mentioned an S1 Technology account. Moving it changes the live URL.
