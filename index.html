@@ -1069,7 +1069,7 @@ tbody tr:hover td { background: var(--violet-soft); }
     <h3 class="cb-h3">How a project flows</h3>
     <p class="cb-sub">Six steps, the same every time. Click any step for detail. Two of them stop for a person.</p>
     <div class="cb-pipe" id="cbPipe">
-      <button class="cb-step" type="button" data-d="Someone fills in a short JSON request: project name, blueprint, network range, how many servers of each role, and which security baseline. No CUI, no passwords, no customer data in the file. It's a description of infrastructure, nothing more."><b>Request</b><span>Fill in the JSON</span></button>
+      <button class="cb-step" type="button" data-d="I fill in a short JSON request: project name, blueprint, network range, how many servers of each role, and which security baseline. No CUI, no passwords, no customer data in the file. It's a description of infrastructure, nothing more."><b>Request</b><span>I fill in the JSON</span></button>
       <button class="cb-step" type="button" data-d="The builder checks the file against a schema (are all required fields there, are the values allowed) and against policy rules (no public IPs on servers, encryption on, logging on, approved regions only). A bad request fails here, before anything is built."><b>Validate</b><span>Schema and policy checks</span></button>
       <button class="cb-step gate" type="button" data-d="The builder turns the request into Terraform JSON using the approved modules, then runs terraform plan. The plan lists every resource it will create, change, or destroy. A person reads it and approves it. Nothing is built without that approval."><b>Plan</b><span>Exactly what will be built</span></button>
       <button class="cb-step" type="button" data-d="Terraform applies the plan to the local sandbox inside the enclave, using a local mirror of the providers and modules, so nothing has to reach out to the internet. State is stored and locked inside the enclave."><b>Build locally</b><span>Inside the enclave</span></button>
@@ -1080,7 +1080,7 @@ tbody tr:hover td { background: var(--violet-soft); }
     <div class="btns" style="margin-top:12px"><button class="btn outline" id="cbPlay" type="button"><svg class="i"><use href="#i-play"/></svg>Play the steps</button></div>
 
     <h3 class="cb-h3">What it's made of</h3>
-    <p class="cb-sub">Everything that builds runs inside the boundary. The only thing that crosses to Azure is an approved plan.</p>
+    <p class="cb-sub">Everything that builds runs inside the boundary. The enclave is a GCC High environment that can talk to Azure Government directly, so an approved plan deploys straight from my machine in the enclave. Nothing is carried across by hand.</p>
     <div class="cb-arch">
       <div class="cb-zone in"><div class="zt"><svg class="i"><use href="#i-lock"/></svg>Inside the enclave</div>
         <div class="cb-boxes">
@@ -1092,7 +1092,7 @@ tbody tr:hover td { background: var(--violet-soft); }
           <div class="cb-box"><b>Local sandbox</b><span>Where each environment is built and tested first</span></div>
         </div>
       </div>
-      <div class="cb-gate"><svg class="i"><use href="#i-user-check"/></svg>Person approves<br>the plan</div>
+      <div class="cb-gate"><svg class="i"><use href="#i-user-check"/></svg>Approved plan<br>deploys direct<br>GCC High to Azure Gov</div>
       <div class="cb-zone az"><div class="zt"><svg class="i"><use href="#i-globe"/></svg>Azure Government</div>
         <div class="cb-boxes">
           <div class="cb-box"><b>Customer subscription</b><span>One per customer or department project</span></div>
@@ -1131,9 +1131,10 @@ tbody tr:hover td { background: var(--violet-soft); }
     <h3 class="cb-h3">Questions I expect</h3>
     <div class="cb-qa">
       <details><summary><svg class="i"><use href="#i-arrow"/></svg>Why not just build it in the Azure portal?</summary><p>Clicking works once. It doesn't work the twentieth time, and it leaves no record of what was set or why. A file is repeatable, reviewable, and becomes evidence on its own.</p></details>
+      <details><summary><svg class="i"><use href="#i-arrow"/></svg>Who writes the JSON?</summary><p>I do. I write each project’s JSON file, and the builder checks it before anything runs. Because it’s plain JSON, a simple intake form could fill it in later, but that’s not part of the first version.</p></details>
       <details><summary><svg class="i"><use href="#i-arrow"/></svg>Why JSON instead of Terraform's own language?</summary><p>Terraform reads JSON natively. JSON is easy for a form, a script, or another tool to write, so a request can come from a simple intake form later, and it's easy to validate against a schema before anything runs.</p></details>
       <details><summary><svg class="i"><use href="#i-arrow"/></svg>Can it really build "Azure" locally?</summary><p>Not Azure itself. The local build is a working copy of the same design (networks, segmentation, servers, access, and logging) on the enclave's own infrastructure. Each building block has a local version and an Azure version behind the same inputs, so the request file doesn't change. Azure-only services are checked in the plan before anything is deployed.</p></details>
-      <details><summary><svg class="i"><use href="#i-arrow"/></svg>Does it need internet access inside the enclave?</summary><p>No. Terraform, the providers, and the modules are mirrored locally. Only the approved Azure deployment talks to Azure Government.</p></details>
+      <details><summary><svg class="i"><use href="#i-arrow"/></svg>How does it get from the enclave to Azure?</summary><p>Directly. The enclave is a GCC High environment, and GCC High can talk to Azure Government, so an approved plan deploys straight from my machine in the enclave to the Azure Government subscription. No files are exported or carried across by hand. Terraform, the providers, and the modules are mirrored locally, so local builds don’t depend on the internet.</p></details>
       <details><summary><svg class="i"><use href="#i-arrow"/></svg>What about Terraform's license?</summary><p>Terraform is under the Business Source License. OpenTofu is the open-source fork and reads the same files. That choice is part of the scoping, and it goes through the enclave toolkit like every other tool.</p></details>
       <details><summary><svg class="i"><use href="#i-arrow"/></svg>What's the first step?</summary><p>One blueprint, end to end: the CMMC Level 2 workload, built locally, tested, and ported to a test Azure Government subscription. That gives real timing instead of guesses.</p></details>
     </div>
