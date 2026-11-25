@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="googlebot" content="noindex, nofollow">
+<script>try{var t=localStorage.getItem("gb-theme");if(t==="dark"||t==="light")document.documentElement.dataset.theme=t;}catch(e){}</script>
 <title>Grok Bot Show &amp; Tell</title>
 <meta name="description" content="How Joshua Richard uses a Grok Bot seat for S1 Technology work, with a live script tester.">
 <style>
@@ -430,6 +431,137 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
   .pstep .pc2 { margin: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .pulse-dot { animation: none; display: none; } }
+
+/* ---------- clickable fake PC ---------- */
+.win-b button { font: inherit; cursor: pointer; color: inherit; }
+.xbtn { cursor: pointer; font-family: inherit; color: #2a2840; line-height: 1.4; }
+.xbtn:hover { border-color: var(--violet); }
+.xbtn.pri:hover { background: #4a2ee0; }
+.addr .xbtn { padding: 1px 5px; display: inline-grid; place-items: center; }
+.addr .xbtn svg.i { width: 12px; height: 12px; }
+button.att { background: #fff; }
+button.att:hover { border-color: var(--violet); }
+.ribbonx button { display: inline-flex; gap: 5px; align-items: center; font-size: 11.5px; padding: 5px 9px; border-radius: 6px; }
+.ribbonx button svg.i { width: 14px; height: 14px; }
+.ribbonx button.hit:hover { background: #4a2ee0; }
+.hint { margin: 8px 0 0; font-size: 11.5px; color: var(--violet); font-weight: 650; }
+.ok-big { width: 52px; height: 52px; border-radius: 50%; background: var(--teal-soft); color: var(--teal); display: grid; place-items: center; margin: 0 auto 8px; }
+.shake { animation: shake .45s; }
+@keyframes shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+.dlg.shake { animation: shake-c .45s; }
+@keyframes shake-c { 0%, 100% { transform: translate(-50%, -50%); } 20%, 60% { transform: translate(calc(-50% - 6px), -50%); } 40%, 80% { transform: translate(calc(-50% + 6px), -50%); } }
+.flash { animation: flash .6s; }
+@keyframes flash { 0% { opacity: .15; } 100% { opacity: 1; } }
+
+/* ---------- interactivity across the page ---------- */
+.progress-top { position: fixed; left: 0; top: 0; height: 3px; width: 100%; transform-origin: left; transform: scaleX(0); background: linear-gradient(90deg, var(--violet), var(--teal), var(--coral)); z-index: 30; pointer-events: none; }
+.reveal.in.settled { transition: transform .2s ease, border-color .2s, box-shadow .2s; transition-delay: 0s; }
+.card.settled:hover, .bot.settled:hover { transform: translateY(-4px); border-color: #c9c0fb; box-shadow: 0 2px 4px rgba(22,20,43,.06), 0 14px 30px rgba(91,61,245,.14); }
+.bot { cursor: pointer; }
+.bot.picked { border: 2px solid var(--teal); padding: 17px; }
+.bot.picked img { box-shadow: 0 0 0 4px var(--teal-soft); }
+.sat { cursor: pointer; }
+.orbit:hover .ringwrap, .orbit:hover .sat > * { animation-play-state: paused; }
+.sat:focus-visible img { outline: 3px solid var(--ph-bg); }
+.ribbon:hover .track-r { animation-play-state: paused; }
+.stat { cursor: default; }
+/* flows become clickable steppers */
+.flow .card { cursor: pointer; transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1), border-color .2s, box-shadow .2s; transition-delay: var(--d, 0s); }
+.flow .card.settled { transition: transform .2s ease, border-color .2s, box-shadow .2s; }
+.flow .card.on { border-color: var(--violet); box-shadow: 0 10px 26px rgba(91,61,245,.18); }
+.flow .card.done::before { background: var(--teal); }
+.flow .card.on::before { box-shadow: 0 0 0 5px var(--violet-soft); }
+.flow-ctl { display: flex; align-items: center; gap: 12px; margin: 0 0 22px; flex-wrap: wrap; }
+.flow-ctl .btn { padding: 8px 14px; font-size: 14.5px; }
+.flow-ctl small { color: var(--muted); font-size: 14px; }
+/* end-of-shift demo */
+.eos-ctl { display: flex; gap: 12px; align-items: center; margin: 18px 0 0; flex-wrap: wrap; }
+.eos-ctl small { color: var(--muted); }
+.ex { color: var(--muted); font-size: 14px; }
+.ex td { animation: rowin .45s ease both; }
+@keyframes rowin { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.exw { display: inline-block; font-size: 11px; font-weight: 750; letter-spacing: .08em; color: #8a5a00; background: #fff3d1; padding: 1px 7px; border-radius: 6px; }
+tbody tr { transition: background .15s; }
+tbody tr:hover td { background: var(--violet-soft); }
+.countdown { display: inline-flex; gap: 8px; align-items: center; margin-left: 10px; padding: 3px 12px; border-radius: 999px; background: var(--violet-soft); color: var(--violet); font-weight: 700; font-size: 15px; }
+.countdown svg.i { width: 16px; height: 16px; }
+@media (prefers-reduced-motion: reduce) { .shake, .dlg.shake, .flash, .ex td { animation: none; } .progress-top { display: none; } }
+
+/* ---------- theme toggle ---------- */
+@media (max-width: 1400px) { .nav a { padding: 6px 9px; font-size: 14.5px; } .topbar .wrap { gap: 14px; } }
+.theme-btn { flex: 0 0 auto; width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--ink); display: grid; place-items: center; cursor: pointer; }
+.theme-btn:hover { border-color: var(--violet); color: var(--violet); }
+.theme-btn svg.i { width: 18px; height: 18px; }
+.theme-btn .moon { display: block; } .theme-btn .sun { display: none; }
+
+/* ---------- dark mode ---------- */
+:root { --dot: 91,61,245; color-scheme: light; }
+:root[data-theme="dark"] {
+  --bg: #0f0d1f; --ink: #ecebff; --muted: #a9a5c9; --card: #1a1733; --line: #2e2a52;
+  --violet: #8f7bff; --violet-soft: #262050; --teal: #2fd0c0; --teal-soft: #0f3633;
+  --coral: #ff8466; --coral-soft: #3a1e17; --gold: #f0b429; --term: #0b0a19; --term-ink: #e8e6ff;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.3);
+  --dot: 160,145,255; color-scheme: dark;
+}
+:root[data-theme="dark"] .topbar { background: rgba(15,13,31,.94); }
+:root[data-theme="dark"] code { color: #cfc4ff; }
+:root[data-theme="dark"] .btn.solid:disabled { background: #3b3570; color: #9d97c9; }
+:root[data-theme="dark"] section.band.alt { background: rgba(23,20,46,.78); }
+:root[data-theme="dark"] .callout { color: #9ff0e6; border-color: #1d5a54; }
+:root[data-theme="dark"] .callout.violet { color: #d4caff; border-color: #3d3478; }
+:root[data-theme="dark"] .bar .t, :root[data-theme="dark"] .switch .track { background: #2e2a52; }
+:root[data-theme="dark"] .chip, :root[data-theme="dark"] .badge { background: #262050; }
+:root[data-theme="dark"] .badge.grok { background: linear-gradient(135deg, #5b3df5, #0a9e91); }
+:root[data-theme="dark"] th { background: #1f1c3b; }
+:root[data-theme="dark"] .sim-note { border-color: #6b2d1f; color: #ffc3b1; }
+:root[data-theme="dark"] .sbtn:hover, :root[data-theme="dark"] .links a:hover, :root[data-theme="dark"] .idea:hover, :root[data-theme="dark"] .fchip:hover { border-color: #5a4fb0; }
+:root[data-theme="dark"] select.sel { background: var(--card); }
+:root[data-theme="dark"] .links a { background: #1f1c3b; }
+:root[data-theme="dark"] .ribbon { background: #0b0a19; }
+:root[data-theme="dark"] .fchip[aria-pressed="true"] { background: var(--violet); color: #fff; border-color: var(--violet); }
+:root[data-theme="dark"] .prop, :root[data-theme="dark"] .exw { background: #3a2e0a; color: #ffd166; }
+:root[data-theme="dark"] .pipe { border: 1px solid var(--line); }
+:root[data-theme="dark"] .pc { border-color: #2e2a52; }
+:root[data-theme="dark"] .est { color: var(--ink); background: linear-gradient(transparent 62%, rgba(255,197,61,.35) 62%); }
+:root[data-theme="dark"] .card.settled:hover, :root[data-theme="dark"] .bot.settled:hover { border-color: #5a4fb0; box-shadow: 0 14px 30px rgba(0,0,0,.4); }
+:root[data-theme="dark"] .btn.solid, :root[data-theme="dark"] .dlg .bs span.pri, :root[data-theme="dark"] .xbtn.pri { background: #6a4ff7; }
+:root[data-theme="dark"] .theme-btn .moon { display: none; } :root[data-theme="dark"] .theme-btn .sun { display: block; }
+:root[data-theme="dark"] .rot, :root[data-theme="dark"] .btn.light, :root[data-theme="dark"] .feature .go { color: #5b3df5; }
+:root[data-theme="dark"] .tag.p1 { background: #c53a3a; }
+@media (prefers-color-scheme: dark) {
+:root:not([data-theme="light"]) {
+  --bg: #0f0d1f; --ink: #ecebff; --muted: #a9a5c9; --card: #1a1733; --line: #2e2a52;
+  --violet: #8f7bff; --violet-soft: #262050; --teal: #2fd0c0; --teal-soft: #0f3633;
+  --coral: #ff8466; --coral-soft: #3a1e17; --gold: #f0b429; --term: #0b0a19; --term-ink: #e8e6ff;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.3);
+  --dot: 160,145,255; color-scheme: dark;
+}
+:root:not([data-theme="light"]) .topbar { background: rgba(15,13,31,.94); }
+:root:not([data-theme="light"]) code { color: #cfc4ff; }
+:root:not([data-theme="light"]) .btn.solid:disabled { background: #3b3570; color: #9d97c9; }
+:root:not([data-theme="light"]) section.band.alt { background: rgba(23,20,46,.78); }
+:root:not([data-theme="light"]) .callout { color: #9ff0e6; border-color: #1d5a54; }
+:root:not([data-theme="light"]) .callout.violet { color: #d4caff; border-color: #3d3478; }
+:root:not([data-theme="light"]) .bar .t, :root:not([data-theme="light"]) .switch .track { background: #2e2a52; }
+:root:not([data-theme="light"]) .chip, :root:not([data-theme="light"]) .badge { background: #262050; }
+:root:not([data-theme="light"]) .badge.grok { background: linear-gradient(135deg, #5b3df5, #0a9e91); }
+:root:not([data-theme="light"]) th { background: #1f1c3b; }
+:root:not([data-theme="light"]) .sim-note { border-color: #6b2d1f; color: #ffc3b1; }
+:root:not([data-theme="light"]) .sbtn:hover, :root:not([data-theme="light"]) .links a:hover, :root:not([data-theme="light"]) .idea:hover, :root:not([data-theme="light"]) .fchip:hover { border-color: #5a4fb0; }
+:root:not([data-theme="light"]) select.sel { background: var(--card); }
+:root:not([data-theme="light"]) .links a { background: #1f1c3b; }
+:root:not([data-theme="light"]) .ribbon { background: #0b0a19; }
+:root:not([data-theme="light"]) .fchip[aria-pressed="true"] { background: var(--violet); color: #fff; border-color: var(--violet); }
+:root:not([data-theme="light"]) .prop, :root:not([data-theme="light"]) .exw { background: #3a2e0a; color: #ffd166; }
+:root:not([data-theme="light"]) .pipe { border: 1px solid var(--line); }
+:root:not([data-theme="light"]) .pc { border-color: #2e2a52; }
+:root:not([data-theme="light"]) .est { color: var(--ink); background: linear-gradient(transparent 62%, rgba(255,197,61,.35) 62%); }
+:root:not([data-theme="light"]) .card.settled:hover, :root:not([data-theme="light"]) .bot.settled:hover { border-color: #5a4fb0; box-shadow: 0 14px 30px rgba(0,0,0,.4); }
+:root:not([data-theme="light"]) .btn.solid, :root:not([data-theme="light"]) .dlg .bs span.pri, :root:not([data-theme="light"]) .xbtn.pri { background: #6a4ff7; }
+:root:not([data-theme="light"]) .theme-btn .moon { display: none; } :root:not([data-theme="light"]) .theme-btn .sun { display: block; }
+:root:not([data-theme="light"]) .rot, :root:not([data-theme="light"]) .btn.light, :root:not([data-theme="light"]) .feature .go { color: #5b3df5; }
+:root:not([data-theme="light"]) .tag.p1 { background: #c53a3a; }
+}
 </style>
 </head>
 <body>
@@ -488,6 +620,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
       <a href="#enclave">The enclave</a>
       <a href="#automate">Automation ideas</a>
     </nav>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch to dark mode"><svg class="i moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.9" y1="4.9" x2="6.3" y2="6.3"/><line x1="17.7" y1="17.7" x2="19.1" y2="19.1"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.9" y1="19.1" x2="6.3" y2="17.7"/><line x1="17.7" y1="6.3" x2="19.1" y2="4.9"/></svg></button>
   </div>
 </header>
 
@@ -1047,7 +1180,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
     runBtn.disabled = true;
     term.innerHTML = '';
     line('PS C:\\Users\\<username>> ', 'ps', true);
-    pcState('broken');
+    pcLoad(cur);
     await typeCmd('.\\' + cur.file + (dry ? ' -WhatIf' : '') + (cur.tests ? '' : ' -Verbose'), id);
     if (id !== runId) return;
     var total = cur.tests ? cur.steps.length - 1 : 0;
@@ -1119,55 +1252,98 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
   }
   function rowx(ic, cls, name, right, rcls) { return '<div class="rowx"><span class="' + cls + '">' + icon(ic) + '</span><b>' + name + '</b><span class="rt ' + (rcls || '') + '">' + right + '</span></div>'; }
   var mailCols = function (inner) { return '<div class="cols"><div>' + sk(70, 1) + sks([85, 60, 75, 55, 80, 50]) + '</div><div>' + inner + '</div></div>'; };
+  // Buttons on the fake PC: data-a = message key, data-show / data-hide = selectors inside the scene.
+  function xb(label, a, pri, extra) { return '<button type="button" class="xbtn' + (pri ? ' pri' : '') + '" data-a="' + a + '"' + (extra || '') + '>' + label + '</button>'; }
+  function dlgB(title, text, btns, ok, cls) {
+    return '<div class="dlg' + (cls ? ' ' + cls : '') + '"><h5' + (ok ? ' class="ok"' : '') + '>' + icon(ok ? 'check' : 'alert') + title + '</h5><p>' + text + '</p><div class="bs">' + btns + '</div></div>';
+  }
   var SC = {
     'reg-wipe': { app: 'Outlook', ic: 'mail', bad: 'Outlook stuck on the old company', good: 'Clean PC, ready to sign in fresh',
-      broken: mailCols(sks([90, 70, 85, 60, 80, 65, 75])) + dlg('Microsoft Outlook', 'Outlook can’t connect. This profile still points to the old organization’s mailbox.', ['Cancel', 'Retry']) +
+      say: { retry: 'Still can’t connect. The old profile is in the way.', cancel: 'Outlook closes, then shows the same error next time.', connect: 'Signed in. The new mailbox is syncing.' },
+      broken: mailCols(sks([90, 70, 85, 60, 80, 65, 75])) + dlgB('Microsoft Outlook', 'Outlook can’t connect. This profile still points to the old organization’s mailbox.', xb('Cancel', 'cancel') + xb('Retry', 'retry', 1)) +
         '<div class="status"><i class="sdot"></i>Disconnected</div>',
-      fixed: '<div class="mid"><div style="width:min(90%,300px)"><div style="font-weight:700;font-size:14px">Add your account</div><p style="margin:4px 0;color:#6c6988">No old profiles, caches, or sign-ins left behind.</p>' +
-        '<div class="field">&lt;username&gt;@newcompany.example</div><span class="xbtn pri">Connect</span></div></div><div class="status"><i class="sdot g"></i>Ready for the new tenant</div>' },
+      fixed: '<div class="mid"><div style="width:min(90%,300px)" class="pre"><div style="font-weight:700;font-size:14px">Add your account</div><p style="margin:4px 0;color:#6c6988">No old profiles, caches, or sign-ins left behind.</p>' +
+        '<div class="field">&lt;username&gt;@newcompany.example</div>' + xb('Connect', 'connect', 1, ' data-hide=".pre" data-show=".post"') + '</div>' +
+        '<div class="post" hidden><div class="ok-big">' + icon('check', 30) + '</div><div style="font-weight:700;font-size:14px">Signed in</div><p style="margin:4px 0;color:#6c6988">Inbox is syncing from the new mailbox.</p></div></div>' +
+        '<div class="status"><i class="sdot g"></i>Ready for the new tenant</div>' },
     'tests': { app: 'Pester test results', ic: 'check', bad: 'Tests not run yet', good: 'Tests passing (example output)',
-      broken: '<div style="font-weight:700;margin-bottom:4px">MS-Reg-Wipe.Tests.ps1</div>' +
+      say: { run: 'Press Run in the console to run the test suite.', rerun: 'Same result: all passing (example output).' },
+      broken: '<div style="display:flex;align-items:center;margin-bottom:4px"><b>MS-Reg-Wipe.Tests.ps1</b><span style="margin-left:auto">' + xb('Run tests', 'run', 1) + '</span></div>' +
         rowx('clock', 'm', 'Closing Microsoft 365 apps', 'Not run') + rowx('clock', 'm', 'Autocomplete backup first', 'Not run') + rowx('clock', 'm', 'Outlook profiles and caches', 'Not run') +
         rowx('clock', 'm', 'Teams and Office sign-in caches', 'Not run') + rowx('clock', 'm', 'Credentials, OneDrive, registration', 'Not run') + rowx('clock', 'm', '-WhatIf changes nothing', 'Not run'),
-      fixed: '<div style="font-weight:700;margin-bottom:4px">MS-Reg-Wipe.Tests.ps1</div>' +
+      fixed: '<div style="display:flex;align-items:center;margin-bottom:4px"><b>MS-Reg-Wipe.Tests.ps1</b><span style="margin-left:auto">' + xb('Run again', 'rerun') + '</span></div>' +
         rowx('check', 'g', 'Closing Microsoft 365 apps', 'Passed', 'g') + rowx('check', 'g', 'Autocomplete backup first', 'Passed', 'g') + rowx('check', 'g', 'Outlook profiles and caches', 'Passed', 'g') +
         rowx('check', 'g', 'Teams and Office sign-in caches', 'Passed', 'g') + rowx('check', 'g', 'Credentials, OneDrive, registration', 'Passed', 'g') + rowx('check', 'g', '-WhatIf changes nothing', 'Passed', 'g') },
     'leftovers': { app: 'Settings', ic: 'layers', bad: 'Old company still on the PC', good: 'Report saved. Nothing changed.',
+      say: { disc: 'Blocked: managed by your organization. Run the checker to see why.', open: 'The report lists every check. Nothing on the PC was changed.' },
       broken: '<div style="font-weight:700;font-size:14px;margin-bottom:8px">Accounts › Access work or school</div>' +
         '<div class="strip info">' + icon('shield') + 'Some settings are managed by your organization.</div>' +
-        rowx('alert', 'r', 'Old company (work or school)', 'Connected', 'r') + rowx('layers', 'm', 'Wallpaper and lock screen', 'Set by policy') + rowx('layers', 'm', 'Device management', 'Enrolled') + rowx('layers', 'm', 'OneDrive', 'Old account linked'),
-      fixed: '<div style="font-weight:700;font-size:14px;margin-bottom:8px">OldTenant-Report.txt</div>' +
+        '<div class="rowx"><span class="r">' + icon('alert') + '</span><b>Old company (work or school)</b><span class="rt">' + xb('Disconnect', 'disc') + '</span></div>' +
+        rowx('layers', 'm', 'Wallpaper and lock screen', 'Set by policy') + rowx('layers', 'm', 'Device management', 'Enrolled') + rowx('layers', 'm', 'OneDrive', 'Old account linked'),
+      fixed: '<div style="display:flex;align-items:center;margin-bottom:8px"><b style="font-size:14px">OldTenant-Report.txt</b><span style="margin-left:auto">' + xb('Open report', 'open', 1) + '</span></div>' +
         '<div class="strip good">' + icon('eye') + 'Read-only check. Nothing on the PC was changed.</div>' +
         rowx('check', 'g', 'Wallpaper and lock-screen policies', 'Checked') + rowx('check', 'g', 'Intune enrollments', 'Checked') + rowx('check', 'g', 'EnterpriseMgmt tasks', 'Checked') +
         rowx('check', 'g', 'MDM certificates', 'Checked') + rowx('check', 'g', 'Device join status', 'Checked') + rowx('check', 'g', 'Linked OneDrive accounts', 'Checked') },
     'edge': { app: 'Microsoft Edge', ic: 'globe', bad: 'Edge opens the old company’s intranet', good: 'Edge opens a clean new tab',
-      broken: '<div class="addr">' + icon('lock') + 'intranet.oldcompany.example</div><div class="strip info">' + icon('shield') + 'Your browser is managed by your organization</div>' +
-        '<div class="oldlogo"><i></i>Old Company intranet</div>' + sks([92, 80, 88, 60]) + '<div class="doc" style="margin-top:8px">' + sks([70, 85, 50]) + '</div>',
-      fixed: '<div class="addr">' + icon('search') + 'New tab</div><div class="mid" style="top:40px"><div style="width:min(86%,320px)"><div class="field" style="border-radius:999px;display:flex;gap:8px;align-items:center">' + icon('search') + '<span style="color:#9a97b5">Search the web</span></div>' +
+      say: { home: 'Home goes right back to the old intranet.', home2: 'Home opens a clean new tab now.' },
+      broken: '<div class="addr">' + xb(icon('rotate'), 'home', 0, ' aria-label="Home" data-flash=".page"') + icon('lock') + 'intranet.oldcompany.example</div><div class="strip info">' + icon('shield') + 'Your browser is managed by your organization</div>' +
+        '<div class="page"><div class="oldlogo"><i></i>Old Company intranet</div>' + sks([92, 80, 88, 60]) + '<div class="doc" style="margin-top:8px">' + sks([70, 85, 50]) + '</div></div>',
+      fixed: '<div class="addr">' + xb(icon('rotate'), 'home2', 0, ' aria-label="Home" data-flash=".page"') + icon('search') + 'New tab</div><div class="mid page" style="top:40px"><div style="width:min(86%,320px)"><div class="field" style="border-radius:999px;display:flex;gap:8px;align-items:center">' + icon('search') + '<span style="color:#9a97b5">Search the web</span></div>' +
         '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px">' + '<i class="sk" style="height:34px"></i>'.repeat(4) + '</div></div></div>' },
     'outlook': { app: 'Outlook', ic: 'mail', bad: 'Attachments won’t open', good: 'The attachment opens',
-      broken: mailCols('<div style="font-weight:700">Quarterly invoice</div>' + sks([40, 90, 75]) + '<span class="att">' + icon('clip') + 'Invoice.pdf</span>' + sks([85, 70])) +
-        dlg('Microsoft Outlook', 'Can’t open this item. The attachment couldn’t be opened.', ['OK']),
-      fixed: mailCols('<div style="font-weight:700">Quarterly invoice</div>' + sks([40]) + '<span class="att" style="border-color:var(--teal)">' + icon('clip') + 'Invoice.pdf</span>' +
-        '<div class="doc" style="margin-top:8px"><div style="font-size:11.5px;color:#6c6988;margin-bottom:4px">Invoice.pdf · preview</div>' + sk(50, 1) + sks([90, 80, 85, 60, 75]) + '</div>') },
+      say: { ok: 'Try opening the attachment again.', att: 'Same error. The attachment still won’t open.', att2: 'Invoice.pdf opens in the preview.' },
+      broken: mailCols('<div style="font-weight:700">Quarterly invoice</div>' + sks([40, 90, 75]) + '<button type="button" class="att" data-a="att" data-show=".dlg">' + icon('clip') + 'Invoice.pdf</button>' + sks([85, 70])) +
+        dlgB('Microsoft Outlook', 'Can’t open this item. The attachment couldn’t be opened.', xb('OK', 'ok', 1, ' data-hide=".dlg"')),
+      fixed: mailCols('<div style="font-weight:700">Quarterly invoice</div>' + sks([40]) + '<button type="button" class="att" style="border-color:var(--teal)" data-a="att2" data-show=".doc">' + icon('clip') + 'Invoice.pdf</button>' +
+        '<div class="doc" style="margin-top:8px" hidden><div style="font-size:11.5px;color:#6c6988;margin-bottom:4px">Invoice.pdf · preview</div>' + sk(50, 1) + sks([90, 80, 85, 60, 75]) + '</div>' + '<p class="hint">Click the attachment.</p>') },
     'webview': { app: 'Word', ic: 'file', bad: 'Old company sign-in page won’t go away', good: 'New account sign-in works',
-      broken: sks([80, 60, 90, 70, 85, 50]) + '<div class="dlg"><h5>' + icon('lock') + 'Sign in</h5><div class="doc" style="text-align:center"><div class="oldlogo"><i></i>Old Company</div><div class="spin-ring"></div><p style="margin:0">Loading the old company’s sign-in page…</p></div></div>',
-      fixed: sks([80, 60, 90, 70, 85, 50]) + '<div class="dlg"><h5 class="ok">' + icon('lock') + 'Sign in</h5><p>Use your new work account.</p><div class="field">&lt;username&gt;@newcompany.example</div><div class="bs"><span class="pri">Next</span></div></div>' },
+      say: { again: 'Still loading the old company’s page. It never finishes.', next: 'Signed in with the new work account.' },
+      broken: sks([80, 60, 90, 70, 85, 50]) + '<div class="dlg"><h5>' + icon('lock') + 'Sign in</h5><div class="doc" style="text-align:center"><div class="oldlogo"><i></i>Old Company</div><div class="spin-ring"></div><p style="margin:0 0 8px">Loading the old company’s sign-in page…</p>' + xb('Try again', 'again', 1) + '</div></div>',
+      fixed: sks([80, 60, 90, 70, 85, 50]) + '<div class="dlg"><div class="pre"><h5 class="ok">' + icon('lock') + 'Sign in</h5><p>Use your new work account.</p><div class="field">&lt;username&gt;@newcompany.example</div><div class="bs">' + xb('Next', 'next', 1, ' data-hide=".pre" data-show=".post"') + '</div></div>' +
+        '<div class="post" hidden style="text-align:center"><div class="ok-big">' + icon('check', 30) + '</div><b>You’re signed in</b><p style="margin:4px 0 0">Word is using the new account.</p></div></div>' },
     'teams': { app: 'Outlook · New meeting', ic: 'video', bad: 'Teams Meeting button is missing', good: 'Teams Meeting button is back',
-      broken: '<div class="ribbonx"><span>' + icon('mail') + 'Send</span><span>' + icon('download') + 'Save</span><span>' + icon('clip') + 'Attach</span><span class="miss">' + icon('alert') + 'Teams Meeting (missing)</span></div>' +
+      say: { miss: 'Nothing happens. The add-in isn’t loaded.', hit: 'Teams meeting link added to the invite.' },
+      broken: '<div class="ribbonx"><span>' + icon('mail') + 'Send</span><span>' + icon('download') + 'Save</span><span>' + icon('clip') + 'Attach</span><button type="button" class="miss" data-a="miss">' + icon('alert') + 'Teams Meeting (missing)</button></div>' +
         sks([60, 90, 80]) + '<div class="doc">' + sks([85, 70, 90, 55]) + '</div>',
-      fixed: '<div class="ribbonx"><span>' + icon('mail') + 'Send</span><span>' + icon('download') + 'Save</span><span>' + icon('clip') + 'Attach</span><span class="hit">' + icon('video') + 'Teams Meeting</span></div>' +
-        sks([60, 90, 80]) + '<div class="doc"><div style="font-weight:700;color:var(--violet)">Microsoft Teams meeting</div><div style="color:#6c6988">Join on your computer or mobile app</div>' + sks([60, 45]) + '</div>' },
+      fixed: '<div class="ribbonx"><span>' + icon('mail') + 'Send</span><span>' + icon('download') + 'Save</span><span>' + icon('clip') + 'Attach</span><button type="button" class="hit" data-a="hit" data-show=".meet">' + icon('video') + 'Teams Meeting</button></div>' +
+        sks([60, 90, 80]) + '<div class="doc meet" hidden><div style="font-weight:700;color:var(--violet)">Microsoft Teams meeting</div><div style="color:#6c6988">Join on your computer or mobile app</div>' + sks([60, 45]) + '</div><p class="hint">Click Teams Meeting.</p>' },
     'printer': { app: 'Printers & scanners', ic: 'printer', bad: 'Print queue is jammed', good: 'Clean slate, ready to add printers',
-      broken: '<div style="font-weight:700;font-size:14px;margin-bottom:6px">Office printer</div><div class="strip bad">' + icon('alert') + 'Status: Error. Jobs are stuck in the queue.</div>' +
+      say: { retry: 'Still stuck. The spooler isn’t letting go of the jobs.', cancelall: 'The jobs won’t cancel. They’re stuck in the spooler.', add: 'Ready to add the printer again.' },
+      broken: '<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><b style="font-size:14px">Office printer</b><span style="margin-left:auto;display:flex;gap:6px">' + xb('Cancel all', 'cancelall') + xb('Retry', 'retry', 1) + '</span></div><div class="strip bad">' + icon('alert') + 'Status: Error. Jobs are stuck in the queue.</div>' +
         rowx('file', 'r', 'Quote.docx', 'Error - Printing', 'r') + rowx('file', 'r', 'Timesheet.xlsx', 'Error', 'r') + rowx('file', 'r', 'Shipping label.pdf', 'Error', 'r') + rowx('file', 'm', 'Memo.docx', 'Waiting'),
       fixed: '<div style="font-weight:700;font-size:14px;margin-bottom:6px">Printers & scanners</div><div class="strip good">' + icon('check') + 'Print Spooler is running. Queue is empty.</div>' +
-        '<div class="mid" style="top:70px"><div>' + icon('printer', 34) + '<p style="margin:6px 0">Old printers, ports, and drivers removed.<br>Microsoft built-ins left alone.</p><span class="xbtn pri">Add device</span></div></div>' },
+        '<div class="mid" style="top:70px"><div>' + icon('printer', 34) + '<p style="margin:6px 0">Old printers, ports, and drivers removed.<br>Microsoft built-ins left alone.</p>' + xb('Add device', 'add', 1) + '</div></div>' },
     'm365': { app: 'Word', ic: 'file', bad: 'Office says Unlicensed Product', good: 'Microsoft 365 reinstalled and activated',
-      broken: '<div class="strip bad"><span><b>UNLICENSED PRODUCT.</b> Most features are turned off because this copy isn’t activated.</span></div><div style="opacity:.55">' + sks([80, 60, 90, 70, 85, 50, 75, 65]) + '</div>',
+      say: { act: 'Activation didn’t go through. Still unlicensed.', open: 'Word opens with every feature turned on.' },
+      broken: '<div class="strip bad"><span><b>UNLICENSED PRODUCT.</b> Most features are turned off because this copy isn’t activated.</span><span style="margin-left:auto">' + xb('Activate', 'act', 1) + '</span></div><div style="opacity:.55">' + sks([80, 60, 90, 70, 85, 50, 75, 65]) + '</div>',
       fixed: '<div style="font-weight:700;font-size:14px;margin-bottom:8px">Account › Product information</div><div class="strip good">' + icon('check') + 'Product activated</div>' +
-        '<div class="doc"><div style="font-weight:700">Microsoft 365 Apps</div><div style="color:#6c6988">Belongs to: &lt;username&gt;@newcompany.example</div>' + sks([55, 40]) + '</div>' }
+        '<div class="doc"><div style="font-weight:700">Microsoft 365 Apps</div><div style="color:#6c6988">Belongs to: &lt;username&gt;@newcompany.example</div>' + sks([55, 40]) + '</div><div style="margin-top:10px">' + xb('Open Word', 'open', 1) + '</div>' }
   };
+  // Clicks on the fake PC: before the fix they reproduce the problem; after the fix they work.
+  var sayTimer = null;
+  function pcSay(text, kind) {
+    var st = pc.dataset.state;
+    pcToast.className = 'pc-toast s-' + kind;
+    pcToast.innerHTML = icon(kind === 'fixed' ? 'check' : kind === 'running' ? 'rotate' : 'alert') + '<span></span>';
+    pcToast.lastChild.textContent = text;
+    clearTimeout(sayTimer);
+    sayTimer = setTimeout(function () { if (pc.dataset.state === st) pcState(st, parseFloat(pcProg.style.width) || 0, true); }, 2800);
+  }
+  document.getElementById('pc').addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-a]'); if (!b) return;
+    var scene = b.closest('.scene'); var st = pc.dataset.state;
+    var fixedScene = scene.classList.contains('fixed');
+    if (st === 'running') return pcSay('The script is still running. Give it a second.', 'running');
+    if (fixedScene !== (st === 'fixed' || st === 'report')) return;
+    var sc = SC[cur.id], msg = (sc.say && sc.say[b.dataset.a]) || '';
+    if (b.dataset.hide) scene.querySelectorAll(b.dataset.hide).forEach(function (n) { n.hidden = true; });
+    if (b.dataset.show) scene.querySelectorAll(b.dataset.show).forEach(function (n) { n.hidden = false; });
+    if (b.dataset.flash) scene.querySelectorAll(b.dataset.flash).forEach(function (n) { n.classList.remove('flash'); void n.offsetWidth; n.classList.add('flash'); });
+    if (fixedScene) { scene.querySelectorAll('.hint').forEach(function (n) { n.hidden = true; }); pcSay(msg, 'fixed'); return; }
+    var target = b.dataset.show ? scene.querySelector(b.dataset.show) : (b.closest('.dlg') || b);
+    if (!b.dataset.hide) { target.classList.remove('shake'); void target.offsetWidth; target.classList.add('shake'); }
+    pcSay(msg + (b.dataset.hide || /Run /.test(msg) ? '' : ' Run the script to fix it.'), 'broken');
+  });
   var pc = document.getElementById('pc');
   var pcProg = document.getElementById('pcProg');
   var pcToast = document.getElementById('pcToast');
@@ -1262,50 +1438,66 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
     pickIdea(0);
   }
 
-  // ---------- background: quiet dot grid that leans toward the cursor ----------
+  // ---------- background: dot grid that leans toward the cursor; a click sends a ripple ----------
   (function () {
     var cv = document.getElementById('dots'); if (!cv || !cv.getContext) return;
-    var ctx = cv.getContext('2d'), W = 0, H = 0, dpr = 1, gap = 30;
-    var mx = -999, my = -999, tx = -999, ty = -999, raf = 0;
+    var ctx = cv.getContext('2d'), W = 0, H = 0, dpr = 1, gap = 28;
+    var mx = -999, my = -999, tx = -999, ty = -999, raf = 0, rgb = '91,61,245', waves = [];
     var fine = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
+    function color() { rgb = (getComputedStyle(document.documentElement).getPropertyValue('--dot') || '91,61,245').trim(); }
     function size() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       W = window.innerWidth; H = window.innerHeight;
       cv.width = W * dpr; cv.height = H * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      draw();
+      draw(performance.now());
     }
-    function draw() {
+    function draw(now) {
       ctx.clearRect(0, 0, W, H);
-      var R = 150;
+      var R = 210;
+      if (mx > -900) {
+        var g = ctx.createRadialGradient(mx, my, 0, mx, my, R * 1.3);
+        g.addColorStop(0, 'rgba(' + rgb + ',.10)'); g.addColorStop(1, 'rgba(' + rgb + ',0)');
+        ctx.fillStyle = g; ctx.fillRect(mx - R * 1.3, my - R * 1.3, R * 2.6, R * 2.6);
+      }
+      waves = waves.filter(function (w) { return now - w.t < 1100; });
       for (var y = gap / 2; y < H; y += gap) {
         for (var x = gap / 2; x < W; x += gap) {
-          var dx = x - mx, dy = y - my, d = Math.sqrt(dx * dx + dy * dy);
-          if (d < R) {
-            var p = 1 - d / R, px = x - dx * p * 0.22, py = y - dy * p * 0.22;
-            ctx.fillStyle = 'rgba(91,61,245,' + (0.18 + p * 0.5).toFixed(3) + ')';
-            ctx.beginPath(); ctx.arc(px, py, 1.3 + p * 1.6, 0, 6.283); ctx.fill();
-          } else {
-            ctx.fillStyle = 'rgba(91,61,245,.13)';
-            ctx.fillRect(x - 1, y - 1, 2, 2);
+          var dx = x - mx, dy = y - my, d = Math.sqrt(dx * dx + dy * dy), p = d < R ? 1 - d / R : 0;
+          var px = x - dx * p * 0.32, py = y - dy * p * 0.32, boost = 0;
+          for (var i = 0; i < waves.length; i++) {
+            var w = waves[i], wr = (now - w.t) * 0.55, wx = x - w.x, wy = y - w.y, wd = Math.sqrt(wx * wx + wy * wy), band = 1 - Math.abs(wd - wr) / 40;
+            if (band > 0 && wd > 0) { var f = band * (1 - (now - w.t) / 1100); boost = Math.max(boost, f); px += wx / wd * f * 7; py += wy / wd * f * 7; }
           }
+          var a = 0.2 + p * 0.6 + boost * 0.6, r = 1.2 + p * 2 + boost * 1.6;
+          ctx.fillStyle = 'rgba(' + rgb + ',' + Math.min(a, .95).toFixed(3) + ')';
+          if (r < 1.5) ctx.fillRect(px - 1.1, py - 1.1, 2.2, 2.2);
+          else { ctx.beginPath(); ctx.arc(px, py, r, 0, 6.283); ctx.fill(); }
         }
       }
     }
-    function tick() {
-      mx += (tx - mx) * 0.18; my += (ty - my) * 0.18;
-      draw();
-      raf = (Math.abs(tx - mx) > 0.5 || Math.abs(ty - my) > 0.5) ? requestAnimationFrame(tick) : 0;
+    function tick(now) {
+      mx += (tx - mx) * 0.2; my += (ty - my) * 0.2;
+      draw(now);
+      raf = (waves.length || Math.abs(tx - mx) > 0.5 || Math.abs(ty - my) > 0.5) ? requestAnimationFrame(tick) : 0;
     }
+    function kick() { if (!raf) raf = requestAnimationFrame(tick); }
     window.addEventListener('resize', size);
-    if (fine && !reduce) {
-      document.addEventListener('pointermove', function (e) {
-        if (mx < -900) { mx = e.clientX; my = e.clientY; }
-        tx = e.clientX; ty = e.clientY; if (!raf) raf = requestAnimationFrame(tick);
+    window.addEventListener('themechange', function () { color(); draw(performance.now()); });
+    if (!reduce) {
+      if (fine) {
+        document.addEventListener('pointermove', function (e) {
+          if (mx < -900) { mx = e.clientX; my = e.clientY; }
+          tx = e.clientX; ty = e.clientY; kick();
+        }, { passive: true });
+        document.documentElement.addEventListener('mouseleave', function () { tx = ty = mx = my = -999; draw(performance.now()); });
+      }
+      document.addEventListener('pointerdown', function (e) {
+        if (e.target.closest && e.target.closest('button, a, input, select, .pc, .term')) return;
+        waves.push({ x: e.clientX, y: e.clientY, t: performance.now() }); if (waves.length > 3) waves.shift(); kick();
       }, { passive: true });
-      document.documentElement.addEventListener('mouseleave', function () { tx = ty = mx = my = -999; draw(); });
     }
-    size();
+    color(); size();
   })();
 
   // ---------- source view ----------
@@ -1345,7 +1537,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
   document.getElementById('tabRun').addEventListener('click', function () { showSrcTab(false); });
   document.getElementById('tabSrc').addEventListener('click', function () { showSrcTab(true); });
   runBtn.addEventListener('click', run);
-  document.getElementById('resetBtn').addEventListener('click', function () { stop(); prompt(); pcState('broken'); });
+  document.getElementById('resetBtn').addEventListener('click', function () { stop(); prompt(); pcLoad(cur); });
 
 
   // ---------- motion ----------
@@ -1372,6 +1564,7 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
   }
   function reveal(e) {
     e.classList.add('in');
+    setTimeout(function () { e.classList.add('settled'); }, reduce ? 0 : 1300);
     e.querySelectorAll && e.querySelectorAll('.bar .f').forEach(function (f) { f.style.width = f.dataset.w; });
     e.querySelectorAll && e.querySelectorAll('.stat b[data-n]').forEach(countUp);
   }
@@ -1389,6 +1582,112 @@ footer .fine { font-size: 14px; color: #8a86b3; margin-top: 28px; }
     var r = c.getBoundingClientRect();
     c.style.setProperty('--mx', (ev.clientX - r.left) + 'px'); c.style.setProperty('--my', (ev.clientY - r.top) + 'px');
   }, { passive: true });
+
+
+  // ---------- page-wide interactivity ----------
+  // scroll progress
+  var bar = document.createElement('div'); bar.className = 'progress-top'; document.body.appendChild(bar);
+  var pRaf = 0;
+  window.addEventListener('scroll', function () {
+    if (pRaf) return;
+    pRaf = requestAnimationFrame(function () {
+      pRaf = 0; var h = document.documentElement.scrollHeight - innerHeight;
+      bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, scrollY / h) : 0) + ')';
+    });
+  }, { passive: true });
+
+  // bots: click to pick; orbit satellites jump to their card
+  var botCards = Array.prototype.slice.call(document.querySelectorAll('.bot'));
+  function pickBot(card, scroll) {
+    botCards.forEach(function (c) { c.classList.toggle('picked', c === card); });
+    if (scroll) card.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+  }
+  botCards.forEach(function (c) {
+    c.setAttribute('tabindex', '0'); c.setAttribute('role', 'button');
+    c.addEventListener('click', function () { pickBot(c); });
+    c.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pickBot(c); } });
+  });
+  document.querySelectorAll('.sat, .core').forEach(function (s) {
+    var name = (s.querySelector('span') || {}).textContent;
+    s.setAttribute('tabindex', '0'); s.setAttribute('role', 'button'); s.setAttribute('aria-label', 'Show ' + name);
+    function go() { botCards.forEach(function (c) { if (c.querySelector('b').textContent === name) pickBot(c, true); }); }
+    s.addEventListener('click', go);
+    s.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+  });
+
+  // stats count again on hover
+  document.querySelectorAll('.stat').forEach(function (st) {
+    st.addEventListener('mouseenter', function () { st.querySelectorAll('b[data-n]').forEach(countUp); });
+  });
+
+  // flows become steppers: click a step, or play them in order
+  document.querySelectorAll('.flow').forEach(function (flow, fi) {
+    var cards = Array.prototype.slice.call(flow.querySelectorAll('.card'));
+    function setStep(k) { cards.forEach(function (c, j) { c.classList.toggle('on', j === k); c.classList.toggle('done', j < k); }); }
+    cards.forEach(function (c, k) {
+      c.setAttribute('tabindex', '0'); c.setAttribute('role', 'button');
+      c.addEventListener('click', function () { stopPlay(); setStep(k); });
+      c.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stopPlay(); setStep(k); } });
+    });
+    var ctl = el('div', 'flow-ctl');
+    ctl.innerHTML = '<button class="btn outline" type="button">' + icon('play', 16) + '<span>Play the steps</span></button><small>or click any step</small>';
+    flow.parentNode.insertBefore(ctl, flow);
+    var pb = ctl.querySelector('button'), pt = null;
+    function stopPlay() { if (pt) { clearInterval(pt); pt = null; pb.lastChild.textContent = 'Play the steps'; } }
+    pb.addEventListener('click', function () {
+      if (pt) return stopPlay();
+      var k = 0; setStep(0); pb.lastChild.textContent = 'Stop';
+      pt = setInterval(function () { k++; if (k >= cards.length) { stopPlay(); cards.forEach(function (c) { c.classList.remove('on'); c.classList.add('done'); }); return; } setStep(k); }, reduce ? 600 : 1100);
+    });
+  });
+
+  // end-of-shift report: fill example rows
+  var eosT = document.querySelector('table[aria-label="End-of-shift report layout"]');
+  if (eosT) {
+    var eosC = el('div', 'eos-ctl');
+    eosC.innerHTML = '<button class="btn solid" type="button">' + icon('clock', 16) + 'Simulate the end of a shift</button><small id="eosMsg">Example rows only. No real tickets.</small>';
+    eosT.parentNode.parentNode.insertBefore(eosC, eosT.parentNode.nextSibling);
+    var eosB = eosC.querySelector('button'), eosRun = 0;
+    eosB.addEventListener('click', async function () {
+      var me = ++eosRun;
+      eosT.querySelectorAll('tr.ex').forEach(function (r) { r.remove(); });
+      document.getElementById('eosMsg').textContent = 'Grok is reading the ticket board (read-only)…';
+      var heads = Array.prototype.slice.call(eosT.querySelectorAll('tbody tr'));
+      for (var i = 0; i < heads.length; i++) {
+        await new Promise(function (r) { setTimeout(r, reduce ? 0 : 420); });
+        if (me !== eosRun) return;
+        var tr = document.createElement('tr'); tr.className = 'ex';
+        tr.innerHTML = '<td><span class="exw">EXAMPLE</span></td><td>#000000</td><td>Example vendor</td><td>Example ticket</td><td>Example window</td><td>Tech</td><td>—</td><td>Open</td>';
+        heads[i].parentNode.insertBefore(tr, heads[i].nextSibling);
+      }
+      document.getElementById('eosMsg').textContent = 'Report built. The pod checks it at shift change.';
+    });
+  }
+
+  // go-live countdown, worked out from today's date
+  document.querySelectorAll('p').forEach(function (p) {
+    if (!/Target date:/.test(p.textContent) || !p.querySelector('b')) return;
+    var days = Math.ceil((Date.UTC(2026, 11, 19) - Date.now()) / 864e5);
+    if (days < 0) return;
+    var s = el('span', 'countdown'); s.innerHTML = icon('clock', 16) + '<span></span>';
+    s.lastChild.textContent = days === 0 ? 'Today' : days + (days === 1 ? ' day away' : ' days away');
+    p.appendChild(s);
+  });
+
+  // theme toggle
+  var tbtn = document.getElementById('themeBtn');
+  function effTheme() { var t = document.documentElement.dataset.theme; if (t) return t; return window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+  function themeLabel() { tbtn.setAttribute('aria-label', effTheme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'); tbtn.title = tbtn.getAttribute('aria-label'); }
+  if (tbtn) {
+    themeLabel();
+    tbtn.addEventListener('click', function () {
+      var next = effTheme() === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      try { localStorage.setItem('gb-theme', next); } catch (e) {}
+      themeLabel(); window.dispatchEvent(new Event('themechange'));
+    });
+    if (window.matchMedia) { try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { themeLabel(); window.dispatchEvent(new Event('themechange')); }); } catch (e) {} }
+  }
 
   var start = 0;
   var m = location.hash.match(/^#script-(.+)$/);
