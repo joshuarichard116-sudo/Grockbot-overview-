@@ -9,18 +9,18 @@
 <meta name="description" content="Grok Bot Show & Tell, Nov 25, 2026: how Joshua Richard uses Grok Bot for S1 Technology work.">
 <style>
 :root {
-  --bg: #17221f;
-  --panel: #223230;
-  --panel-2: #2a3b38;
-  --line: #3d524c;
-  --fg: #f3faf8;
-  --muted: #bcd0ca;
-  --accent: #5fd8cc;
-  --accent-soft: rgba(95,216,204,.16);
-  --good: #8fe6cf;
-  --ph-bg: #ffcb9a;
-  --ph-fg: #2a1a08;
-  --code-bg: #0b1211;
+  --bg: #1b1c1e;
+  --panel: #282a2c;
+  --panel-2: #303235;
+  --line: #45474a;
+  --fg: #f6f6f7;
+  --muted: #c3c6c9;
+  --accent: #93b582;
+  --accent-soft: rgba(147,181,130,.16);
+  --good: #b4cda8;
+  --ph-bg: #e29765;
+  --ph-fg: #2a1608;
+  --code-bg: #0e0e0f;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); overflow: hidden; }
@@ -39,9 +39,9 @@ a { color: var(--accent); }
   padding: 88px 120px 96px;
   display: none; flex-direction: column;
   background:
-    radial-gradient(900px 600px at 100% 0%, rgba(22,128,130,.45), transparent 65%),
-    radial-gradient(700px 500px at 0% 100%, rgba(217,176,140,.10), transparent 65%),
-    linear-gradient(160deg, #283632 0%, var(--bg) 60%);
+    radial-gradient(900px 600px at 100% 0%, rgba(68,99,53,.45), transparent 65%),
+    radial-gradient(700px 500px at 0% 100%, rgba(214,153,113,.10), transparent 65%),
+    linear-gradient(160deg, #2d2f31 0%, var(--bg) 60%);
   font-size: 34px; line-height: 1.35;
 }
 .slide.active { display: flex; }
@@ -88,7 +88,7 @@ mark.ph {
   border-left: 8px solid var(--accent); background: var(--accent-soft);
   padding: 24px 32px; border-radius: 0 14px 14px 0; font-size: 38px; font-weight: 600;
 }
-.guard { border-left-color: var(--good); background: rgba(127,220,207,.10); }
+.guard { border-left-color: var(--good); background: rgba(167,193,154,.10); }
 
 ol.steps { list-style: none; margin: 0; padding: 0; display: flex; gap: 20px; }
 ol.steps li {
@@ -97,7 +97,7 @@ ol.steps li {
 }
 ol.steps li .num {
   display: inline-grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
-  background: var(--accent); color: #0b1211; font-weight: 800; font-size: 28px; margin-bottom: 14px;
+  background: var(--accent); color: #0e0e0f; font-weight: 800; font-size: 28px; margin-bottom: 14px;
 }
 ol.steps li b { display: block; font-size: 32px; margin-bottom: 6px; }
 ol.steps li span { color: var(--muted); font-size: 27px; }
@@ -108,7 +108,7 @@ pre {
   margin: 0; background: var(--code-bg); border: 1px solid var(--line); border-radius: 14px;
   padding: 22px 26px; font-size: 21px; line-height: 1.45; white-space: pre; overflow: hidden;
 }
-pre .c { color: #9cb3ad; }
+pre .c { color: #a4a7ab; }
 
 /* ---------- slide-specific ---------- */
 .title-slide { justify-content: center; }
@@ -184,7 +184,7 @@ table.carry td:first-child { font-weight: 650; width: 380px; }
 .eos-table td { padding: 12px 16px; border-bottom: 1px solid var(--line); color: var(--muted); }
 .eos-table tr:last-child td { border-bottom: 0; }
 .tag { display: inline-block; font-size: 20px; font-weight: 700; padding: 3px 14px; border-radius: 999px; color: #fff; }
-.tag.p1 { background: #c93c3c; } .tag.p2 { background: #c2601f; } .tag.pod { background: #1f6fc2; } .tag.ven { background: #8a6a3e; }
+.tag.p1 { background: #c93c3c; } .tag.p2 { background: #bd6124; } .tag.pod { background: #1f6fc2; } .tag.ven { background: #9b592d; }
 
 
 .bots3 { flex: 1; min-width: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 14px; }
@@ -203,7 +203,7 @@ table.carry td:first-child { font-weight: 650; width: 380px; }
 #progress { position: fixed; left: 0; top: 0; height: 5px; background: var(--accent); transition: width .2s ease; z-index: 5; }
 #counter {
   position: fixed; right: 16px; bottom: 12px; z-index: 6;
-  font-size: 14px; color: var(--muted); background: rgba(15,23,22,.7);
+  font-size: 14px; color: var(--muted); background: rgba(18,19,20,.7);
   padding: 4px 10px; border-radius: 8px; font-variant-numeric: tabular-nums;
 }
 #hint { position: fixed; left: 16px; bottom: 12px; z-index: 6; font-size: 13px; color: var(--muted); opacity: .75; transition: opacity 1s; }
@@ -211,7 +211,7 @@ table.carry td:first-child { font-weight: 650; width: 380px; }
 #notes {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 7;
   height: 34vh; display: none;
-  background: #0b1211; border-top: 2px solid var(--accent);
+  background: #0e0e0f; border-top: 2px solid var(--accent);
   padding: 18px 24px 40px; overflow: auto;
   font-size: 19px; line-height: 1.55; color: var(--fg);
 }
@@ -258,14 +258,14 @@ body:hover .navbtn { opacity: 1; }
 .lead-own .propb { margin-left: auto; font-size: 19px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ph-fg); background: var(--ph-bg); padding: 4px 14px; border-radius: 999px; white-space: nowrap; }
 /* ---------- cloud builder slides ---------- */
 .cbj { margin: 0; background: var(--code-bg); border: 1px solid var(--line); border-radius: 16px; padding: 24px 28px; font-size: 23px; line-height: 1.5; white-space: pre; overflow: hidden; }
-.cbj .k { color: #9ecbff; } .cbj .s { color: #b5f0c8; } .cbj .n { color: #ffd59a; }
-.cbj .hl { background: rgba(255,213,154,.16); outline: 2px solid rgba(255,213,154,.45); border-radius: 6px; }
+.cbj .k { color: #9ecbff; } .cbj .s { color: #b5f0c8; } .cbj .n { color: #e29765; }
+.cbj .hl { background: rgba(226,151,101,.16); outline: 2px solid rgba(226,151,101,.45); border-radius: 6px; }
 .cbflow { display: flex; gap: 12px; }
 .cbflow > div { flex: 1; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 20px 20px 18px; position: relative; }
 .cbflow b { display: block; font-size: 29px; margin-bottom: 4px; }
 .cbflow span { display: block; font-size: 22px; color: var(--muted); line-height: 1.3; }
-.cbflow .gate { border-color: #e8875b; }
-.cbflow .gate::after { content: "Person approves"; position: absolute; top: -16px; right: 16px; font-size: 17px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; background: #e8875b; color: #1a0d05; padding: 2px 12px; border-radius: 999px; }
+.cbflow .gate { border-color: #e19562; }
+.cbflow .gate::after { content: "Person approves"; position: absolute; top: -16px; right: 16px; font-size: 17px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; background: #e19562; color: #1a0d05; padding: 2px 12px; border-radius: 999px; }
 .cbflow .num { display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--accent); color: #04121f; font-weight: 800; font-size: 22px; margin-bottom: 10px; }
 .cbzones { display: grid; grid-template-columns: 1.7fr 170px 1fr; gap: 16px; align-items: stretch; }
 .cbzone { border: 3px dashed var(--line); border-radius: 20px; padding: 22px 24px; }
@@ -276,7 +276,7 @@ body:hover .navbtn { opacity: 1; }
 .cbzone.az .bx { grid-template-columns: 1fr; }
 .cbzone .bx div { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; font-size: 23px; font-weight: 600; line-height: 1.25; }
 .cbzone .bx div small { display: block; font-weight: 400; font-size: 18px; color: var(--muted); margin-top: 3px; }
-.cbgate { display: grid; place-items: center; align-content: center; text-align: center; color: #e8875b; font-size: 21px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; line-height: 1.3; }
+.cbgate { display: grid; place-items: center; align-content: center; text-align: center; color: #e19562; font-size: 21px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; line-height: 1.3; }
 .cbgate .arr { font-size: 60px; line-height: 1; margin-bottom: 8px; }
 .cbuses { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .cbuses div { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; }
@@ -629,7 +629,7 @@ Start-Process powershell -Verb RunAs `
 <pre class="cbj">{
   <span class="k">"project"</span>: <span class="s">"example-eng-01"</span>,
   <span class="k">"blueprint"</span>: <span class="s">"cmmc-l2-workload"</span>,
-  <span class="hl"><span class="k">"target"</span>: <span class="s">"local"</span>,</span>   <span style="color:#ffd59a">&larr; or "azure-gov"</span>
+  <span class="hl"><span class="k">"target"</span>: <span class="s">"local"</span>,</span>   <span style="color:#e29765">&larr; or "azure-gov"</span>
   <span class="k">"network"</span>: {
     <span class="k">"address_space"</span>: <span class="s">"10.40.0.0/16"</span>,
     <span class="k">"subnets"</span>: [<span class="s">"app"</span>, <span class="s">"data"</span>, <span class="s">"mgmt"</span>]
