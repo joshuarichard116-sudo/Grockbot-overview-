@@ -11,7 +11,7 @@ title: What I built with my Grok Bot seat
   - 0 · client names or data in any of it
 
 ## Speaker notes
-Hi, everyone. I'm going to walk you through what I've built with my Grok Bot seat for my S1 work: the daily ticket workflow, documentation, scripting, and what carries into the enclave.
+Hi, everyone. I'm going to walk you through what I've built with my Grok Bot seat for my S1 work: the daily ticket workflow, the end-of-shift report, scripting, and automation for the enclave.
 
 ## Placeholders
 None

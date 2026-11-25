@@ -1,9 +1,9 @@
 ---
-slide: 11
+slide: 9
 title: Automate the busywork. Keep the judgment.
 ---
 ## On screen
-*Section label:* 09 · What we could automate
+*Section label:* 07 · What we could automate
 
 - Callout: No CUI is touched. Grok helps write these checks; none of them open, copy, or move CUI, and no CUI goes into any bot.
 - **REMY** · Access and sign-in: Access review drafts (AC 3.1.1), MFA coverage check (IA 3.5.3)

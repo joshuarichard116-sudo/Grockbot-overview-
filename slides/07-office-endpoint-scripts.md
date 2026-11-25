@@ -1,9 +1,9 @@
 ---
-slide: 8
+slide: 7
 title: Everyday Office and endpoint fixes
 ---
 ## On screen
-*Section label:* 06 · Scripting toolkit
+*Section label:* 05 · Scripting toolkit
 
 - **Outlook-Wont-Open-PDF-Excel-Docs.ps1** · ~30 min by hand → ~5 min (estimate) · Least to most invasive, stops when Outlook works. Old profile renamed, never deleted. · 577 lines, 15 functions
 - **Reset-WebView2.ps1** · ~20 min by hand → ~3 min (estimate) · Reinstalls WebView2, clears Office sign-in caches. Fixes the old sign-in page still showing.

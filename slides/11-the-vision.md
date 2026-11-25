@@ -1,9 +1,9 @@
 ---
-slide: 13
+slide: 11
 title: Local tools, built to live inside the enclave
 ---
 ## On screen
-*Section label:* 11 · Where this goes
+*Section label:* 09 · Where this goes
 
 Start small. Build each tool once, run it inside the boundary, and let it grow with the department.
 - **Local first** · Small tools that run inside the enclave, not cloud services reaching in.

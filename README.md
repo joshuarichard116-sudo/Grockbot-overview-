@@ -1,6 +1,6 @@
 # Grok Bot Show & Tell
 
-How I use my Grok Bot seat for S1 Technology work: the daily ticket and time workflow, IT Glue documentation, PowerShell scripting, FortiGate training resources, and what carries into the CMMC (Cybersecurity Maturity Model Certification) enclave.
+How I use my Grok Bot seat for S1 Technology work: the daily ticket and time workflow, the end-of-shift report, PowerShell scripting, and proposed automation for the CMMC (Cybersecurity Maturity Model Certification) enclave.
 
 **Talk:** Wednesday, Nov 25, 2026, 11:40 AM CT (Central Time)
 **Presenter:** Joshua Richard
@@ -9,7 +9,7 @@ How I use my Grok Bot seat for S1 Technology work: the daily ticket and time wor
 
 - **Page (with the script lab):** https://joshuarichard116-sudo.github.io/Grockbot-overview-/
 - **Slides for the talk:** https://joshuarichard116-sudo.github.io/Grockbot-overview-/deck/
-- **Offline:** download the repo and open `deck/index.html` in any browser. It's one file with no internet needed (the FortiGate links on slide 9 need a connection, of course).
+- **Offline:** download the repo and open `deck/index.html` in any browser. It's one file with no internet needed.
 
 | Key | Does |
 |---|---|
@@ -31,7 +31,6 @@ Add `#5` to the URL to jump to slide 5. Add `?notes` to open with notes showing.
 | `docs/presenter-notes.md` | All speaker notes in order |
 | `docs/placeholders.md` | The rough estimates used in place of placeholders, to replace with measured numbers |
 | `docs/acronyms.md` | Acronym glossary |
-| `docs/resources.md` | FortiGate training links |
 | `assets/img/` | Screenshots, if added later |
 
 ## Script lab
@@ -43,23 +42,6 @@ The page has a simulated PowerShell console for each S1 script, all built with G
 - Bots only draft. Nothing goes out without me.
 - No client data or CUI (Controlled Unclassified Information) in any bot.
 - Names and paths are sanitized. No client names, usernames, tenant IDs, or credentials.
-
-## Resources
-
-FortiGate training (slide 9). Checked Nov 24, 2026.
-
-**Hands-on lab I built**
-- [Talvex Firewall Lab](https://joshuarichard116-sudo.github.io/jrichard-web/labs/talvex-firewall/): FortiGate-style training lab with guided missions
-
-**Official Fortinet training**
-- [Fortinet Training Institute (course catalog)](https://training.fortinet.com/)
-- [Fortinet training and certification overview](https://www.fortinet.com/training-certification)
-- [Fortinet training for cybersecurity professionals](https://www.fortinet.com/training/cybersecurity-professionals)
-
-**FortiGate + Azure VPN (virtual private network) reference articles, Fortinet Community**
-- [Site-to-site VPN between an Azure virtual network gateway and FortiGate](https://community.fortinet.com/fortigate-3/technical-tip-deploying-s2s-vpn-between-microsoft-azure-virtual-network-gateway-and-fortigate-117984)
-- [BGP (Border Gateway Protocol) over an Azure VNet (virtual network) VPN](https://community.fortinet.com/fortigate-3/technical-tip-bgp-over-an-azure-vnet-vpn-103398)
-- [IPsec VPN DPD (Dead Peer Detection) options and idle tunnel flushing](https://community.fortinet.com/fortigate-3/technical-tip-explanation-of-ipsec-vpn-dpd-options-and-on-idle-tunnel-flushing-process-137398)
 
 ## License
 
