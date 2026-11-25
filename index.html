@@ -457,6 +457,29 @@ button.att:hover { border-color: var(--violet); }
 .flash { animation: flash .6s; }
 @keyframes flash { 0% { opacity: .15; } 100% { opacity: 1; } }
 
+
+/* ---------- section rail: where you are on the page ---------- */
+section.band[id], .lab-mark { scroll-margin-top: 72px; }
+.lab-mark { margin: 34px 0 12px; padding-top: 22px; border-top: 1px dashed var(--line); }
+.nav a.nav-lab { color: var(--coral); font-weight: 650; }
+.nav a.nav-lab::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--coral); margin-right: 7px; vertical-align: 2px; }
+.rail { position: fixed; right: 22px; top: 50%; transform: translateY(-50%); z-index: 40; display: none; }
+.rail ol { list-style: none; margin: 0; padding: 6px 0; position: relative; display: grid; gap: 14px; }
+.rail ol::before, .rail .fill { content: ""; position: absolute; right: 5px; top: 12px; width: 2px; border-radius: 2px; }
+.rail ol::before { bottom: 12px; background: var(--line); }
+.rail .fill { height: 0; background: linear-gradient(180deg, var(--violet), var(--teal)); transition: height .15s linear; }
+.rail a { display: flex; align-items: center; justify-content: flex-end; gap: 10px; text-decoration: none; color: var(--muted); font-size: 13px; font-weight: 600; line-height: 1; position: relative; }
+.rail a .lbl { opacity: 0; transform: translateX(6px); transition: opacity .2s, transform .2s; white-space: nowrap; background: var(--card); padding: 4px 9px; border-radius: 999px; box-shadow: var(--shadow); }
+.rail a .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--line); flex: none; position: relative; z-index: 1; transition: background .2s, border-color .2s, transform .2s; }
+.rail a.done .dot { border-color: var(--teal); background: var(--teal); }
+.rail a.on .dot { border-color: var(--violet); background: var(--card); box-shadow: 0 0 0 4px var(--violet-soft); transform: scale(1.15); }
+.rail a.on .lbl, .rail:hover .lbl, .rail a:focus-visible .lbl { opacity: 1; transform: none; }
+.rail a.on { color: var(--ink); }
+.rail a.lab .dot { border-radius: 3px; border-color: var(--coral); background: var(--coral-soft); }
+.rail a.lab .lbl { opacity: 1; transform: none; color: var(--coral); border: 1px solid var(--coral); }
+.rail a.lab.on .dot { background: var(--coral); box-shadow: 0 0 0 4px var(--coral-soft); }
+@media (min-width: 1300px) { .rail { display: block; } }
+@media (prefers-reduced-motion: reduce) { .rail .fill, .rail a .lbl, .rail a .dot { transition: none; } }
 /* ---------- interactivity across the page ---------- */
 .progress-top { position: fixed; left: 0; top: 0; height: 3px; width: 100%; transform-origin: left; transform: scaleX(0); background: linear-gradient(90deg, var(--violet), var(--teal), var(--coral)); z-index: 30; pointer-events: none; }
 .reveal.in.settled { transition: transform .2s ease, border-color .2s, box-shadow .2s; transition-delay: 0s; }
@@ -727,6 +750,7 @@ tbody tr:hover td { background: var(--violet-soft); }
       <a href="#scripts">Script lab</a>
       <a href="#enclave">The enclave</a>
       <a href="#automate">Automation ideas</a>
+      <a href="#fortigate-lab" class="nav-lab">FortiGate lab</a>
       <a href="#cloudbuilder">Cloud builder</a>
       <a href="#skills">Skills</a>
     </nav>
@@ -975,7 +999,8 @@ tbody tr:hover td { background: var(--violet-soft); }
         <button class="show-arrow" id="showNext" type="button" aria-label="Next slide"><svg class="i"><use href="#i-arrow"/></svg></button>
       </div>
     </div>
-    <a class="feature" href="https://joshuarichard116-sudo.github.io/jrichard-web/labs/talvex-firewall/" target="_blank" rel="noopener" style="margin-top:22px">
+    <div class="lab-mark" id="fortigate-lab"><span class="eyebrow coral"><svg class="i" style="width:16px;height:16px"><use href="#i-network"/></svg>FortiGate lab · Training sandbox</span></div>
+    <a class="feature" href="https://joshuarichard116-sudo.github.io/jrichard-web/labs/talvex-firewall/" target="_blank" rel="noopener">
       <div class="ic"><svg class="i"><use href="#i-network"/></svg></div>
       <div><div class="tagline">Training alongside · built by me</div><h3>Talvex Firewall Lab</h3><p>My FortiGate-style training lab. Practice firewall work in the browser with guided missions.</p></div>
       <span class="go">Open the lab<svg class="i" style="width:18px;height:18px"><use href="#i-arrow"/></svg></span>
@@ -2160,6 +2185,41 @@ tbody tr:hover td { background: var(--violet-soft); }
     });
   }, { passive: true });
 
+
+  // section rail: shows which part of the page you're in
+  (function () {
+    var items = [['top','Top'],['context','Context'],['team','The team'],['day','Day to day'],['scripts','Script lab'],['enclave','The enclave'],['automate','Automation ideas'],['fortigate-lab','FortiGate lab'],['cloudbuilder','Cloud builder'],['skills','Skills'],['golive','Go-live']]
+      .filter(function (it) { return it[0] === 'top' || document.getElementById(it[0]); });
+    var rail = document.createElement('nav'); rail.className = 'rail'; rail.setAttribute('aria-label', 'Where you are on the page');
+    var ol = document.createElement('ol'); var fill = document.createElement('span'); fill.className = 'fill'; ol.appendChild(fill);
+    var as = items.map(function (it) {
+      var li = document.createElement('li'), a = document.createElement('a');
+      a.href = '#' + it[0]; if (it[0] === 'fortigate-lab') a.className = 'lab';
+      var l = document.createElement('span'); l.className = 'lbl'; l.textContent = it[1];
+      var d = document.createElement('span'); d.className = 'dot';
+      a.appendChild(l); a.appendChild(d); li.appendChild(a); ol.appendChild(li); return a;
+    });
+    rail.appendChild(ol); document.body.appendChild(rail);
+    var navLinks = document.querySelectorAll('.nav a'), lastNav = null;
+    function update() {
+      var y = innerHeight * 0.4, cur = 0;
+      items.forEach(function (it, k) { if (k === 0) return; var el = document.getElementById(it[0]); if (el && el.getBoundingClientRect().top <= y) cur = k; });
+      as.forEach(function (a, k) { a.classList.toggle('on', k === cur); a.classList.toggle('done', k < cur); if (k === cur) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+      var ob = ol.getBoundingClientRect().top, f = as[0].querySelector('.dot').getBoundingClientRect(), n = as[cur].querySelector('.dot').getBoundingClientRect();
+      fill.style.top = (f.top + f.height / 2 - ob) + 'px';
+      fill.style.height = Math.max(0, n.top - f.top) + 'px';
+      var id = items[cur][0];
+      navLinks.forEach(function (a) {
+        var on = a.getAttribute('href') === '#' + id; a.classList.toggle('on', on);
+        if (on && a !== lastNav) { lastNav = a; var nv = a.parentNode, l = a.offsetLeft - nv.offsetLeft; if (l < nv.scrollLeft || l + a.offsetWidth > nv.scrollLeft + nv.clientWidth) nv.scrollLeft = l - (nv.clientWidth - a.offsetWidth) / 2; }
+      });
+    }
+    var rRaf = 0;
+    window.addEventListener('scroll', function () { if (!rRaf) rRaf = requestAnimationFrame(function () { rRaf = 0; update(); }); }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
+
   // bots: click to pick; orbit satellites jump to their card
   var botCards = Array.prototype.slice.call(document.querySelectorAll('.bot'));
   function pickBot(card, scroll) {
@@ -2332,16 +2392,6 @@ tbody tr:hover td { background: var(--violet-soft); }
   if (m) S.forEach(function (s, k) { if (s.id === m[1]) start = k; });
   select(start);
 
-  // highlight nav section
-  var links = document.querySelectorAll('.nav a');
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (e.isIntersecting) links.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id); });
-      });
-    }, { rootMargin: '-45% 0px -50% 0px' });
-    document.querySelectorAll('section.band[id]').forEach(function (s) { io.observe(s); });
-  }
 })();
 </script>
 </body>
