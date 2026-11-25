@@ -980,6 +980,18 @@ tbody tr:hover td { background: var(--violet-soft); }
       <div><div class="tagline">Training alongside · built by me</div><h3>Talvex Firewall Lab</h3><p>My FortiGate-style training lab. Practice firewall work in the browser with guided missions.</p></div>
       <span class="go">Open the lab<svg class="i" style="width:18px;height:18px"><use href="#i-arrow"/></svg></span>
     </a>
+    <div class="port" style="margin-top:8px">
+      <h3 style="font-size:22px;margin:0 0 6px">From the sandbox to a customer's FortiGate</h3>
+      <p style="color:var(--muted);margin:0 0 16px">A config built and tested in the lab can carry over to a real customer FortiGate. There are three ways to move it, depending on the hardware and how many sites need it.</p>
+      <div class="grid g3">
+        <div class="card"><div class="ic"><svg class="i"><use href="#i-upload"/></svg></div><h3>Full config restore</h3><p>A true one-for-one copy, but only when the customer's unit is the same model on the same FortiOS version.</p></div>
+        <div class="card"><div class="ic teal"><svg class="i"><use href="#i-terminal"/></svg></div><h3>CLI script</h3><p>Export only the parts you need, like policies, addresses and VPNs. Edit the names and IPs, then paste them in. This is the usual way across different models.</p></div>
+        <div class="card"><div class="ic coral"><svg class="i"><use href="#i-layers"/></svg></div><h3>FortiManager or FortiConverter</h3><p>Templates and policy packages push the same config with per-site variables. This is the cleanest choice when many customers need it.</p></div>
+      </div>
+      <div class="callout"><svg class="i"><use href="#i-alert"/></svg><span>Some settings are always per site: the hostname, IPs, interfaces, VPN peers and certificates. Encrypted secrets, like VPN keys and passwords, usually have to be entered again.</span></div>
+      <p style="margin-top:14px"><b>Next:</b> an "Export as FortiOS CLI" button in the lab, so a tested config comes out as a script ready for a customer unit. <span style="color:var(--muted)">(Planned, not built yet.)</span></p>
+      <p class="gloss"><b>FortiOS</b> = the FortiGate operating system · <b>CLI</b> = command-line interface · <b>VPN</b> = virtual private network · <b>IP</b> = Internet Protocol address</p>
+    </div>
     <p class="gloss"><b>CUI</b> = Controlled Unclassified Information · <b>NIST SP 800-171</b> = the security requirements behind CMMC Level 2 (numbers shown are Rev. 2) · <b>AC</b> = Access Control · <b>IA</b> = Identification and Authentication · <b>AU</b> = Audit and Accountability · <b>CM</b> = Configuration Management · <b>SI</b> = System and Information Integrity · <b>RA</b> = Risk Assessment · <b>CA</b> = Security Assessment · <b>MA</b> = Maintenance · <b>MFA</b> = multifactor authentication · <b>POA&amp;M</b> = Plan of Action and Milestones · <b>SSP</b> = System Security Plan · <b>RMM</b> = remote monitoring and management</p>
   </div>
 </section>
