@@ -312,6 +312,7 @@ footer a { color: #adc0a3; }
 footer .fine { font-size: 14px; color: #a4a7ab; margin-top: 28px; }
 
 /* ---------- interactive dot grid (behind the page) ---------- */
+#marble { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; }
 #dots { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
 
 /* ---------- lab v2: list on top, fake PC beside the console ---------- */
@@ -704,6 +705,7 @@ tbody tr:hover td { background: var(--violet-soft); }
 </style>
 </head>
 <body>
+<canvas id="marble" aria-hidden="true"></canvas>
 <canvas id="dots" aria-hidden="true"></canvas>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -2031,6 +2033,93 @@ tbody tr:hover td { background: var(--violet-soft); }
       if (k === 'kind') suggest(v); else pv.dataset[k] = v;
     });
     suggest('control');
+  })();
+
+  // ---------- background: live marble. Veins part around the cursor like a wake and flow closed behind it (WebGL, idle = no redraw) ----------
+  (function () {
+    var cv = document.getElementById('marble'); if (!cv) return;
+    var gl = cv.getContext('webgl', { premultipliedAlpha: true, alpha: true, antialias: false }); if (!gl) return;
+    var SCALE = 0.6, N = 24, W = 0, H = 0, trail = [], raf = 0, last = 0, cx = -1, cy = -1, tx = -1, ty = -1, spd = 0, moving = false;
+    var vs = 'attribute vec2 a; void main(){ gl_Position = vec4(a, 0.0, 1.0); }';
+    var fs = [
+      'precision mediump float;',
+      'uniform vec2 res; uniform float sc; uniform vec4 pts[24]; uniform vec3 stone; uniform vec3 copper; uniform vec3 sage; uniform float amp;',
+      'float h(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }',
+      'float n(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);',
+      '  return mix(mix(h(i), h(i + vec2(1.0, 0.0)), f.x), mix(h(i + vec2(0.0, 1.0)), h(i + vec2(1.0, 1.0)), f.x), f.y); }',
+      'float fbm(vec2 p){ float s = 0.0, a = 0.5; for (int i = 0; i < 4; i++) { s += a * n(p); p = p * 2.03 + 7.1; a *= 0.5; } return s; }',
+      'void main(){',
+      '  vec2 px = vec2(gl_FragCoord.x, res.y - gl_FragCoord.y) / sc;',
+      '  vec2 disp = vec2(0.0);',
+      '  for (int i = 0; i < 24; i++) { vec4 q = pts[i]; if (q.z <= 0.0) continue;',
+      '    vec2 d = px - q.xy; float l = length(d) + 0.001; float f = q.z * exp(-(l * l) / (q.w * q.w));',
+      '    disp += d / l * f * smoothstep(0.0, q.w * 0.5, l); }',
+      '  float dl = length(disp); if (dl > 38.0) disp *= 38.0 / dl;',
+      '  px -= disp;',
+      '  vec2 p = px * 0.0021;',
+      '  vec2 w = vec2(fbm(p + vec2(1.7, 9.2)), fbm(p + vec2(8.3, 2.8)));',
+      '  float v = fbm(p * 1.3 + 2.2 * w);',
+      '  float body = abs(sin(v * 16.0 + p.x * 1.5));',
+      '  float vein = 1.0 - smoothstep(0.0, 0.09, body);',
+      '  float hair = 1.0 - smoothstep(0.0, 0.035, abs(sin(v * 31.0 + 1.3)));',
+      '  float cop = (1.0 - smoothstep(0.0, 0.05, abs(sin(v * 6.0 + w.x * 3.0)))) * smoothstep(0.45, 0.7, w.y);',
+      '  float cloud = fbm(p * 3.0 + w) * 0.06;',
+      '  vec3 c = stone * (vein * 0.16 + hair * 0.07 + cloud) + sage * vein * 0.03 + copper * cop * 0.30;',
+      '  float a = clamp(vein * 0.16 + hair * 0.07 + cloud + cop * 0.30, 0.0, 1.0) * amp;',
+      '  gl_FragColor = vec4(c * amp, a);',
+      '}'].join('\n');
+    function sh(t, src) { var s = gl.createShader(t); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { console.warn(gl.getShaderInfoLog(s)); return null; } return s; }
+    var pr = gl.createProgram(), v1 = sh(gl.VERTEX_SHADER, vs), f1 = sh(gl.FRAGMENT_SHADER, fs); if (!v1 || !f1) return;
+    gl.attachShader(pr, v1); gl.attachShader(pr, f1); gl.linkProgram(pr); gl.useProgram(pr);
+    var b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    var al = gl.getAttribLocation(pr, 'a'); gl.enableVertexAttribArray(al); gl.vertexAttribPointer(al, 2, gl.FLOAT, false, 0, 0);
+    var U = {}; ['res', 'sc', 'pts', 'stone', 'copper', 'sage', 'amp'].forEach(function (k) { U[k] = gl.getUniformLocation(pr, k); });
+    var buf = new Float32Array(N * 4), LIFE = 1500;
+    function colors() {
+      var dk = document.documentElement.dataset.theme !== 'light';
+      if (dk) { gl.uniform3f(U.stone, .86, .87, .89); gl.uniform3f(U.copper, .87, .55, .34); gl.uniform3f(U.sage, .63, .75, .57); gl.uniform1f(U.amp, 1.0); }
+      else { gl.uniform3f(U.stone, .22, .24, .27); gl.uniform3f(U.copper, .62, .33, .15); gl.uniform3f(U.sage, .30, .42, .26); gl.uniform1f(U.amp, 0.9); }
+    }
+    function size() {
+      W = window.innerWidth; H = window.innerHeight;
+      cv.width = Math.round(W * SCALE); cv.height = Math.round(H * SCALE);
+      gl.viewport(0, 0, cv.width, cv.height); gl.uniform2f(U.res, cv.width, cv.height); gl.uniform1f(U.sc, SCALE);
+      draw(performance.now());
+    }
+    function draw(now) {
+      trail = trail.filter(function (p) { return now - p.t < LIFE; });
+      buf.fill(0);
+      for (var i = 0; i < trail.length && i < N; i++) {
+        var p = trail[trail.length - 1 - i], k = (now - p.t) / LIFE;
+        var g = Math.min(1, (now - p.t) / 260); g = g * g * (3 - 2 * g);
+        var ease = g * 0.5 * (1 + Math.cos(Math.PI * k));
+        buf[i * 4] = p.x; buf[i * 4 + 1] = p.y; buf[i * 4 + 2] = 26 * ease * p.s; buf[i * 4 + 3] = 80 + 40 * k;
+      }
+      gl.uniform4fv(U.pts, buf);
+      gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
+    function tick(now) {
+      if (tx >= 0) {
+        if (cx < 0) { cx = tx; cy = ty; }
+        var dx = tx - cx, dy = ty - cy; cx += dx * 0.18; cy += dy * 0.18;
+        spd += (Math.min(1, Math.sqrt(dx * dx + dy * dy) / 60) - spd) * 0.15;
+        if (now - last > 40 && spd > 0.03) { last = now; trail.push({ x: cx, y: cy, t: now, s: 0.35 + 0.65 * spd }); if (trail.length > N) trail.shift(); }
+        moving = Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5 || spd > 0.03;
+      }
+      draw(now); raf = (trail.length || moving) ? requestAnimationFrame(tick) : 0;
+    }
+    function kick() { if (!raf && !document.hidden) raf = requestAnimationFrame(tick); }
+    var rt = 0; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(size, 150); });
+    window.addEventListener('themechange', function () { colors(); draw(performance.now()); });
+    document.addEventListener('visibilitychange', function () { if (document.hidden && raf) { cancelAnimationFrame(raf); raf = 0; } else kick(); });
+    if (!reduce) {
+      document.addEventListener('pointermove', function (e) { tx = e.clientX; ty = e.clientY; kick(); }, { passive: true });
+      document.addEventListener('pointerdown', function (e) {
+        if (e.target.closest && e.target.closest('button, a, input, select, .pc, .term')) return;
+        trail.push({ x: e.clientX, y: e.clientY, t: performance.now(), s: 1.6 }); if (trail.length > N) trail.shift(); kick();
+      }, { passive: true });
+    }
+    colors(); size();
   })();
 
   // ---------- background: dot grid that leans toward the cursor; a click sends a ripple ----------
