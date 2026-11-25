@@ -40,7 +40,7 @@ Here's where I want to take this once the enclave is running. The short version:
 
 ## 10. Same five steps, every time
 
-Every one of these ideas would run the same five steps. It reads settings, logs, and status, read-only. It builds a report inside the enclave, with no CUI in it. The bot that owns it drafts a plain-language summary. A person reviews it, and nothing goes out until someone approves it. Then it's filed as evidence for the SSP, the System Security Plan, and for the assessor. All of it runs inside the boundary, on read-only accounts with least privilege, and CUI, Controlled Unclassified Information, never leaves.
+Every one of these ideas would run the same five steps. It reads settings, logs, and status, read-only. It builds a report inside the enclave, with no CUI in it. The tool drafts a plain-language summary, in a format the owner bot helped design. A person reviews it, and nothing goes out until someone approves it. Then it's filed as evidence for the SSP, the System Security Plan, and for the assessor. All of it runs inside the boundary, on read-only accounts with least privilege, and CUI, Controlled Unclassified Information, never leaves.
 
 ## 11. Local tools, built to live inside the enclave
 
@@ -53,3 +53,22 @@ So, what carries into the enclave? Maintenance already has the ticket clock, the
 ## 13. Questions
 
 That's the overview. Thanks for your time. Happy to take questions.
+
+
+# Added Nov 25: local machines and skills
+
+## The local machines
+
+So where do these tools actually run? Not in the cloud, and not in a bot. They run on a few local machines inside the enclave. A tool runner handles the scheduled checks, and nobody signs in to it day to day. An admin workstation is where someone runs a check on demand, reads the results, and signs off on reviews. And a test and training machine is where new tools get tried first, and where the team practices. No bot runs on these machines, and no bot connects to them. Here's how a tool gets there. Grok helps me write it outside the enclave, using made-up sample data, so there's no CUI, Controlled Unclassified Information, involved. A person reads every line and tests it on the test machine. It goes in through change control, approved and logged. Then it runs inside, on a schedule or on demand, with a read-only account. And the results stay inside, saved as evidence, and a person acts on them.
+
+## Use cases
+
+Here's what that looks like week to week. Every weekday before the shift, a morning check summarizes yesterday's sign-ins, admin changes, and any gaps in logging, on one page. On the first business day of the month, there's a draft access review for the manager to check and sign. A week after Microsoft's monthly patches, a report lists the machines still missing updates, oldest first. Right after a maintenance window closes, every machine gets re-checked against the approved baseline. When someone joins or leaves, the tool confirms the account has only what the role needs and has MFA, multifactor authentication, or that it's fully disabled on the last day. If something looks wrong, an admin can pull failed sign-ins and recent admin changes for one account, fast, and a person decides what happens next. About thirty days before an assessment, it shows which evidence behind the SSP, the System Security Plan, is stale, and which POA&M items are overdue. And the test machine is where the team practices and where new versions get proven. Every one of these reads settings, logs, and status only. The results stay on the local machines, and no CUI goes into any bot.
+
+## Skill: Dress It Up
+
+Next, skills. A skill is a saved playbook for an AI assistant. It says when to use it, what to ask, what to do, and what it must never do. I built these with Claude. The first is Dress It Up. It started as my Pizzazz style kit. It takes a plain page or document and makes it look finished, in your style. First it asks a few questions: who's reading it, light or dark, the mood you want, any colors you have to use, how much flash, and a page you like. Then it builds a style profile, with colors checked so they're readable, and it saves that, so your next page matches. Then it applies the look, formatting only. And last, it proves nothing changed: it compares the text before and after and checks every link, and you approve it. It never changes facts, numbers, names, or commands, and when it runs on its own, it opens a pull request, so nothing goes live until someone merges it.
+
+## Scripting skills
+
+And two scripting skills. The first gives the tech one command to paste, instead of right-clicking and choosing Run as administrator. It relaunches the script elevated and keeps the window open, so you can see the progress and any errors. It always reminds the tech that Windows still asks once, to save open work first, and not to close the window mid-run. Every deployed fix runs this way. The second is the runbook pattern. Each fix script is saved with its runbook: when to use it, what to check first, how to launch it, how to confirm it worked, and what to tell the user. The goal is that every proven fix gets one, so the script lab becomes a team library. No client names, credentials, or CUI go into any of them.

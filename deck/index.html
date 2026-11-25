@@ -240,6 +240,11 @@ body:hover .navbtn { opacity: 1; }
   #progress, #counter, #hint, #notes, .navbtn { display: none !important; }
 }
 .own4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; flex: 1; min-height: 0; }
+.uc { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.uc div { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; display: flex; flex-direction: column; gap: 4px; }
+.uc b { font-size: 27px; }
+.uc em { font-style: normal; font-size: 20px; color: var(--accent); }
+.uc span { font-size: 21px; color: var(--muted); line-height: 1.35; }
 .own { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; }
 .own .oh { display: flex; gap: 14px; align-items: center; margin-bottom: 14px; }
 .own .av { width: 64px; height: 64px; border-radius: 50%; flex: 0 0 64px; }
@@ -490,19 +495,63 @@ Start-Process powershell -Verb RunAs `
     <ol class="steps">
       <li><div class="num">1</div><b>Read</b><span>Settings, logs, and status only. Read-only.</span></li>
       <li><div class="num">2</div><b>Build the report</b><span>Inside the enclave. No CUI in it.</span></li>
-      <li><div class="num">3</div><b>Draft</b><span>The owner bot drafts a plain-language summary.</span></li>
+      <li><div class="num">3</div><b>Draft</b><span>The tool drafts a plain-language summary, in the format the owner bot helped design.</span></li>
       <li><div class="num">4</div><b>A person reviews</b><span>Nothing goes out until someone approves it.</span></li>
       <li><div class="num">5</div><b>File as evidence</b><span>Saved for the SSP and the assessor.</span></li>
     </ol>
     <div class="callout guard">Runs inside the boundary · Read-only accounts · Least privilege · CUI never leaves</div>
   </div>
   <div class="gloss"><b>CUI</b> = Controlled Unclassified Information · <b>SSP</b> = System Security Plan</div>
-  <div class="notes-src"><p>Every one of these ideas would run the same five steps. It reads settings, logs, and status, read-only. It builds a report inside the enclave, with no CUI in it. The bot that owns it drafts a plain-language summary. A person reviews it, and nothing goes out until someone approves it. Then it's filed as evidence for the SSP, the System Security Plan, and for the assessor. All of it runs inside the boundary, on read-only accounts with least privilege, and CUI, Controlled Unclassified Information, never leaves.</p></div>
+  <div class="notes-src"><p>Every one of these ideas would run the same five steps. It reads settings, logs, and status, read-only. It builds a report inside the enclave, with no CUI in it. The tool drafts a plain-language summary, in a format the owner bot helped design. A person reviews it, and nothing goes out until someone approves it. Then it's filed as evidence for the SSP, the System Security Plan, and for the assessor. All of it runs inside the boundary, on read-only accounts with least privilege, and CUI, Controlled Unclassified Information, never leaves.</p></div>
+</section>
+
+<!-- local machines -->
+<section class="slide" data-title="The local machines">
+  <div class="label">09 · Where the tools run</div>
+  <h2>A few local machines, inside the boundary</h2>
+  <div class="body" style="gap:28px">
+    <p class="small" style="margin:0;max-width:1600px">The tools don't live in the cloud or in a bot. They run on a small set of locked-down machines inside the enclave. No bot runs on them, and no bot connects to them.</p>
+    <div class="row">
+      <div class="card col" style="gap:8px"><div class="k">Tool runner</div><span style="font-size:26px">Runs the scheduled checks overnight and early morning. Nobody signs in to it day to day.</span></div>
+      <div class="card col" style="gap:8px"><div class="k">Admin workstation</div><span style="font-size:26px">Where an admin runs a check on demand, reads the results, and signs reviews.</span></div>
+      <div class="card col" style="gap:8px"><div class="k">Test and training machine</div><span style="font-size:26px">Where new tools and updates are tried first, and where the team practices.</span></div>
+    </div>
+    <ol class="steps">
+      <li><div class="num">1</div><b>Build outside</b><span>Grok helps write it, using made-up sample data. No CUI.</span></li>
+      <li><div class="num">2</div><b>A person reviews</b><span>Every line read, tested on the test machine.</span></li>
+      <li><div class="num">3</div><b>Change control</b><span>Approved and logged before it goes in.</span></li>
+      <li><div class="num">4</div><b>Runs inside</b><span>On a schedule or on demand, read-only account.</span></li>
+      <li><div class="num">5</div><b>Results stay inside</b><span>Saved as evidence. A person acts on them.</span></li>
+    </ol>
+  </div>
+  <div class="gloss"><b>CUI</b> = Controlled Unclassified Information · <i>Proposed, not built yet</i></div>
+  <div class="notes-src"><p>So where do these tools actually run? Not in the cloud, and not in a bot. They run on a few local machines inside the enclave. A tool runner handles the scheduled checks, and nobody signs in to it day to day. An admin workstation is where someone runs a check on demand, reads the results, and signs off on reviews. And a test and training machine is where new tools get tried first, and where the team practices. No bot runs on these machines, and no bot connects to them. Here's how a tool gets there. Grok helps me write it outside the enclave, using made-up sample data, so there's no CUI, Controlled Unclassified Information, involved. A person reads every line and tests it on the test machine. It goes in through change control, approved and logged. Then it runs inside, on a schedule or on demand, with a read-only account. And the results stay inside, saved as evidence, and a person acts on them.</p></div>
+</section>
+
+<!-- use cases -->
+<section class="slide" data-title="Use cases">
+  <div class="label">09 · Where the tools run</div>
+  <h2>How the team would use them, week to week</h2>
+  <div class="body" style="gap:22px">
+    <div class="uc">
+      <div><b>Morning check</b><em>Every weekday, before the shift</em><span>One-page summary of yesterday's sign-ins, admin changes, and logging gaps.</span></div>
+      <div><b>Monthly access review</b><em>First business day of the month</em><span>Draft review of who can reach what. The manager signs it.</span></div>
+      <div><b>Patch week</b><em>A week after Microsoft's monthly patches</em><span>Machines still missing updates, oldest first, for the next window.</span></div>
+      <div><b>After a change window</b><em>Right after maintenance closes</em><span>Every machine re-checked against the approved baseline.</span></div>
+      <div><b>Someone joins or leaves</b><em>When the ticket opens</em><span>Only what the role needs, MFA on, or fully disabled on the last day.</span></div>
+      <div><b>Something looks wrong</b><em>On demand, admin workstation</em><span>Failed sign-ins and admin changes for one account, fast. A person decides.</span></div>
+      <div><b>Before an assessment</b><em>About 30 days out</em><span>Stale SSP evidence and overdue POA&amp;M items, so there are no surprises.</span></div>
+      <div><b>Training and new tools</b><em>Any time, test machine</em><span>The team practices, and new versions are proven before going live.</span></div>
+    </div>
+    <div class="callout guard" style="margin:0">Settings, logs, and status only · Results stay on the local machines · No CUI in any bot</div>
+  </div>
+  <div class="gloss"><b>MFA</b> = multifactor authentication · <b>SSP</b> = System Security Plan · <b>POA&amp;M</b> = Plan of Action and Milestones · <b>CUI</b> = Controlled Unclassified Information</div>
+  <div class="notes-src"><p>Here's what that looks like week to week. Every weekday before the shift, a morning check summarizes yesterday's sign-ins, admin changes, and any gaps in logging, on one page. On the first business day of the month, there's a draft access review for the manager to check and sign. A week after Microsoft's monthly patches, a report lists the machines still missing updates, oldest first. Right after a maintenance window closes, every machine gets re-checked against the approved baseline. When someone joins or leaves, the tool confirms the account has only what the role needs and has MFA, multifactor authentication, or that it's fully disabled on the last day. If something looks wrong, an admin can pull failed sign-ins and recent admin changes for one account, fast, and a person decides what happens next. About thirty days before an assessment, it shows which evidence behind the SSP, the System Security Plan, is stale, and which POA&amp;M items are overdue. And the test machine is where the team practices and where new versions get proven. Every one of these reads settings, logs, and status only. The results stay on the local machines, and no CUI goes into any bot.</p></div>
 </section>
 
 <!-- 10 -->
 <section class="slide" data-title="The vision">
-  <div class="label">09 · Where this goes</div>
+  <div class="label">10 · Where this goes</div>
   <h2>Local tools, built to live inside the enclave</h2>
   <div class="body" style="gap:30px">
     <p style="font-size:40px;line-height:1.3;margin:0;max-width:1500px;font-weight:600">Start small. Build each tool once, run it inside the boundary, and let it grow with the department.</p>
@@ -517,9 +566,45 @@ Start-Process powershell -Verb RunAs `
   <div class="notes-src"><p>Where does this go? Local tools, built to live inside the enclave. Start small, build each tool once, run it inside the boundary, and let it grow with the department. Local first, so these are small tools running inside, not cloud services reaching in. As the department grows, I'll keep cultivating new ideas and adding to the list. And I'll keep building training alongside it, so the team can run these tools and add their own. The bots draft. People decide. CUI, Controlled Unclassified Information, stays put.</p></div>
 </section>
 
+<!-- skills: dress it up -->
+<section class="slide" data-title="Skill: Dress It Up">
+  <div class="label">11 · Skills I built</div>
+  <h2>Dress It Up: your style, without touching the words</h2>
+  <div class="body" style="gap:26px">
+    <p class="small" style="margin:0;max-width:1600px">A skill is a saved playbook for an AI assistant: when to use it, what to ask, what to do, and what it must never do. I built these with Claude. This one started as my “Pizzazz” style kit.</p>
+    <ol class="steps">
+      <li><div class="num">1</div><b>Ask</b><span>Who reads it, light or dark, mood, must-use colors, how much flash, a page you like.</span></li>
+      <li><div class="num">2</div><b>Profile</b><span>Palette checked for contrast, fonts, clean line icons, one signature touch. Saved for next time.</span></li>
+      <li><div class="num">3</div><b>Apply</b><span>Banner, headings, icons, dividers, diagram colors, spacing. Formatting only.</span></li>
+      <li><div class="num">4</div><b>Prove it</b><span>Text compared before and after, links checked. You approve the before and after.</span></li>
+    </ol>
+    <div class="callout guard" style="margin:0">Never changes facts, numbers, names, or commands · Leaves scripts alone · No personal data · Opens a pull request; nothing goes live until it's merged</div>
+  </div>
+  <div class="notes-src"><p>Next, skills. A skill is a saved playbook for an AI assistant. It says when to use it, what to ask, what to do, and what it must never do. I built these with Claude. The first is Dress It Up. It started as my Pizzazz style kit. It takes a plain page or document and makes it look finished, in your style. First it asks a few questions: who's reading it, light or dark, the mood you want, any colors you have to use, how much flash, and a page you like. Then it builds a style profile, with colors checked so they're readable, and it saves that, so your next page matches. Then it applies the look, formatting only. And last, it proves nothing changed: it compares the text before and after and checks every link, and you approve it. It never changes facts, numbers, names, or commands, and when it runs on its own, it opens a pull request, so nothing goes live until someone merges it.</p></div>
+</section>
+
+<!-- skills: scripting -->
+<section class="slide" data-title="Scripting skills">
+  <div class="label">11 · Skills I built</div>
+  <h2>Scripting skills</h2>
+  <div class="body" style="gap:26px">
+    <div class="row">
+      <div class="card col" style="gap:14px"><div class="k">Run a script as admin</div><span style="font-size:26px">One pasteable command instead of right-click, Run as administrator. It relaunches elevated and stays open, so errors stay visible.</span>
+        <code style="font-size:19px;line-height:1.45;background:var(--panel-2);border-radius:10px;padding:12px 14px;word-break:break-all">Start-Process powershell -Verb RunAs -ArgumentList '-NoExit','-ExecutionPolicy','Bypass','-File','&lt;path&gt;.ps1'</code>
+        <span class="muted" style="font-size:23px">Always tells the tech: Windows still asks once, save open work first, don't close the window mid-run.</span></div>
+      <div class="card col" style="gap:14px"><div class="k">Script runbooks</div><span style="font-size:26px">Each fix script is saved with its runbook, so anyone on the team runs it the same way.</span>
+        <span class="muted" style="font-size:23px">When to use it and when not to · checks to run first · the launch command · how to confirm it worked · what to tell the user</span>
+        <span class="muted" style="font-size:23px">Least invasive step first. Logging on. Rename instead of delete.</span></div>
+    </div>
+    <div class="callout guard" style="margin:0">No client names, credentials, or CUI in any skill · Names and paths are sanitized</div>
+  </div>
+  <div class="gloss"><b>CUI</b> = Controlled Unclassified Information</div>
+  <div class="notes-src"><p>And two scripting skills. The first gives the tech one command to paste, instead of right-clicking and choosing Run as administrator. It relaunches the script elevated and keeps the window open, so you can see the progress and any errors. It always reminds the tech that Windows still asks once, to save open work first, and not to close the window mid-run. Every deployed fix runs this way. The second is the runbook pattern. Each fix script is saved with its runbook: when to use it, what to check first, how to launch it, how to confirm it worked, and what to tell the user. The goal is that every proven fix gets one, so the script lab becomes a team library. No client names, credentials, or CUI go into any of them.</p></div>
+</section>
+
 <!-- 11 -->
 <section class="slide" data-title="What carries into the enclave">
-  <div class="label">10 · Go-live</div>
+  <div class="label">12 · Go-live</div>
   <h2>What carries into the enclave</h2>
   <div class="body" style="gap:28px">
     <table class="carry">
