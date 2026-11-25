@@ -989,6 +989,19 @@ tbody tr:hover td { background: var(--violet-soft); }
         <div class="card"><div class="ic coral"><svg class="i"><use href="#i-layers"/></svg></div><h3>FortiManager or FortiConverter</h3><p>Templates and policy packages push the same config with per-site variables. This is the cleanest choice when many customers need it.</p></div>
       </div>
       <div class="callout"><svg class="i"><use href="#i-alert"/></svg><span>Some settings are always per site: the hostname, IPs, interfaces, VPN peers and certificates. Encrypted secrets, like VPN keys and passwords, usually have to be entered again.</span></div>
+      <div class="card" style="margin-top:18px">
+        <div class="ic teal"><svg class="i"><use href="#i-shield"/></svg></div>
+        <h3>Porting it safely</h3>
+        <p>Nothing from the lab goes straight onto a customer's firewall. It's treated like any other change.</p>
+        <ul class="rules" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));column-gap:24px">
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>Back up first.</b> Save the customer's current config before anything changes.</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>Approval and a window.</b> Get the customer's sign-off and schedule a maintenance window.</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>Reviewed CLI script.</b> Only the pieces they need, reviewed first. Not a full restore.</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>Test on a match.</b> Try it on the same model and FortiOS version before the real unit.</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>Small steps.</b> Apply a piece at a time and check traffic after each one.</span></li>
+          <li><svg class="i"><use href="#i-check"/></svg><span><b>A way back.</b> Console access and the backup ready, so it can roll back fast.</span></li>
+        </ul>
+      </div>
       <p style="margin-top:14px"><b>Next:</b> an "Export as FortiOS CLI" button in the lab, so a tested config comes out as a script ready for a customer unit. <span style="color:var(--muted)">(Planned, not built yet.)</span></p>
       <p class="gloss"><b>FortiOS</b> = the FortiGate operating system · <b>CLI</b> = command-line interface · <b>VPN</b> = virtual private network · <b>IP</b> = Internet Protocol address</p>
     </div>
