@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="googlebot" content="noindex, nofollow">
-<script>(function(){var t="dark";try{var v=localStorage.getItem("gb-theme");if(v==="light")t="light";}catch(e){}document.documentElement.dataset.theme=t;})();</script>
+<script>(function(){var t="dark";try{var v=localStorage.getItem("gb-theme");if(v==="light")t="light";}catch(e){}document.documentElement.dataset.theme=t;try{if(localStorage.getItem("gb-say")==="off")document.documentElement.classList.add("no-say");}catch(e){}})();</script>
 <title>Grok Bot Show &amp; Tell</title>
 <meta name="description" content="How Joshua Richard uses a Grok Bot seat for S1 Technology work, with a live script tester.">
 <style>
@@ -534,6 +534,58 @@ tbody tr:hover td { background: var(--violet-soft); }
 :root[data-theme="dark"] .btn.light, :root[data-theme="dark"] .feature .go { background: #ffcb9a; color: #2c3531; }
 :root[data-theme="dark"] .rot { background: #d1e8e2; color: #116466; }
 :root[data-theme="dark"] .btn.solid:hover:not(:disabled), :root[data-theme="dark"] .xbtn.pri:hover, :root[data-theme="dark"] .ribbonx button.hit:hover { background: #1a9a9c; }
+
+/* ---------- talk mode: talking points, bridges, presenter bar ---------- */
+.say { margin: 4px 0 36px; max-width: 920px; border-left: 4px solid var(--teal); background: linear-gradient(90deg, var(--teal-soft), rgba(0,0,0,0) 92%); border-radius: 0 16px 16px 0; padding: 18px 24px 20px; }
+.say-h { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+.say-h svg.i { width: 18px; height: 18px; }
+.say ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.say li { position: relative; padding-left: 24px; font-size: clamp(20px, 1.75vw, 26px); line-height: 1.42; font-weight: 560; color: var(--ink); letter-spacing: -.005em; }
+.say li::before { content: ""; position: absolute; left: 3px; top: .58em; width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }
+.say.say-mid { margin: 26px 0 22px; }
+.hero .say { margin: 30px 0 0; max-width: 760px; background: linear-gradient(90deg, rgba(127,220,207,.14), rgba(0,0,0,0) 92%); border-left-color: #7fdccf; }
+.hero .say-h { color: #7fdccf; }
+.hero .say li { color: #fff; }
+.hero .say li::before { background: #7fdccf; }
+html:not(.no-say) .say + .intro, html:not(.no-say) .say + .cb-sub, html:not(.no-say) .hero .lede { display: none; }
+.bridge { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 18px; margin-top: 44px; padding: 18px 22px; border-radius: 16px; border: 1px dashed var(--line); text-decoration: none; color: var(--ink); background: var(--card); box-shadow: var(--shadow); }
+.bridge:hover { border-color: var(--violet); }
+.bridge-say { flex: 1 1 420px; font-size: clamp(19px, 1.6vw, 23px); font-weight: 560; line-height: 1.4; }
+.bridge-go { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 16px; color: var(--violet); white-space: nowrap; }
+.bridge-go svg.i { width: 18px; height: 18px; transform: rotate(90deg); }
+.hero .bridge { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.28); color: #fff; box-shadow: none; max-width: 760px; margin-top: 26px; }
+.hero .bridge-go { color: #ffcb9a; }
+footer .bridge { display: none; }
+html.no-say .say, html.no-say .bridge, html.no-say .show-say { display: none; }
+.talk-btn { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--muted); font: inherit; font-size: 14px; font-weight: 650; cursor: pointer; white-space: nowrap; }
+.talk-btn svg.i { width: 18px; height: 18px; }
+.talk-btn[aria-pressed="true"] { color: var(--teal); border-color: var(--teal); }
+.talk-btn:hover { border-color: var(--violet); color: var(--violet); }
+@media (max-width: 1360px) { .talk-btn span { display: none; } .talk-btn { width: 38px; padding: 0; justify-content: center; } }
+.pres { position: fixed; right: 18px; bottom: 18px; z-index: 30; display: flex; align-items: center; gap: 6px; padding: 6px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(0,0,0,.28); }
+.pres button { font: inherit; display: inline-flex; align-items: center; gap: 8px; border: 0; background: transparent; color: var(--ink); cursor: pointer; border-radius: 10px; padding: 8px 10px; font-size: 15px; font-weight: 650; }
+.pres button:hover { background: var(--violet-soft); }
+.pres button:disabled { opacity: .35; cursor: default; background: transparent; }
+.pres .nx { background: var(--violet); color: #fff; padding: 8px 14px; }
+.pres .nx:hover:not(:disabled) { background: var(--teal); }
+.pres .pv svg.i { transform: rotate(-90deg); width: 18px; height: 18px; }
+.pres .nx svg.i { transform: rotate(90deg); width: 18px; height: 18px; }
+.pres .ct { font-size: 13px; color: var(--muted); padding: 0 6px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pres .keys { font-size: 12px; color: var(--muted); padding-right: 8px; white-space: nowrap; }
+@media (max-width: 860px) { .pres .keys { display: none; } }
+@media (max-width: 600px) { .pres { right: 12px; bottom: 12px; } .pres .nx span { display: none; } }
+:root[data-theme="dark"] .pres .nx { background: #148083; }
+.show-say { margin: 14px 0 0; display: flex; gap: 12px; align-items: flex-start; border-left: 4px solid var(--teal); background: var(--teal-soft); border-radius: 0 14px 14px 0; padding: 14px 20px; font-size: clamp(19px, 1.6vw, 24px); font-weight: 560; line-height: 1.4; min-height: 64px; }
+.show-say svg.i { color: var(--teal); margin-top: 4px; }
+details.more { margin-top: 40px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); box-shadow: var(--shadow); }
+details.more > summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 10px; padding: 16px 22px; font-weight: 700; font-size: 18px; }
+details.more > summary::-webkit-details-marker { display: none; }
+details.more > summary svg.i { color: var(--violet); transition: transform .2s; }
+details.more[open] > summary svg.i { transform: rotate(90deg); }
+details.more > summary small { font-weight: 500; color: var(--muted); font-size: 15px; }
+details.more > .more-b { padding: 0 22px 22px; }
+details.more > .more-b > .cb-h3:first-child { margin-top: 6px; }
+@media print { .pres, .talk-btn { display: none; } }
 /* ---------- skills ---------- */
 .skill { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); min-width: 0; }
 .skill-head { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; }
@@ -713,6 +765,7 @@ tbody tr:hover td { background: var(--violet-soft); }
   <symbol id="i-activity" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></symbol>
   <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></symbol>
   <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v1a7 7 0 0 0 14 0v-1"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="8" y1="22" x2="16" y2="22"/></symbol>
   <symbol id="i-rotate" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.5 15a9 9 0 1 0 2.1-9.4L1 10"/></symbol>
 </svg>
 
@@ -724,11 +777,13 @@ tbody tr:hover td { background: var(--violet-soft); }
       <a href="#team">The team</a>
       <a href="#day">Day to day</a>
       <a href="#scripts">Script lab</a>
+      <a href="#skills">Skills</a>
       <a href="#enclave">The enclave</a>
       <a href="#automate">Automation ideas</a>
       <a href="#cloudbuilder">Cloud builder</a>
-      <a href="#skills">Skills</a>
+      <a href="#golive">Wrap-up</a>
     </nav>
+    <button class="talk-btn" id="talkBtn" type="button" aria-pressed="true" title="Show or hide the talking points (T)"><svg class="i"><use href="#i-mic"/></svg><span>Talking points</span></button>
     <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch to dark mode"><svg class="i moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.9" y1="4.9" x2="6.3" y2="6.3"/><line x1="17.7" y1="17.7" x2="19.1" y2="19.1"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.9" y1="19.1" x2="6.3" y2="17.7"/><line x1="17.7" y1="6.3" x2="19.1" y2="4.9"/></svg></button>
   </div>
 </header>
@@ -736,7 +791,7 @@ tbody tr:hover td { background: var(--violet-soft); }
 <main id="top">
 
 <!-- ================= HERO ================= -->
-<section class="hero">
+<section class="hero" id="intro">
   <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="wrap hero-grid">
     <div>
@@ -745,6 +800,8 @@ tbody tr:hover td { background: var(--violet-soft); }
       <p class="rotline">Grok drafts the <span class="rot" id="rot">ticket notes</span>.<br>I press Send.</p>
       <p class="lede">A tour of how I use Grok Bot for my S1 Technology work: the daily ticket workflow, the end-of-shift report, scripting, and automation for the enclave. You can try the scripts right on this page.</p>
       <div class="by">Joshua Richard</div>
+      <div class="say" role="note" aria-label="Talking points"><div class="say-h"><svg class="i"><use href="#i-mic"/></svg>Say this</div><ul><li>Thanks for having me. I'm Joshua, and today I'll show you what I built with my Grok Bot seat.</li><li>The short version: Grok drafts the work, and I press Send.</li><li>I'll walk through my daily ticket work, my scripts, and what I'm getting ready for the enclave. Some of it you can try live on this page.</li></ul></div>
+      <a class="bridge" href="#context"><span class="bridge-say">First, a quick word on why there's no enclave demo today.</span><span class="bridge-go">Next: Context<svg class="i"><use href="#i-arrow"/></svg></span></a>
       <div class="btns">
         <a class="btn light" href="#scripts"><svg class="i"><use href="#i-terminal"/></svg>Try the scripts</a>
         <a class="btn ghost" href="deck/"><svg class="i"><use href="#i-slides"/></svg>Open the slides</a>
@@ -771,6 +828,7 @@ tbody tr:hover td { background: var(--violet-soft); }
   <div class="wrap">
     <span class="eyebrow">01 · Context</span>
     <h2>Why there's no enclave demo today</h2>
+    <div class="say" role="note" aria-label="Talking points"><div class="say-h"><svg class="i"><use href="#i-mic"/></svg>Say this</div><ul><li>This seat came with my move into CMMC work, and the plan was built around a GCC High enclave.</li><li>That enclave isn't up and running yet, so there's nothing to demo inside it.</li><li>So I put the seat to work on the job I have today, and used the time to get ready.</li><li>Everything you'll see today carries straight over once the tenant is up.</li></ul></div>
     <p class="intro">The seat was planned around a GCC High enclave. That enclave isn't running yet, so I put the seat to work on the job I have now.</p>
     <div class="grid g3">
       <div class="card"><div class="ic"><svg class="i"><use href="#i-sparkle"/></svg></div><h3>The seat</h3><p>Came with my move into CMMC work. The plan was built around a GCC High enclave.</p></div>
@@ -779,6 +837,7 @@ tbody tr:hover td { background: var(--violet-soft); }
     </div>
     <div class="callout violet"><svg class="i"><use href="#i-layers"/></svg><span>Everything on this page carries straight over once the tenant is up and running.</span></div>
     <p class="gloss"><b>CMMC</b> = Cybersecurity Maturity Model Certification, Level 2 · <b>GCC High</b> = Microsoft Government Community Cloud High</p>
+    <a class="bridge" href="#team"><span class="bridge-say">So who actually does the work? Let me introduce the team.</span><span class="bridge-go">Next: The team<svg class="i"><use href="#i-arrow"/></svg></span></a>
   </div>
 </section>
 
@@ -787,6 +846,7 @@ tbody tr:hover td { background: var(--violet-soft); }
   <div class="wrap">
     <span class="eyebrow teal">02 · The team</span>
     <h2>One bot per job</h2>
+    <div class="say" role="note" aria-label="Talking points"><div class="say-h"><svg class="i"><use href="#i-mic"/></svg>Say this</div><ul><li>I set Grok up as a team: one bot per job, and each bot only gets the access that job needs.</li><li>DELTA is the lead. It takes the work in and hands it to the right bot.</li><li>Every bot follows the same rules. Everything it writes is a draft, it's read-only in our tools, and it never holds credentials, client data, or CUI.</li><li>DELTA and PATCH get most of the use today. REMY and SENTRY are low for one reason: the enclave isn't running yet.</li></ul></div>
     <p class="intro">Each bot gets one job and only the access that job needs. DELTA leads and hands work to the others.</p>
     <div class="bots">
       <div class="bot lead"><img src="assets/img/bots/delta.png" alt=""><div><b>DELTA</b><span>Lead. Runs the CMMC pod: coordination, ticket and shift reports, scripts, email and Teams triage, handoffs.</span><small>Defense Enclave Lifecycle &amp; Tenant Architecture</small></div></div>
@@ -821,6 +881,7 @@ tbody tr:hover td { background: var(--violet-soft); }
       </div>
     </div>
     <p class="gloss"><b>MSP</b> = managed service provider · <b>M365</b> = Microsoft 365 · <b>CISA KEV</b> = Cybersecurity and Infrastructure Security Agency Known Exploited Vulnerabilities · <b>RMM</b> = remote monitoring and management tool · <b>CUI</b> = Controlled Unclassified Information</p>
+    <a class="bridge" href="#day"><span class="bridge-say">Here's what that looks like on a normal day.</span><span class="bridge-go">Next: Day to day<svg class="i"><use href="#i-arrow"/></svg></span></a>
   </div>
 </section>
 
@@ -829,6 +890,7 @@ tbody tr:hover td { background: var(--violet-soft); }
   <div class="wrap">
     <span class="eyebrow">03 · Day to day</span>
     <h2>Tickets and time, drafted for me</h2>
+    <div class="say" role="note" aria-label="Talking points"><div class="say-h"><svg class="i"><use href="#i-mic"/></svg>Say this</div><ul><li>When I start a ticket, DELTA starts a clock.</li><li>If there's a phone call, CHRONO pulls the call time from RingCentral.</li><li>By the time I'm done, the ticket note and the time entry are drafted and waiting for me. I approve it, then PATCH posts it.</li><li>My rough estimate is about three hours a week saved. I'm still measuring that.</li></ul></div>
     <p class="intro">When I start a ticket, the clock starts. By the time I'm done, the note and time entry are waiting for my approval.</p>
     <div class="flow">
       <div class="card"><div class="ic"><svg class="i"><use href="#i-clock"/></svg></div><h3>Ticket starts</h3><p>DELTA starts a clock.</p></div>
@@ -848,6 +910,7 @@ tbody tr:hover td { background: var(--violet-soft); }
     <div style="margin-top:56px">
       <span class="eyebrow coral">End of every shift</span>
       <h2 style="font-size:clamp(26px,3vw,34px)">The end-of-shift report</h2>
+      <div class="say" role="note" aria-label="Talking points"><div class="say-h"><svg class="i"><use href="#i-mic"/></svg>Say this</div><ul><li>At the end of every shift, Grok reads the ticket board through a read-only API. It can see the board, but it can't change it.</li><li>It builds the CMMC End of Shift Report, a Microsoft List the pod checks at shift change.</li><li>That keeps P1 and P2 tickets tracked, and keeps maintenance inside its window.</li></ul></div>
       <p class="intro" style="margin-bottom:24px">Grok reads the ticket board through a read-only API and builds the CMMC End of Shift Report, a Microsoft List the pod checks at shift change.</p>
       <div class="grid g3">
         <div class="card"><div class="ic teal"><svg class="i"><use href="#i-eye"/></svg></div><h3>Read-only access</h3><p>Grok can see the ticket board. It can't change it.</p></div>
@@ -867,6 +930,7 @@ tbody tr:hover td { background: var(--violet-soft); }
       </div>
       <p class="gloss"><b>API</b> = application programming interface · <b>P1 / P2</b> = Priority 1 / Priority 2</p>
     </div>
+    <a class="bridge" href="#scripts"><span class="bridge-say">Next is the part you can try yourself: the scripts.</span><span class="bridge-go">Next: Script lab<svg class="i"><use href="#i-arrow"/></svg></span></a>
   </div>
 </section>
 
@@ -875,6 +939,7 @@ tbody tr:hover td { background: var(--violet-soft); }
   <div class="wrap">
     <span class="eyebrow coral">04 · Script lab</span>
     <h2>Try the scripts</h2>
+    <div class="say" role="note" aria-label="Talking points"><div class="say-h"><svg class="i"><use href="#i-mic"/></svg>Say this</div><ul><li>These are the PowerShell scripts I actually use on tickets. I built them with Grok and refined them over several versions.</li><li>Let me pick one and run it. On the left is what the user sees. On the right is the script doing the work.</li><li>A dry run shows the steps without changing anything. A full run fixes the PC.</li><li>This is a simulation. Nothing here touches anyone's computer, and the names are sanitized.</li></ul></div>
     <p class="intro">These are the PowerShell scripts I use on S1 tickets, built with Grok and refined over several versions. Pick one, choose dry run or full run, and press Run to watch what it does step by step.</p>
     <div class="sim-note" role="note"><svg class="i"><use href="#i-alert"/></svg><span><b>Simulated console.</b> PowerShell can't run in a browser, so nothing here touches your computer. The steps are the real ones each script runs; the wording is example output. Names and paths are sanitized.</span></div>
 
@@ -929,14 +994,94 @@ tbody tr:hover td { background: var(--violet-soft); }
       <pre>Start-ADSyncSyncCycle -PolicyType Delta</pre>
     </div>
     <p class="gloss"><b>M365</b> = Microsoft 365 · <b>OST / NST</b> = Outlook offline data files · <b>MDM</b> = Mobile Device Management · <b>AD</b> = Active Directory · <b>WAM</b> = Web Account Manager</p>
+    <a class="bridge" href="#skills"><span class="bridge-say">To make sure those fixes get run the same way every time, I built skills.</span><span class="bridge-go">Next: Skills<svg class="i"><use href="#i-arrow"/></svg></span></a>
+  </div>
+</section>
+
+<!-- ================= SKILLS ================= -->
+<section class="band alt" id="skills">
+  <div class="wrap">
+    <span class="eyebrow coral">05 · Skills I built</span>
+    <h2>Skills: the same steps, every time</h2>
+    <div class="say" role="note" aria-label="Talking points"><div class="say-h"><svg class="i"><use href="#i-mic"/></svg>Say this</div><ul><li>A skill is a saved playbook for an AI assistant: when to use it, what to ask, what to do, and what it must never do.</li><li>Dress It Up makes a plain page or document look finished without changing a single word. It asks a few questions, applies the style, then proves no fact changed.</li><li>The scripting skills give a tech one command to run a fix as admin, plus a runbook, so anyone on the team runs it the same way.</li><li>I built these with Claude. No client data or CUI goes into any of them.</li></ul></div>
+    <p class="intro">A skill is a saved playbook for an AI assistant. It tells the assistant when to use it, what to ask, what to do, and what it must never do. I built these with Claude. No client data or CUI goes into any of them.</p>
+
+    <div class="skill">
+      <div class="skill-head">
+        <div class="ic"><svg class="i"><use href="#i-sparkle"/></svg></div>
+        <div><h3>Dress It Up</h3><p class="sub">Makes a plain web page or document look finished, in <i>your</i> style, without touching the words.</p></div>
+        <span class="skill-tag">Style · formerly “Pizzazz”</span>
+      </div>
+      <div class="skill-body">
+        <div class="skill-scope">
+          <div class="scope-row"><b>Starts when</b><span>You say “dress it up,” or point it at a page, a README, or a report.</span></div>
+          <div class="scope-row"><b>Step 1 · Ask</b><span>A short interview: what you’re building and who reads it, light or dark, a palette, the mood (calm, technical, bold), how much flash, and a page you like. Palettes come as named choices, like Rustic or Control Room, with one suggested to fit your page. You can bring your own colors instead. Skip any question and it picks a sensible default.</span></div>
+          <div class="scope-row"><b>Step 2 · Profile</b><span>Turns your answers into a style profile: a color palette checked for readable contrast, fonts, a clean line-icon set, and one signature touch. It saves the profile, so your next page matches.</span></div>
+          <div class="scope-row"><b>Step 3 · Apply</b><span>Adds the banner, headings, icons, dividers, diagram colors, and spacing. Formatting only.</span></div>
+          <div class="scope-row"><b>Step 4 · Prove it</b><span>Compares the text before and after to show no fact changed, checks every image and link, then shows you the before and after. You approve it.</span></div>
+          <div class="scope-row"><b>Never</b><span>Changes facts, numbers, names, dates, or commands. Touches scripts or config files. Adds personal data. Styles the same page twice.</span></div>
+          <div class="scope-row"><b>Runs</b><span>In a chat, or on its own when new docs land in a repository. Then it opens a pull request, and nothing goes live until someone merges it.</span></div>
+        </div>
+        <div class="dress" id="dress" aria-label="Try the Dress It Up questions">
+          <div class="dress-q"><b>What are you building?</b><div class="opts" data-k="kind"><button type="button" data-v="rustic" aria-pressed="false">Portfolio</button><button type="button" data-v="control" aria-pressed="true">Lab guide</button><button type="button" data-v="seaglass" aria-pressed="false">Runbook</button><button type="button" data-v="night" aria-pressed="false">Tech talk</button><button type="button" data-v="aurora" aria-pressed="false">Launch page</button></div></div>
+          <div class="dress-q"><b>Pick a palette</b><div class="pals" id="dressPals"></div></div>
+          <div class="dress-q"><b>Pick a mood</b><div class="opts" data-k="mood"><button type="button" data-v="technical" aria-pressed="true">Technical</button><button type="button" data-v="calm" aria-pressed="false">Calm</button><button type="button" data-v="bold" aria-pressed="false">Bold</button></div></div>
+          <div class="dress-prev" id="dressPrev" data-mood="technical">
+            <div class="dp-eyebrow">Help desk runbook</div>
+            <div class="dp-title">Reset a stuck Outlook profile</div>
+            <div class="dp-rule"></div>
+            <div class="dp-text">Same words as before. Only the look changed.</div>
+            <div class="dp-chips"><span>Outlook</span><span>PowerShell</span></div>
+          </div>
+          <p class="dress-note">A preview of the question step. Your answer to the first question suggests a palette; pick any other to override it.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid g2" style="margin-top:18px">
+      <div class="skill sm">
+        <div class="skill-head">
+          <div class="ic"><svg class="i"><use href="#i-terminal"/></svg></div>
+          <div><h3>Run a script as admin</h3><p class="sub">One pasteable command instead of right-click, Run as administrator.</p></div>
+          <span class="skill-tag">Scripting</span>
+        </div>
+        <div class="skill-scope">
+          <div class="scope-row"><b>Starts when</b><span>A PowerShell script has to run with admin rights on a user’s PC.</span></div>
+          <div class="scope-row"><b>Gives you</b><span>A launch line the tech pastes into a normal PowerShell window. It relaunches itself elevated and stays open, so progress and errors stay visible.</span></div>
+        </div>
+        <pre class="skill-code"><code>Start-Process powershell -Verb RunAs -ArgumentList '-NoExit','-ExecutionPolicy','Bypass','-File','C:\Users\&lt;user&gt;\Downloads\Reinstall-M365Apps.ps1'</code></pre>
+        <div class="skill-scope">
+          <div class="scope-row"><b>Always tells the tech</b><span>Windows still asks once (User Account Control). Save open work if the script closes apps. Don’t close the window mid-run.</span></div>
+          <div class="scope-row"><b>Option</b><span>A short self-elevation check at the top of the script, so it can just be run directly.</span></div>
+          <div class="scope-row"><b>Used for</b><span>Every deployed fix: the post-migration cleanup, Reinstall-M365Apps, the Teams add-in repair, and the rest of the script lab.</span></div>
+        </div>
+      </div>
+      <div class="skill sm">
+        <div class="skill-head">
+          <div class="ic"><svg class="i"><use href="#i-book"/></svg></div>
+          <div><h3>Script runbooks</h3><p class="sub">Each fix script is saved with its runbook, so anyone on the team runs it the same way.</p></div>
+          <span class="skill-tag">Scripting</span>
+        </div>
+        <div class="skill-scope">
+          <div class="scope-row"><b>Starts when</b><span>A ticket matches a known fix, like Microsoft 365 Apps needing a reinstall.</span></div>
+          <div class="scope-row"><b>Holds</b><span>When to use it and when not to, the checks to run first, the launch command, how to confirm it worked, and what to tell the user.</span></div>
+          <div class="scope-row"><b>Safe by default</b><span>Least invasive step first. Logging on. A dry run where the script supports one. Nothing deleted that can be renamed instead.</span></div>
+          <div class="scope-row"><b>Grows</b><span>The goal: every proven fix gets a runbook, so the script lab becomes a team library.</span></div>
+        </div>
+        <div class="callout" style="margin-top:14px"><svg class="i"><use href="#i-shield"/></svg><span>No client names, credentials, or CUI in any skill. Names and paths are sanitized.</span></div>
+      </div>
+    </div>
+    <p class="gloss"><b>CUI</b> = Controlled Unclassified Information · <b>README</b> = the front-page document of a code repository · <b>UAC</b> = User Account Control, the Windows “Do you want to allow…” prompt</p>
+    <a class="bridge" href="#enclave"><span class="bridge-say">That's today's job. Now let's look ahead to the enclave.</span><span class="bridge-go">Next: The enclave<svg class="i"><use href="#i-arrow"/></svg></span></a>
   </div>
 </section>
 
 <!-- ================= ENCLAVE ================= -->
 <section class="band" id="enclave">
   <div class="wrap">
-    <span class="eyebrow teal">05 · Pointed at the enclave</span>
+    <span class="eyebrow teal">06 · Pointed at the enclave</span>
     <h2>The CMMC Level 2 Enclave Toolkit</h2>
+    <div class="say" role="note" aria-label="Talking points"><div class="say-h"><svg class="i"><use href="#i-mic"/></svg>Say this</div><ul><li>Now let's turn to the enclave, starting with how we pick tools.</li><li>Every tool that goes into an enclave holding CUI has to be judged the same way, with evidence.</li><li>So I built a vendor-neutral template. No picks and no pricing, just the evidence an assessor will ask for.</li><li>Each tool is checked against 13 criteria, mapped to NIST 800-171, and the decision feeds the System Security Plan.</li></ul></div>
     <p class="intro">Every tool that goes into an enclave holding CUI has to be judged the same way, with evidence. This template does that, and it's vendor-neutral: no picks, no pricing, just evidence.</p>
     <div class="flow" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
       <div class="card"><h3>Define the CUI boundary</h3></div>
@@ -949,6 +1094,7 @@ tbody tr:hover td { background: var(--violet-soft); }
       <div class="card"><div class="stat"><b>13</b><span>evaluation criteria per tool</span></div></div>
       <div class="card"><h3>Vendor-neutral</h3><p>No picks, no pricing. Just the evidence an assessor will ask for.</p></div>
     </div>
+    <a class="bridge" href="#automate"><span class="bridge-say">Once the enclave is running, here's what we could automate.</span><span class="bridge-go">Next: Automation ideas<svg class="i"><use href="#i-arrow"/></svg></span></a>
 
   </div>
 </section>
@@ -956,8 +1102,9 @@ tbody tr:hover td { background: var(--violet-soft); }
 <!-- ================= ENCLAVE AUTOMATION IDEAS ================= -->
 <section class="band alt" id="automate">
   <div class="wrap">
-    <span class="eyebrow teal">06 · What we could automate</span>
+    <span class="eyebrow teal">07 · What we could automate</span>
     <h2>Automation ideas for the enclave</h2>
+    <div class="say" role="note" aria-label="Talking points"><div class="say-h"><svg class="i"><use href="#i-mic"/></svg>Say this</div><ul><li>These are ideas for once the enclave is running. None of them are built yet.</li><li>The theme is simple: automate the busywork, keep the judgment.</li><li>I'll click through them. The line under each slide is what I'm covering.</li></ul></div>
     <p class="intro">A short presentation on what we could automate once the enclave is running. These are proposals, not built yet. Use the arrows, the dots, or your arrow keys.</p>
     <div class="show" id="show" tabindex="0" role="region" aria-roledescription="presentation" aria-label="Automation ideas presentation">
       <div class="show-top">
@@ -967,18 +1114,21 @@ tbody tr:hover td { background: var(--violet-soft); }
         <button class="show-fs" id="showFs" type="button"><svg class="i"><use href="#i-slides"/></svg><span>Present</span></button>
       </div>
       <div class="show-stage" id="showStage" aria-live="polite"></div>
+      <div class="show-say" id="showSay" role="note"><svg class="i"><use href="#i-mic"/></svg><span></span></div>
       <div class="show-nav">
         <button class="show-arrow" id="showPrev" type="button" aria-label="Previous slide"><svg class="i" style="transform:rotate(180deg)"><use href="#i-arrow"/></svg></button>
         <div class="show-dots" id="showDots" role="tablist" aria-label="Slides"></div>
         <button class="show-arrow" id="showNext" type="button" aria-label="Next slide"><svg class="i"><use href="#i-arrow"/></svg></button>
       </div>
     </div>
+    <div class="say say-mid" role="note" aria-label="Talking points"><div class="say-h"><svg class="i"><use href="#i-mic"/></svg>Say this</div><ul><li>On the training side, I also built the Talvex Firewall Lab, a FortiGate-style lab for practicing firewall work in the browser.</li></ul></div>
     <a class="feature" href="https://joshuarichard116-sudo.github.io/jrichard-web/labs/talvex-firewall/" target="_blank" rel="noopener" style="margin-top:22px">
       <div class="ic"><svg class="i"><use href="#i-network"/></svg></div>
       <div><div class="tagline">Training alongside · built by me</div><h3>Talvex Firewall Lab</h3><p>My FortiGate-style training lab. Practice firewall work in the browser with guided missions.</p></div>
       <span class="go">Open the lab<svg class="i" style="width:18px;height:18px"><use href="#i-arrow"/></svg></span>
     </a>
     <p class="gloss"><b>CUI</b> = Controlled Unclassified Information · <b>NIST SP 800-171</b> = the security requirements behind CMMC Level 2 (numbers shown are Rev. 2) · <b>AC</b> = Access Control · <b>IA</b> = Identification and Authentication · <b>AU</b> = Audit and Accountability · <b>CM</b> = Configuration Management · <b>SI</b> = System and Information Integrity · <b>RA</b> = Risk Assessment · <b>CA</b> = Security Assessment · <b>MA</b> = Maintenance · <b>MFA</b> = multifactor authentication · <b>POA&amp;M</b> = Plan of Action and Milestones · <b>SSP</b> = System Security Plan · <b>RMM</b> = remote monitoring and management</p>
+    <a class="bridge" href="#cloudbuilder"><span class="bridge-say">The last idea is the biggest one: building whole new environments.</span><span class="bridge-go">Next: Cloud builder<svg class="i"><use href="#i-arrow"/></svg></span></a>
   </div>
 </section>
 
@@ -1045,8 +1195,9 @@ tbody tr:hover td { background: var(--violet-soft); }
 </style>
 <section class="band" id="cloudbuilder">
   <div class="wrap">
-    <span class="eyebrow">07 · Scoping now</span>
+    <span class="eyebrow">08 · Scoping now</span>
     <h2>The Enclave Cloud Builder <span class="cb-status">Scoping · not built yet</span></h2>
+    <div class="say" role="note" aria-label="Talking points"><div class="say-h"><svg class="i"><use href="#i-mic"/></svg>Say this</div><ul><li>Every new department project and every new customer needs its own environment. Building each one by hand doesn't scale.</li><li>So I'm scoping a Terraform app. I describe the environment once, in a short JSON file.</li><li>It builds and tests inside the enclave first. When it's right, an approved plan deploys straight to Azure Government.</li><li>This is scoping only. Nothing is built yet.</li></ul></div>
     <p class="intro">Every new department project and every new customer needs its own environment. Building each one by hand doesn't scale. This is a Terraform application I'm scoping: describe the environment once in a short JSON file, build the whole thing locally inside the enclave, test it, then port the same file to Azure.</p>
 
     <div class="grid g3 cb-why">
@@ -1056,6 +1207,7 @@ tbody tr:hover td { background: var(--violet-soft); }
     </div>
 
     <h3 class="cb-h3">Try it: one file, two targets</h3>
+    <div class="say say-mid" role="note" aria-label="Talking points"><div class="say-h"><svg class="i"><use href="#i-mic"/></svg>Say this</div><ul><li>Let me show you. I'll pick a blueprint, then switch the target. Watch how little the file changes. That's the whole point.</li></ul></div>
     <p class="cb-sub">Pick a blueprint, then switch the target. The JSON barely changes. That's the whole point. Output is an example, not a real run.</p>
     <div class="cb-ctl">
       <label>Blueprint
@@ -1078,6 +1230,7 @@ tbody tr:hover td { background: var(--violet-soft); }
     </div>
 
     <h3 class="cb-h3">How a project flows</h3>
+    <div class="say say-mid" role="note" aria-label="Talking points"><div class="say-h"><svg class="i"><use href="#i-mic"/></svg>Say this</div><ul><li>Every project follows the same six steps, and two of them stop for a person to approve before anything is built.</li></ul></div>
     <p class="cb-sub">Six steps, the same every time. Click any step for detail. Two of them stop for a person.</p>
     <div class="cb-pipe" id="cbPipe">
       <button class="cb-step" type="button" data-d="I fill in a short JSON request: project name, blueprint, network range, how many servers of each role, and which security baseline. No CUI, no passwords, no customer data in the file. It's a description of infrastructure, nothing more."><b>Request</b><span>I fill in the JSON</span></button>
@@ -1090,6 +1243,7 @@ tbody tr:hover td { background: var(--violet-soft); }
     <div class="cb-detail" id="cbDetail">Click a step above, or press <b>Play the steps</b>.</div>
     <div class="btns" style="margin-top:12px"><button class="btn outline" id="cbPlay" type="button"><svg class="i"><use href="#i-play"/></svg>Play the steps</button></div>
 
+    <details class="more"><summary><svg class="i"><use href="#i-arrow"/></svg>More detail <small>What it's made of, where it gets used, and the CMMC mapping</small></summary><div class="more-b">
     <h3 class="cb-h3">What it's made of</h3>
     <p class="cb-sub">Everything that builds runs inside the boundary. The enclave is a GCC High environment that can talk to Azure Government directly, so an approved plan deploys straight from my machine in the enclave. Nothing is carried across by hand.</p>
     <div class="cb-arch">
@@ -1120,7 +1274,7 @@ tbody tr:hover td { background: var(--violet-soft); }
       <div class="card"><h3><svg class="i"><use href="#i-wrench"/></svg>Test and training labs</h3><p>Spin up a <b>throwaway copy locally</b> to try a change or train someone, then tear it down. No cloud bill for practice.</p></div>
       <div class="card"><h3><svg class="i"><use href="#i-rotate"/></svg>Rebuild after an incident</h3><p>If an environment has to be rebuilt, the file <b>is the rebuild plan</b>. Same network, same settings, same controls.</p></div>
       <div class="card"><h3><svg class="i"><use href="#i-clipboard"/></svg>Assessor walk-through</h3><p>Show the assessor the baseline <b>as code</b>, every approved plan, and every change, all tied to who approved it and when.</p></div>
-      <div class="card"><h3><svg class="i"><use href="#i-activity"/></svg>Drift checks</h3><p>Re-run the plan against a live environment. If anything was changed by hand, <b>the plan shows it</b>. This feeds PATCH's drift idea in section 06.</p></div>
+      <div class="card"><h3><svg class="i"><use href="#i-activity"/></svg>Drift checks</h3><p>Re-run the plan against a live environment. If anything was changed by hand, <b>the plan shows it</b>. This feeds PATCH's drift idea in section 07.</p></div>
     </div>
 
     <h3 class="cb-h3">Why it helps with CMMC</h3>
@@ -1137,6 +1291,7 @@ tbody tr:hover td { background: var(--violet-soft); }
         </tbody>
       </table>
     </div>
+    </div></details>
     <div class="callout"><svg class="i"><use href="#i-shield"/></svg><span>No CUI anywhere in it. The JSON describes infrastructure only. Passwords and keys are pulled at build time, never written in the file. Grok helps me write and review modules, but no bot ever sees state files, secrets, or CUI.</span></div>
 
     <h3 class="cb-h3">Questions I expect</h3>
@@ -1150,6 +1305,7 @@ tbody tr:hover td { background: var(--violet-soft); }
       <details><summary><svg class="i"><use href="#i-arrow"/></svg>What's the first step?</summary><p>One blueprint, end to end: the CMMC Level 2 workload, built locally, tested, and ported to a test Azure Government subscription. That gives real timing instead of guesses.</p></details>
     </div>
     <p class="gloss"><b>JSON</b> = JavaScript Object Notation · <b>CUI</b> = Controlled Unclassified Information · <b>CMMC</b> = Cybersecurity Maturity Model Certification · <b>SSP</b> = System Security Plan · <b>IP</b> = Internet Protocol · NIST SP 800-171 Rev. 2 families: <b>CM</b> Configuration Management, <b>SC</b> System and Communications Protection, <b>AU</b> Audit and Accountability</p>
+    <a class="bridge" href="#golive"><span class="bridge-say">Let me wrap up with what carries into the enclave.</span><span class="bridge-go">Next: Wrap-up<svg class="i"><use href="#i-arrow"/></svg></span></a>
   </div>
 </section>
 <script>
@@ -1246,87 +1402,14 @@ tbody tr:hover td { background: var(--violet-soft); }
 </script>
 
 <!-- ================= SKILLS ================= -->
-<section class="band alt" id="skills">
-  <div class="wrap">
-    <span class="eyebrow coral">08 · Skills I built</span>
-    <h2>Skills: the same steps, every time</h2>
-    <p class="intro">A skill is a saved playbook for an AI assistant. It tells the assistant when to use it, what to ask, what to do, and what it must never do. I built these with Claude. No client data or CUI goes into any of them.</p>
-
-    <div class="skill">
-      <div class="skill-head">
-        <div class="ic"><svg class="i"><use href="#i-sparkle"/></svg></div>
-        <div><h3>Dress It Up</h3><p class="sub">Makes a plain web page or document look finished, in <i>your</i> style, without touching the words.</p></div>
-        <span class="skill-tag">Style · formerly “Pizzazz”</span>
-      </div>
-      <div class="skill-body">
-        <div class="skill-scope">
-          <div class="scope-row"><b>Starts when</b><span>You say “dress it up,” or point it at a page, a README, or a report.</span></div>
-          <div class="scope-row"><b>Step 1 · Ask</b><span>A short interview: what you’re building and who reads it, light or dark, a palette, the mood (calm, technical, bold), how much flash, and a page you like. Palettes come as named choices, like Rustic or Control Room, with one suggested to fit your page. You can bring your own colors instead. Skip any question and it picks a sensible default.</span></div>
-          <div class="scope-row"><b>Step 2 · Profile</b><span>Turns your answers into a style profile: a color palette checked for readable contrast, fonts, a clean line-icon set, and one signature touch. It saves the profile, so your next page matches.</span></div>
-          <div class="scope-row"><b>Step 3 · Apply</b><span>Adds the banner, headings, icons, dividers, diagram colors, and spacing. Formatting only.</span></div>
-          <div class="scope-row"><b>Step 4 · Prove it</b><span>Compares the text before and after to show no fact changed, checks every image and link, then shows you the before and after. You approve it.</span></div>
-          <div class="scope-row"><b>Never</b><span>Changes facts, numbers, names, dates, or commands. Touches scripts or config files. Adds personal data. Styles the same page twice.</span></div>
-          <div class="scope-row"><b>Runs</b><span>In a chat, or on its own when new docs land in a repository. Then it opens a pull request, and nothing goes live until someone merges it.</span></div>
-        </div>
-        <div class="dress" id="dress" aria-label="Try the Dress It Up questions">
-          <div class="dress-q"><b>What are you building?</b><div class="opts" data-k="kind"><button type="button" data-v="rustic" aria-pressed="false">Portfolio</button><button type="button" data-v="control" aria-pressed="true">Lab guide</button><button type="button" data-v="seaglass" aria-pressed="false">Runbook</button><button type="button" data-v="night" aria-pressed="false">Tech talk</button><button type="button" data-v="aurora" aria-pressed="false">Launch page</button></div></div>
-          <div class="dress-q"><b>Pick a palette</b><div class="pals" id="dressPals"></div></div>
-          <div class="dress-q"><b>Pick a mood</b><div class="opts" data-k="mood"><button type="button" data-v="technical" aria-pressed="true">Technical</button><button type="button" data-v="calm" aria-pressed="false">Calm</button><button type="button" data-v="bold" aria-pressed="false">Bold</button></div></div>
-          <div class="dress-prev" id="dressPrev" data-mood="technical">
-            <div class="dp-eyebrow">Help desk runbook</div>
-            <div class="dp-title">Reset a stuck Outlook profile</div>
-            <div class="dp-rule"></div>
-            <div class="dp-text">Same words as before. Only the look changed.</div>
-            <div class="dp-chips"><span>Outlook</span><span>PowerShell</span></div>
-          </div>
-          <p class="dress-note">A preview of the question step. Your answer to the first question suggests a palette; pick any other to override it.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="grid g2" style="margin-top:18px">
-      <div class="skill sm">
-        <div class="skill-head">
-          <div class="ic"><svg class="i"><use href="#i-terminal"/></svg></div>
-          <div><h3>Run a script as admin</h3><p class="sub">One pasteable command instead of right-click, Run as administrator.</p></div>
-          <span class="skill-tag">Scripting</span>
-        </div>
-        <div class="skill-scope">
-          <div class="scope-row"><b>Starts when</b><span>A PowerShell script has to run with admin rights on a user’s PC.</span></div>
-          <div class="scope-row"><b>Gives you</b><span>A launch line the tech pastes into a normal PowerShell window. It relaunches itself elevated and stays open, so progress and errors stay visible.</span></div>
-        </div>
-        <pre class="skill-code"><code>Start-Process powershell -Verb RunAs -ArgumentList '-NoExit','-ExecutionPolicy','Bypass','-File','C:\Users\&lt;user&gt;\Downloads\Reinstall-M365Apps.ps1'</code></pre>
-        <div class="skill-scope">
-          <div class="scope-row"><b>Always tells the tech</b><span>Windows still asks once (User Account Control). Save open work if the script closes apps. Don’t close the window mid-run.</span></div>
-          <div class="scope-row"><b>Option</b><span>A short self-elevation check at the top of the script, so it can just be run directly.</span></div>
-          <div class="scope-row"><b>Used for</b><span>Every deployed fix: the post-migration cleanup, Reinstall-M365Apps, the Teams add-in repair, and the rest of the script lab.</span></div>
-        </div>
-      </div>
-      <div class="skill sm">
-        <div class="skill-head">
-          <div class="ic"><svg class="i"><use href="#i-book"/></svg></div>
-          <div><h3>Script runbooks</h3><p class="sub">Each fix script is saved with its runbook, so anyone on the team runs it the same way.</p></div>
-          <span class="skill-tag">Scripting</span>
-        </div>
-        <div class="skill-scope">
-          <div class="scope-row"><b>Starts when</b><span>A ticket matches a known fix, like Microsoft 365 Apps needing a reinstall.</span></div>
-          <div class="scope-row"><b>Holds</b><span>When to use it and when not to, the checks to run first, the launch command, how to confirm it worked, and what to tell the user.</span></div>
-          <div class="scope-row"><b>Safe by default</b><span>Least invasive step first. Logging on. A dry run where the script supports one. Nothing deleted that can be renamed instead.</span></div>
-          <div class="scope-row"><b>Grows</b><span>The goal: every proven fix gets a runbook, so the script lab becomes a team library.</span></div>
-        </div>
-        <div class="callout" style="margin-top:14px"><svg class="i"><use href="#i-shield"/></svg><span>No client names, credentials, or CUI in any skill. Names and paths are sanitized.</span></div>
-      </div>
-    </div>
-    <p class="gloss"><b>CUI</b> = Controlled Unclassified Information · <b>README</b> = the front-page document of a code repository · <b>UAC</b> = User Account Control, the Windows “Do you want to allow…” prompt</p>
-  </div>
-</section>
 
 <!-- ================= GO-LIVE ================= -->
 <section class="band" id="golive">
   <div class="wrap">
     <div>
-      <span class="eyebrow">09 · Go-live</span>
+      <span class="eyebrow">09 · Wrap-up</span>
       <h2>What carries into the enclave</h2>
+      <div class="say" role="note" aria-label="Talking points"><div class="say-h"><svg class="i"><use href="#i-mic"/></svg>Say this</div><ul><li>Here's what carries straight into the enclave: the ticket clock and time rules, the toolkit, and the cloud builder.</li><li>AI helps build small tools. The tools run inside. CUI never leaves.</li><li>Next, I'm timing one control family end to end, so we get real numbers. My target date is December 19.</li></ul></div>
       <div class="table-wrap" style="margin-top:20px">
         <table>
           <thead><tr><th>Area</th><th>What carries over</th></tr></thead>
@@ -1341,13 +1424,14 @@ tbody tr:hover td { background: var(--violet-soft); }
       <div class="callout"><svg class="i"><use href="#i-shield"/></svg><span>No client data or CUI in any bot. Every message is a draft. I press Send.</span></div>
       <p style="margin-top:18px"><b>Next:</b> timing one control family end to end, for real numbers. Target date: <b>Dec 19, 2026</b></p>
       <p class="gloss"><b>CUI</b> = Controlled Unclassified Information · <b>NIST SP</b> = National Institute of Standards and Technology Special Publication · <b>AI</b> = artificial intelligence</p>
+      <a class="bridge" href="#end"><span class="bridge-say">That's everything. Thank you.</span><span class="bridge-go">Next: Questions<svg class="i"><use href="#i-arrow"/></svg></span></a>
     </div>
   </div>
 </section>
 
 </main>
 
-<footer>
+<footer id="end">
   <div class="wrap">
     <h2>Thank you. Questions?</h2>
     <p>Joshua Richard · S1 Technology</p>
@@ -1808,6 +1892,19 @@ tbody tr:hover td { background: var(--violet-soft); }
     { bot: 'PATCH', kick: 'Configuration and patching', title: 'Are the machines still the way we built them?', f: 'config' },
     { bot: 'SENTRY', kick: 'Assessment, plan, and maintenance', title: 'Keep the paperwork honest', f: 'assess', f2: 'maint' }
   ];
+  var SAY = {
+    'Opener': 'The bots do the legwork. People make the calls.',
+    'No CUI': 'Ground rules first: every check is read-only, runs inside the enclave, and never touches CUI.',
+    'Who owns what': 'Each idea has one owner bot, same as today. DELTA rolls it all into one summary.',
+    'REMY': 'REMY covers access and sign-in: who can get in, and how.',
+    'RADAR': 'RADAR covers audit logs: what happened yesterday, on one page.',
+    'PATCH': 'PATCH checks that the machines are still the way we built them, and patched.',
+    'SENTRY': 'SENTRY keeps the paperwork honest: the plan, the evidence, and maintenance.',
+    'How it flows': 'Every idea runs the same five steps, and a person reviews before anything goes out.',
+    'The local machines': 'The tools run on a few locked-down machines inside the boundary. No bot runs on them.',
+    'Use cases': 'Here is how the team would use them week to week, from the morning check to assessment prep.',
+    'The vision': 'Start small, build each tool once, and grow it with the department.'
+  };
   var showStage = document.getElementById('showStage');
   if (showStage) {
     var slidesH = [];
@@ -1911,6 +2008,8 @@ tbody tr:hover td { background: var(--violet-soft); }
       document.getElementById('showPrev').disabled = k === 0;
       document.getElementById('showNext').disabled = k === sls.length - 1;
       si = k;
+      var ssay = document.querySelector('#showSay span');
+      if (ssay) ssay.textContent = SAY[sls[k].dataset.t] || '';
     }
     document.getElementById('showPrev').addEventListener('click', function () { go(si - 1); });
     document.getElementById('showNext').addEventListener('click', function () { go(si + 1); });
@@ -2241,6 +2340,65 @@ tbody tr:hover td { background: var(--violet-soft); }
     }, { rootMargin: '-45% 0px -50% 0px' });
     document.querySelectorAll('section.band[id]').forEach(function (s) { io.observe(s); });
   }
+})();
+</script>
+
+<div class="pres" id="pres" role="navigation" aria-label="Presenter navigation">
+  <button class="pv" id="presPrev" type="button" aria-label="Previous section (P)"><svg class="i"><use href="#i-arrow"/></svg></button>
+  <span class="ct" id="presCt"></span>
+  <button class="nx" id="presNext" type="button"><span id="presNm">Next</span><svg class="i"><use href="#i-arrow"/></svg></button>
+  <span class="keys">N / P</span>
+</div>
+<script>
+(function () {
+  var root = document.documentElement, KEY = 'gb-say';
+  try { if (localStorage.getItem(KEY) === 'off') root.classList.add('no-say'); } catch (e) {}
+  var tb = document.getElementById('talkBtn');
+  function sync() { if (tb) tb.setAttribute('aria-pressed', root.classList.contains('no-say') ? 'false' : 'true'); }
+  function toggle() { root.classList.toggle('no-say'); try { localStorage.setItem(KEY, root.classList.contains('no-say') ? 'off' : 'on'); } catch (e) {} sync(); }
+  if (tb) tb.addEventListener('click', toggle);
+  sync();
+
+  var stops = [
+    ['intro', 'Intro'], ['context', 'Context'], ['team', 'The team'], ['day', 'Day to day'], ['scripts', 'Script lab'],
+    ['skills', 'Skills'], ['enclave', 'The enclave'], ['automate', 'Automation ideas'], ['cloudbuilder', 'Cloud builder'],
+    ['golive', 'Wrap-up'], ['end', 'Questions']
+  ].map(function (x) { return { el: document.getElementById(x[0]), name: x[1] }; }).filter(function (x) { return x.el; });
+  var bar = 60;
+  function current() {
+    var y = window.scrollY + bar + window.innerHeight * 0.3, k = 0;
+    stops.forEach(function (st, i) { if (st.el.getBoundingClientRect().top + window.scrollY <= y) k = i; });
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) k = stops.length - 1;
+    return k;
+  }
+  function goTo(k) {
+    k = Math.max(0, Math.min(stops.length - 1, k));
+    var top = k === 0 ? 0 : stops[k].el.getBoundingClientRect().top + window.scrollY - bar;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }
+  var pv = document.getElementById('presPrev'), nx = document.getElementById('presNext'), nm = document.getElementById('presNm'), ct = document.getElementById('presCt');
+  function upd() {
+    var k = current();
+    ct.textContent = (k + 1) + ' / ' + stops.length;
+    pv.disabled = k === 0; nx.disabled = k === stops.length - 1;
+    nm.textContent = k < stops.length - 1 ? 'Next: ' + stops[k + 1].name : 'The end';
+    nx.setAttribute('aria-label', nm.textContent + ' (N)');
+  }
+  pv.addEventListener('click', function () { goTo(current() - 1); });
+  nx.addEventListener('click', function () { goTo(current() + 1); });
+  var tick = false;
+  window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(function () { tick = false; upd(); }); } }, { passive: true });
+  window.addEventListener('resize', upd);
+  document.addEventListener('keydown', function (e) {
+    if (e.altKey || e.ctrlKey || e.metaKey) return;
+    var t = e.target || {};
+    if (/INPUT|SELECT|TEXTAREA/.test(t.tagName || '') || t.isContentEditable) return;
+    var key = (e.key || '').toLowerCase();
+    if (key === 'n') { e.preventDefault(); goTo(current() + 1); }
+    else if (key === 'p') { e.preventDefault(); goTo(current() - 1); }
+    else if (key === 't') { e.preventDefault(); toggle(); }
+  });
+  upd();
 })();
 </script>
 </body>
