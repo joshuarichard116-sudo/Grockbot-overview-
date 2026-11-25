@@ -599,18 +599,19 @@ Start-Process powershell -Verb RunAs `
 <section class="slide" data-title="From the sandbox to a customer FortiGate">
   <div class="label">10 · Where this goes</div>
   <h2>From the sandbox to a customer's FortiGate</h2>
-  <div class="body" style="gap:28px">
-    <p style="font-size:32px;line-height:1.35;margin:0;max-width:1600px">A config built and tested in the Talvex lab can carry over to a real customer FortiGate. Three ways to move it:</p>
+  <div class="body" style="gap:22px">
+    <p style="font-size:30px;line-height:1.35;margin:0;max-width:1600px">A config built and tested in the Talvex lab can carry over to a real customer FortiGate. Three ways to move it:</p>
     <div class="row">
       <div class="card col" style="gap:10px"><div class="k">Full config restore</div><span style="font-size:27px">True one-for-one copy. Only on the same model and the same FortiOS version.</span></div>
       <div class="card col" style="gap:10px"><div class="k">CLI script</div><span style="font-size:27px">Export just the policies, addresses and VPNs. Edit names and IPs, then paste in. The usual way across models.</span></div>
       <div class="card col" style="gap:10px"><div class="k">FortiManager / FortiConverter</div><span style="font-size:27px">Templates and policy packages with per-site variables. Cleanest for many customers.</span></div>
     </div>
-    <div class="callout guard" style="font-size:28px">Always per site: hostname, IPs, interfaces, VPN peers, certificates. Encrypted secrets (VPN keys, passwords) usually need re-entering.</div>
+    <div class="callout guard" style="font-size:26px">Always per site: hostname, IPs, interfaces, VPN peers, certificates. Secrets usually need re-entering.</div>
+    <div class="card" style="padding:22px 28px"><div class="k">Porting it safely</div><span style="font-size:25px;line-height:1.45">Back up first · Customer approval + maintenance window · Reviewed CLI script, not a full restore · Test on a matching model and FortiOS · Apply in small steps, check traffic · Console access + backup ready to roll back</span></div>
     <p style="font-size:28px;margin:0"><b>Next:</b> an "Export as FortiOS CLI" button in the lab. <span class="est">Planned, not built yet</span></p>
   </div>
   <div class="gloss"><b>FortiOS</b> = the FortiGate operating system · <b>CLI</b> = command-line interface · <b>VPN</b> = virtual private network · <b>IP</b> = Internet Protocol address</div>
-  <div class="notes-src"><p>One more thing about the lab. A config I build and test in the sandbox can carry over to a real customer FortiGate, and there are three ways to do it. A full config restore is a true one-for-one copy, but only when the customer's unit is the same model on the same FortiOS version. A CLI script, that's the command-line interface, is the usual way across different models: export just the policies, addresses and VPNs, edit the names and IPs, and paste them in. And for many customers, FortiManager or FortiConverter templates push the same config with per-site variables. Either way, some things are always per site: the hostname, the IPs, interfaces, VPN peers and certificates. Encrypted secrets, like VPN keys and passwords, usually have to be entered again. Next on my list is an "Export as FortiOS CLI" button in the lab, so a tested config comes out as a ready script. That's planned, not built yet.</p></div>
+  <div class="notes-src"><p>One more thing about the lab. A config I build and test in the sandbox can carry over to a real customer FortiGate, and there are three ways to do it. A full config restore is a true one-for-one copy, but only when the customer's unit is the same model on the same FortiOS version. A CLI script, that's the command-line interface, is the usual way across different models: export just the policies, addresses and VPNs, edit the names and IPs, and paste them in. And for many customers, FortiManager or FortiConverter templates push the same config with per-site variables. Either way, some things are always per site: the hostname, the IPs, interfaces, VPN peers and certificates. Encrypted secrets, like VPN keys and passwords, usually have to be entered again. Next on my list is an "Export as FortiOS CLI" button in the lab, so a tested config comes out as a ready script. That's planned, not built yet. Nothing from the lab goes straight onto a customer's firewall. I back up their config, get their approval and schedule a maintenance window. I use a reviewed CLI script with just the pieces they need, not a full restore. I test it on a matching model and FortiOS version, apply it in small steps while checking traffic, and keep console access and the backup ready to roll back.</p></div>
 </section>
 
 <!-- Cloud builder 1 -->
