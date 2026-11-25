@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="256" height="256" role="img" aria-label="PATCH">
+<defs><radialGradient id="bg" cx="50%" cy="36%" r="70%"><stop offset="0" stop-color="#1d3035"/><stop offset="1" stop-color="#0a1214"/></radialGradient></defs>
+<circle cx="64" cy="64" r="64" fill="url(#bg)"/>
+<circle cx="64" cy="64" r="57" fill="none" stroke="#35d0c8" stroke-width="2.5" stroke-opacity=".8"/>
+<circle cx="64" cy="64" r="52" fill="none" stroke="#ffffff" stroke-opacity=".06" stroke-width="1"/>
+<g fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(64 64) scale(1.1) translate(-64 -64)">
+<g transform="rotate(45 64 64)">
+ <rect x="50" y="30" width="28" height="68" rx="4" fill="#35d0c8" fill-opacity=".16" stroke="#35d0c8" stroke-width="3.5"/>
+ <circle cx="50" cy="64" r="5" fill="#0f1b1e" stroke="#35d0c8" stroke-width="3"/>
+ <circle cx="78" cy="64" r="5" fill="#0f1b1e" stroke="#35d0c8" stroke-width="3"/>
+ <path d="M58 40 H70 M58 48 H70 M58 80 H70 M58 88 H70" stroke="#35d0c8" stroke-width="2.5" stroke-opacity=".7"/>
+</g>
+<g transform="rotate(-45 64 64)">
+ <path d="M60 50 V96 Q60 101 64 101 Q68 101 68 96 V50" fill="#0f1b1e" stroke="#9ff0e8" stroke-width="4"/>
+ <path d="M54 30 C48 36 48 46 56 51 H72 C80 46 80 36 74 30 V42 H54 Z" fill="#0f1b1e" stroke="#9ff0e8" stroke-width="4"/>
+</g></g>
+</svg>
